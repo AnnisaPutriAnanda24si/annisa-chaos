@@ -21,6 +21,7 @@ export default function BiodataDiri() {
 
 function ProfilePhoto() {
   return (
+    
     <div className="photo">
       <img src="img/2457301014.jpg" alt="Profile" />
     </div>
@@ -30,10 +31,11 @@ function ProfilePhoto() {
 function Contact() {
   return (
     <div className="section">
-      <h3>Kontak</h3>
+            <h3>Kontak</h3>
       <p>Instagram: @nsa987690</p>
       <p>Linkedin: Annisa Putri Ananda</p>
     </div>
+
   );
 }
 

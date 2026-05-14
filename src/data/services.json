@@ -1,0 +1,62 @@
+[
+  {
+    "category": "Facial Treatments",
+    "items": [
+      { 
+        "title": "Deep Cleansing Facial", 
+        "price": 45, 
+        "image": "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=500" 
+      },
+      { 
+        "title": "Hydra Glow Therapy", 
+        "price": 65, 
+        "image": "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?q=80&w=500" 
+      },
+      { 
+        "title": "Anti-Aging Facial", 
+        "price": 85, 
+        "image": "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=500" 
+      }
+    ]
+  },
+  {
+    "category": "Body & Spa",
+    "items": [
+      { 
+        "title": "Aromatherapy Massage", 
+        "price": 55, 
+        "image": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=500" 
+      },
+      { 
+        "title": "Body Scrub & Polish", 
+        "price": 50, 
+        "image": "https://images.unsplash.com/photo-1614308462171-70ddcebb4c00?q=80&w=500" 
+      },
+      { 
+        "title": "Detox Body Wrap", 
+        "price": 75, 
+        "image": "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?q=80&w=500" 
+      }
+    ]
+  },
+  {
+    "category": "Medical Aesthetic",
+    "items": [
+      { 
+        "title": "Chemical Peeling", 
+        "price": 95, 
+        "image": "https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=500" 
+      },
+      { 
+        "title": "Laser Rejuvenation", 
+        "price": 120, 
+        "image": "https://images.unsplash.com/photo-1621252179027-94459d278660?q=80&w=500" 
+      },
+      { 
+        "title": "Microdermabrasion", 
+        "price": 110, 
+        "image": "https://images.unsplash.com/photo-1522338242992-e1a54906a8da?q=80&w=500" 
+      }
+    ]
+  }
+]

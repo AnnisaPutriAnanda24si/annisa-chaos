@@ -1,0 +1,202 @@
+[
+  {
+    "id": 1,
+    "name": "Laundry Bersih",
+    "category": "Laundry",
+    "rating": 4.5,
+    "image": "img/laundry.jpg",
+    "location": { "city": "Pekanbaru", "area": "Sudirman" },
+    "contact": { "phone": "0811111111", "email": "laundry@mail.com" },
+    "status": { "open": true, "hours": "08:00-20:00" }
+  },
+  {
+    "id": 2,
+    "name": "Cuci Motor Kilat",
+    "category": "Cleaning",
+    "rating": 4.2,
+    "image": "img/vehicle.jpg",
+    "location": { "city": "Pekanbaru", "area": "Panam" },
+    "contact": { "phone": "0822222222", "email": "cuci@mail.com" },
+    "status": { "open": true, "hours": "09:00-18:00" }
+  },
+  {
+    "id": 3,
+    "name": "Servis AC Jaya",
+    "category": "Repair",
+    "rating": 4.7,
+    "image": "img/ac.jpg",
+    "location": { "city": "Pekanbaru", "area": "Arengka" },
+    "contact": { "phone": "0833333333", "email": "ac@mail.com" },
+    "status": { "open": false, "hours": "08:00-17:00" }
+  },
+  {
+    "id": 4,
+    "name": "Salon Cantik",
+    "category": "Beauty",
+    "rating": 4.3,
+    "image": "img/salon.jpg",
+    "location": { "city": "Pekanbaru", "area": "Rumbai" },
+    "contact": { "phone": "0844444444", "email": "salon@mail.com" },
+    "status": { "open": true, "hours": "10:00-19:00" }
+  },
+  {
+    "id": 5,
+    "name": "Jasa Fotokopi",
+    "category": "Printing",
+    "rating": 4.1,
+    "image": "img/printing.jpg",
+    "location": { "city": "Pekanbaru", "area": "Garuda" },
+    "contact": { "phone": "0855555555", "email": "print@mail.com" },
+    "status": { "open": true, "hours": "07:00-21:00" }
+  },
+  {
+    "id": 6,
+    "name": "Bengkel Motor Cepat",
+    "category": "Repair",
+    "rating": 4.4,
+    "image": "img/workshop.jpg",
+    "location": { "city": "Pekanbaru", "area": "Nangka" },
+    "contact": { "phone": "0866666666", "email": "bengkel@mail.com" },
+    "status": { "open": true, "hours": "08:00-17:00" }
+  },
+  {
+    "id": 7,
+    "name": "Klinik Sehat",
+    "category": "Health",
+    "rating": 4.6,
+    "image": "img/health.jpg",
+    "location": { "city": "Pekanbaru", "area": "Delima" },
+    "contact": { "phone": "0877777777", "email": "klinik@mail.com" },
+    "status": { "open": true, "hours": "24 Jam" }
+  },
+  {
+    "id": 8,
+    "name": "Rental Mobil Aman",
+    "category": "Transport",
+    "rating": 4.2,
+    "image": "img/rental.jpg",
+    "location": { "city": "Pekanbaru", "area": "Marpoyan" },
+    "contact": { "phone": "0888888888", "email": "rental@mail.com" },
+    "status": { "open": true, "hours": "24 Jam" }
+  },
+  {
+    "id": 9,
+    "name": "Tukang Listrik",
+    "category": "Repair",
+    "rating": 4.5,
+    "image": "img/electricity.jpg",
+    "location": { "city": "Pekanbaru", "area": "Tenayan" },
+    "contact": { "phone": "0899999999", "email": "listrik@mail.com" },
+    "status": { "open": true, "hours": "08:00-20:00" }
+  },
+  {
+    "id": 10,
+    "name": "Cleaning Service",
+    "category": "Cleaning",
+    "rating": 4.3,
+    "image": "img/cleaning.jpg",
+    "location": { "city": "Pekanbaru", "area": "Sail" },
+    "contact": { "phone": "0810101010", "email": "clean@mail.com" },
+    "status": { "open": true, "hours": "08:00-18:00" }
+  },
+  {
+    "id": 11,
+    "name": "Jasa Jahit",
+    "category": "Tailor",
+    "rating": 4.0,
+    "image": "img/tailor.jpg",
+    "location": { "city": "Pekanbaru", "area": "Tangkerang" },
+    "contact": { "phone": "0811110000", "email": "jahit@mail.com" },
+    "status": { "open": true, "hours": "09:00-17:00" }
+  },
+  {
+    "id": 12,
+    "name": "Barbershop Keren",
+    "category": "Beauty",
+    "rating": 4.6,
+    "image": "img/barber.jpg",
+    "location": { "city": "Pekanbaru", "area": "Gobah" },
+    "contact": { "phone": "0811222233", "email": "barber@mail.com" },
+    "status": { "open": true, "hours": "10:00-20:00" }
+  },
+  {
+    "id": 13,
+    "name": "Tempat Gym Fit",
+    "category": "Fitness",
+    "rating": 4.5,
+    "image": "img/gym.jpg",
+    "location": { "city": "Pekanbaru", "area": "Harapan Raya" },
+    "contact": { "phone": "0811333344", "email": "gym@mail.com" },
+    "status": { "open": true, "hours": "06:00-22:00" }
+  },
+  {
+    "id": 14,
+    "name": "Kursus Komputer",
+    "category": "Education",
+    "rating": 4.4,
+    "image": "img/computer.jpg",
+    "location": { "city": "Pekanbaru", "area": "Sukajadi" },
+    "contact": { "phone": "0811444455", "email": "kursus@mail.com" },
+    "status": { "open": true, "hours": "08:00-16:00" }
+  },
+  {
+    "id": 15,
+    "name": "Jasa Desain",
+    "category": "Creative",
+    "rating": 4.7,
+    "image": "img/computer.jpg",
+    "location": { "city": "Pekanbaru", "area": "Cipta Karya" },
+    "contact": { "phone": "0811555566", "email": "desain@mail.com" },
+    "status": { "open": true, "hours": "Flexible" }
+  },
+  {
+    "id": 16,
+    "name": "Toko Elektronik",
+    "category": "Retail",
+    "rating": 4.3,
+    "image": "img/computer.jpg",
+    "location": { "city": "Pekanbaru", "area": "Riau" },
+    "contact": { "phone": "0811666677", "email": "elektronik@mail.com" },
+    "status": { "open": true, "hours": "09:00-21:00" }
+  },
+  {
+    "id": 17,
+    "name": "Pengiriman Cepat",
+    "category": "Logistics",
+    "rating": 4.2,
+    "image": "img/logistic.jpg",
+    "location": { "city": "Pekanbaru", "area": "Bandar Raya" },
+    "contact": { "phone": "0811777788", "email": "kirim@mail.com" },
+    "status": { "open": true, "hours": "24 Jam" }
+  },
+  {
+    "id": 18,
+    "name": "Jasa Fotografi",
+    "category": "Creative",
+    "rating": 4.6,
+    "image": "img/printing.jpg",
+    "location": { "city": "Pekanbaru", "area": "Panam" },
+    "contact": { "phone": "0811888899", "email": "foto@mail.com" },
+    "status": { "open": true, "hours": "By Request" }
+  },
+  {
+    "id": 19,
+    "name": "Servis Laptop",
+    "category": "Repair",
+    "rating": 4.5,
+    "image": "img/computer.jpg",
+    "location": { "city": "Pekanbaru", "area": "Delima" },
+    "contact": { "phone": "0811999900", "email": "laptop@mail.com" },
+    "status": { "open": true, "hours": "09:00-18:00" }
+  },
+  {
+    "id": 20,
+    "name": "Tukang Ledeng",
+    "category": "Repair",
+    "rating": 4.1,
+    "image": "img/lieding.jpg",
+    "location": { "city": "Pekanbaru", "area": "Simpang Baru" },
+    "contact": { "phone": "0811223344", "email": "ledeng@mail.com" },
+    "status": { "open": true, "hours": "08:00-17:00" }
+  }
+]
