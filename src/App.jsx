@@ -3,6 +3,12 @@ import React from 'react';
 import { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Loading from './components/Loading';
+import AuthLayouts_admin from './layouts/AuthLayouts_admin';
+import Login_admin from './pages/auth/Login_admin';
+import Register_admin from './pages/auth/Register_admin';
+import Forgot_admin from './pages/auth/Forgot_admin';
+import Home_admin from './pages/Home_admin';
+import MainLayouts_admin from './layouts/MainLayouts_admin';
 // Lazy Imports untuk Layouts
 const MainLayout = React.lazy(() => import('./layouts/MainLayouts'));
 const AuthLayout = React.lazy(() => import('./layouts/AuthLayouts'));
@@ -32,6 +38,16 @@ export default function App() {
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+        </Route>
+
+        <Route element={<MainLayouts_admin />}>
+          <Route path="/home_admin" element={<Home_admin />} />
+        </Route>
+
+        <Route element={<AuthLayouts_admin/>}>
+          <Route path="/login_admin" element={<Login_admin/>} />
+          <Route path="/register_admin" element={<Register_admin />} />
+          <Route path="/forgot_admin" element={<Forgot_admin />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />
