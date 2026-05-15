@@ -1,12 +1,22 @@
 import React from 'react';
+import { useState } from 'react';
 // Lazy Imports untuk Components
 const Navbar = React.lazy(() => import('../components/Navbar'));
 const Footer = React.lazy(() => import('../components/Footer'));
+const BookingModal = React.lazy(() => import('../components/BookingModal'));
 const ServiceCard = React.lazy(() => import('../components/ServiceCard'));
 
 import servicesData from '../data/services.json'
 
 export default function Home() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState("");
+
+  const handleOpenModal = (title) => {
+    setSelectedService(title);
+    setIsModalOpen(true);
+  };
+  
   return (
     <div className="min-h-screen bg-[#FFFBF5] font-sans text-zinc-900">
 
@@ -41,11 +51,19 @@ export default function Home() {
                   title={item.title}
                   price={item.price}
                   image={item.image}
+                  onBook={handleOpenModal}
                 />
               ))}
             </div>
           </section>
         ))}
+
+        <BookingModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        serviceTitle={selectedService} 
+      />
+
       </main>
 
     </div>

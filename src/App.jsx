@@ -9,8 +9,13 @@ const AuthLayout = React.lazy(() => import('./layouts/AuthLayouts'));
 
 // Lazy Imports untuk Pages
 const Home = React.lazy(() => import('./pages/Home'));
+const Contact = React.lazy(() => import('./pages/Contact'));
+const About = React.lazy(() => import('./pages/About'));
 const Login = React.lazy(() => import('./pages/auth/Login'));
 const Register = React.lazy(() => import('./pages/auth/Register'));
+
+//Components
+const NotFound = React.lazy(() => import('./components/NotFound'))
 
 export default function App() {
   return (
@@ -20,6 +25,8 @@ export default function App() {
 
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About/>} />
         </Route>
 
         <Route element={<AuthLayout />}>
@@ -27,7 +34,10 @@ export default function App() {
           <Route path="/register" element={<Register />} />
         </Route>
 
+        <Route path="*" element={<NotFound />} />
+
       </Routes>
+      
       </Suspense>
     </Router>
   );
