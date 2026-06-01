@@ -1,165 +1,343 @@
-import React from 'react';
+import React from "react";
+import {
+  FaThLarge,
+  FaUsers,
+  FaUserMd,
+  FaCalendarAlt,
+  FaProcedures,
+  FaCapsules,
+  FaStar,
+  FaCreditCard,
+  FaRegEnvelope,
+  FaSignOutAlt,
+  FaSearch,
+  FaRegBell,
+  FaPlus,
+  FaCheck,
+  FaChevronLeft,
+  FaChevronRight,
+  FaFacebookF,
+  FaInstagram,
+  FaYoutube,
+  FaLinkedinIn,
+} from "react-icons/fa";
 
-// --- Sub-Components ---
+import StatCard from '../components/admin/StatCard';
+import DashboardCard from '../components/admin/DashboardCard';
+import Table from '../components/admin/Table';
+import Review from '../components/admin/Review';
+import Overview from "../components/admin/Overview";
+import Calendar from "../components/admin/Calendar";
+import Schedule from "../components/admin/Schedule";
 
-const FilterButton = ({ label }) => (
-  <button className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-100 rounded-full shadow-sm text-xs font-bold text-[#1A1C1E] hover:bg-gray-50 transition-all">
-    {label}
-    <span className="material-icons-outlined !text-[18px] text-gray-400">expand_more</span>
-  </button>
-);
+import { FaXTwitter } from "react-icons/fa6";
 
-const StatCard = ({ title, value, subValue, trendData }) => (
-  <div className="bg-white p-5 rounded-2xl border border-gray-50 shadow-sm flex flex-col justify-between h-full">
-    <div>
-      <p className="text-[10px] font-black text-[#B0B3B8] uppercase tracking-wider mb-3">{title}</p>
-      <div className="flex items-baseline gap-1">
-        <span className="text-2xl font-black text-[#1A1C1E]">{value}</span>
-        {subValue && <span className="text-sm font-bold text-[#D1D3D6]">/{subValue}</span>}
-      </div>
-    </div>
-    {trendData && (
-      <div className="mt-4 h-8 w-full flex items-end gap-0.5">
-        {/* Placeholder Mini Sparkline */}
-        {[30, 45, 35, 50, 40, 60].map((h, i) => (
-          <div key={i} style={{ height: `${h}%` }} className="flex-1 bg-[#1B59F8] rounded-t-[1px] opacity-20"></div>
-        ))}
-      </div>
-    )}
-  </div>
-);
+export default function Dashboard() {
 
-const TopicRow = ({ icon, title, percentage, colorClass }) => (
-  <div className="flex items-center gap-4 group">
-    <div className="w-10 h-10 rounded-lg bg-gray-100 flex-shrink-0 overflow-hidden">
-      <img src={`https://ui-avatars.com/api/?name=${title}&background=random`} alt="" className="w-full h-full object-cover" />
-    </div>
-    <div className="flex-1">
-      <p className="text-xs font-bold text-[#1A1C1E] mb-1.5">{title}</p>
-      <div className="w-full bg-gray-50 h-2 rounded-full overflow-hidden">
-        <div className={`${colorClass} h-full rounded-full`} style={{ width: `${percentage}%` }}></div>
-      </div>
-    </div>
-    <div className="text-right min-w-[70px]">
-      <span className="text-xs font-bold text-[#1A1C1E]">{percentage}% </span>
-      <span className="text-[10px] font-bold text-[#B0B3B8]">Correct</span>
-    </div>
-  </div>
-);
+  const patientStatusData = [
+    {
+      patient: "Sarah Miller",
+      treatment: "Facial Rejuvenation",
+      date: "2028-09-12",
+      status: "Completed",
+      color: "#cfe8db",
+    },
+    {
+      patient: "Maurice Galley",
+      treatment: "Laser Hair Removal",
+      date: "2028-09-12",
+      status: "In Progress",
+      color: "#f3d1c8",
+    }
+  ];
 
-const LeaderboardRow = ({ rank, name, points, percentage, trend, isUser }) => (
-  <div className="flex items-center justify-between py-1">
-    <div className="flex items-center gap-3">
-      {isUser ? (
-        <img src={`https://i.pravatar.cc/150?u=${name}`} className="w-8 h-8 rounded-full border border-gray-100" alt="" />
-      ) : (
-        <div className="w-8 h-8 rounded-lg bg-gray-50 border border-gray-100 flex items-center justify-center text-[10px] font-bold text-gray-400">GRP</div>
-      )}
-      <div>
-        <p className="text-xs font-bold text-[#1A1C1E]">{name}</p>
-        <p className="text-[10px] font-bold text-[#B0B3B8]">{points} Points - {percentage}% Correct</p>
-      </div>
-    </div>
-    <div className="flex items-center gap-2">
-      <span className="text-xs font-bold text-[#1A1C1E]">{rank}</span>
-      <span className={`material-icons-outlined !text-[14px] ${trend === 'up' ? 'text-emerald-500' : 'text-red-500'}`}>
-        {trend === 'up' ? 'change_history' : 'details'}
-      </span>
-    </div>
-  </div>
-);
+  const popularTreatments = [
+    {
+      name: "Facial Rejuvenation",
+      rating: "4.9",
+      reviews: 2150,
+    },
+    {
+      name: "Laser Hair Removal",
+      rating: "4.8",
+      reviews: 1900,
+    }
+  ];
 
-// --- Main Page Component ---
+  const patientOverview = [
+    {
+      label: "New Patient",
+      value: "1,460",
+      percent: 45,
+      color: "#f3d1c8",
+    },
+    {
+      label: "In Treatment",
+      value: "974",
+      percent: 30,
+      color: "#d7eee3",
+    },
+    {
+      label: "Recovered",
+      value: "811",
+      percent: 25,
+      color: "#ececec",
+    },
+  ];
 
-export default function Home_admin() {
+  const treatmentOverview = [
+    {
+      label: "Rhinoplasty",
+      value: "45%",
+      percent: 45,
+      color: "#f3d1c8",
+    },
+    {
+      label: "Rhytidectomy",
+      value: "35%",
+      percent: 35,
+      color: "#d7eee3",
+    },
+    {
+      label: "Blepharoplasty",
+      value: "20%",
+      percent: 20,
+      color: "#ececec",
+    },
+  ];
+
+  const schedules = [
+    {
+      doctor: "Dr. Olivia Grant",
+      patient: "Sarah Miller",
+      room: "Room OR 1",
+      time: "9:00 AM - 11:30 AM",
+      active: true,
+    },
+    {
+      doctor: "Dr. David Carter",
+      patient: "Michael Brown",
+      room: "Room OR 2",
+      time: "12:00 PM - 2:00 PM",
+      active: false,
+    }
+  ];
+
   return (
-    <div className="space-y-8 animate-in fade-in duration-500">
-      
-      {/* Filters */}
-      <div className="flex gap-3">
-        <FilterButton label="Timeframe: All-time" />
-        <FilterButton label="People: All" />
-        <FilterButton label="Topic: All" />
-      </div>
+    <div>
+      {/* SIDEBAR */}
 
-      {/* Stats & Activity Section */}
-      <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
-        
-        {/* Left Stats Grid (6/12) */}
-        <div className="xl:col-span-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-          <StatCard title="Active Users" value="27" subValue="80" />
-          <StatCard title="Questions Answered" value="3,298" />
-          <StatCard title="Av. Session Length" value="2m 34s" />
-          
-          <StatCard title="Starting Knowledge" value="64%" trendData />
-          <StatCard title="Current Knowledge" value="86%" trendData />
-          <StatCard title="Knowledge Gain" value="+34%" trendData />
-        </div>
+      {/* MAIN CONTENT */}
+    
+        {/* HEADER */}
 
-        {/* Right Activity Chart (6/12) */}
-        <div className="xl:col-span-6 bg-white p-6 rounded-2xl border border-gray-50 shadow-sm">
-          <div className="flex justify-between items-center mb-8">
-            <p className="text-[10px] font-black text-[#B0B3B8] uppercase tracking-wider">Activity</p>
-            <div className="flex items-center gap-1 text-[10px] font-bold text-[#B0B3B8] cursor-pointer">
-              Month <span className="material-icons-outlined !text-[14px]">expand_more</span>
+        {/* 3 COLUMN LAYOUT MAIN */}
+        <div className="grid grid-cols-[1.65fr_0.75fr_0.85fr] gap-5">
+
+          {/* LEFT AREA */}
+          <div className="space-y-5">
+
+            {/* TOP CARDS */}
+            <div className="grid grid-cols-2 gap-4">
+
+              {/* Earnings */}
+              <StatCard
+                bgColor="bg-[#f6d8d0]"
+                icon="$"
+                label="Earnings"
+                value="$125,000"
+              />
+
+              {/* Patients */}
+              <StatCard
+                bgColor="bg-[#cfe8db]"
+                icon={<FaUsers />}
+                label="Total Patients"
+                value="315"
+              />
+
+              {/* Appointment */}
+              <StatCard
+                bgColor="bg-[#cfe8db]"
+                icon={<FaCalendarAlt />}
+                label="Appointments"
+                value="250"
+              />
+
+              {/* Surgery */}
+              <StatCard
+                bgColor="bg-[#f6d8d0]"
+                icon={<FaProcedures />}
+                label="Surgeries"
+                value="65"
+              />
+
             </div>
-          </div>
-          <div className="flex items-end justify-between h-40 gap-2 px-2">
-            {[30, 45, 55, 75, 85, 60, 70, 40, 80, 90, 95, 100].map((h, i) => (
-              <div key={i} className="flex-1 flex flex-col items-center gap-2 group">
-                <div 
-                  style={{ height: `${h}%` }} 
-                  className="w-full bg-[#1B59F8] rounded-t-sm opacity-80 group-hover:opacity-100 transition-opacity"
-                ></div>
-                <span className="text-[9px] font-bold text-[#B0B3B8] uppercase">
-                  {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][i]}
-                </span>
+
+            {/* PART 2 AKAN MASUK DI SINI */}
+            <div id="part-2-placeholder" className="space-y-6">
+
+              {/* 1. REVENUE CARD */}
+              <DashboardCard title="Revenue" filterText="2027 ▼">
+                {/* Sub-header Legend */}
+                <div className="flex gap-5 text-xs mb-5">
+                  <div className="flex items-center gap-2">
+                    <span className="w-4 h-[2px] bg-[#b7dfcf]" />
+                    Income
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-4 h-[2px] bg-[#f1b7a8]" />
+                    Expenses
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-4 h-[2px] border-t-2 border-dashed border-[#888]" />
+                    Net Profit
+                  </div>
+                </div>
+
+                {/* Fake Chart Content */}
+                <div className="relative h-[260px]">
+                  {[...Array(5)].map((_, i) => (
+                    <div
+                      key={i}
+                      className="absolute left-0 right-0 border-t border-[#efefef]"
+                      style={{ top: `${i * 55}px` }}
+                    />
+                  ))}
+
+                  <svg
+                    className="absolute inset-0 w-full h-full"
+                    viewBox="0 0 100 40"
+                    preserveAspectRatio="none"
+                  >
+                    <path
+                      d="M0,18 C10,12 20,22 30,18 C40,14 50,26 60,10 C70,5 80,20 90,8 C95,4 100,6 100,6"
+                      fill="none"
+                      stroke="#b7dfcf"
+                      strokeWidth="0.8"
+                    />
+                    <path
+                      d="M0,28 C10,24 20,35 30,28 C40,22 50,34 60,20 C70,15 80,32 90,18 C95,14 100,20 100,18"
+                      fill="none"
+                      stroke="#f1b7a8"
+                      strokeWidth="0.8"
+                    />
+                    <path
+                      d="M0,24 C10,22 20,18 30,25 C40,28 50,15 60,24 C70,30 80,18 90,26 C95,20 100,22 100,22"
+                      fill="none"
+                      stroke="#888"
+                      strokeDasharray="2 2"
+                      strokeWidth="0.8"
+                    />
+                  </svg>
+
+                  <div className="absolute top-[70px] left-[58%]">
+                    <div className="bg-[#dff0e6] rounded-xl px-4 py-2 shadow-sm">
+                      <p className="text-[10px] text-gray-500">Income</p>
+                      <p className="font-semibold">$7,125</p>
+                    </div>
+                  </div>
+                </div>
+              </DashboardCard>
+
+
+              {/* 2. PATIENTS BY GENDER CARD */}
+              <DashboardCard title="Patients by Gender" filterText="Last 8 Months">
+                {/* Konten Kustom Teks Angka & Legend Bar */}
+                <div className="flex justify-between items-end mb-6 -mt-10">
+                  <div>
+                    <p className="text-xs text-gray-400 mt-2">Total Patient</p>
+                    <h2 className="text-3xl font-semibold">27,930</h2>
+                  </div>
+                  <div className="flex gap-4 text-xs mb-1">
+                    <div className="flex items-center gap-2">
+                      <span className="w-3 h-3 rounded-full bg-[#f3d1c8]" />
+                      Female
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="w-3 h-3 rounded-full bg-[#cfe8db]" />
+                      Male
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bar Chart Bars */}
+                <div className="h-[220px] flex items-end gap-5 px-4">
+                  {[70, 85, 95, 82, 72, 78, 94, 86].map((v, i) => (
+                    <div key={i} className="flex gap-2 flex-1 items-end">
+                      <div
+                        className="bg-[#f3d1c8] rounded-t-xl w-full"
+                        style={{ height: `${v}%` }}
+                      />
+                      <div
+                        className="bg-[#cfe8db] rounded-t-xl w-full"
+                        style={{ height: `${v - 25}%` }}
+                      />
+                    </div>
+                  ))}
+                </div>
+
+                {/* Label Bulan */}
+                <div className="flex justify-between text-xs text-gray-400 mt-3 px-4">
+                  <span>Feb</span><span>Mar</span><span>Apr</span><span>May</span>
+                  <span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span>
+                </div>
+              </DashboardCard>
+
+                          <Table
+              title="Patient Status"
+              buttonText="View All"
+              data={patientStatusData}
+            />
+
+            </div>
+
+            {/* PART 3 AKAN MASUK DI SINI */}
+            <div id="part-3-placeholder">
+              <div className="grid grid-cols-[1.7fr_0.9fr] gap-5">
+
               </div>
-            ))}
+            </div>
+
           </div>
-        </div>
-      </div>
 
-      {/* Topics Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white p-6 rounded-2xl border border-gray-50 shadow-sm space-y-6">
-          <p className="text-[10px] font-black text-[#B0B3B8] uppercase tracking-wider">Weakest Topics</p>
-          <TopicRow title="Food Safety" percentage={74} colorClass="bg-gradient-to-r from-orange-400 to-red-400" />
-          <TopicRow title="Compliance Basics Procedures" percentage={52} colorClass="bg-gradient-to-r from-orange-400 to-red-400" />
-          <TopicRow title="Company Networking" percentage={36} colorClass="bg-gradient-to-r from-orange-400 to-red-400" />
-        </div>
-
-        <div className="bg-white p-6 rounded-2xl border border-gray-50 shadow-sm space-y-6">
-          <p className="text-[10px] font-black text-[#B0B3B8] uppercase tracking-wider">Strongest Topics</p>
-          <TopicRow title="Covid Protocols" percentage={95} colorClass="bg-emerald-400" />
-          <TopicRow title="Cyber Security Basics" percentage={92} colorClass="bg-emerald-400" />
-          <TopicRow title="Social Media Policies" percentage={89} colorClass="bg-emerald-400" />
-        </div>
-      </div>
-
-      {/* Leaderboards Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pb-6">
-        <div className="bg-white p-6 rounded-2xl border border-gray-50 shadow-sm">
-          <p className="text-[10px] font-black text-[#B0B3B8] uppercase tracking-wider mb-6">User Leaderboard</p>
+          {/* CENTER COLUMN */}
           <div className="space-y-5">
-            <LeaderboardRow rank={1} name="Jesse Thomas" points={637} percentage={98} trend="up" isUser />
-            <LeaderboardRow rank={2} name="Thisal Mathiyazhagan" points={637} percentage={89} trend="down" isUser />
-            <LeaderboardRow rank={3} name="Helen Chuang" points={637} percentage={88} trend="up" isUser />
-            <LeaderboardRow rank={4} name="Lura Silverman" points={637} percentage={88} trend="up" isUser />
-          </div>
-        </div>
 
-        <div className="bg-white p-6 rounded-2xl border border-gray-50 shadow-sm">
-          <p className="text-[10px] font-black text-[#B0B3B8] uppercase tracking-wider mb-6">Groups Leaderboard</p>
+            <Overview
+              title="Patient Overview"
+              filter="Monthly"
+              centerLabel="Total Patient"
+              total="3,245"
+              items={patientOverview}
+            />
+
+            <Overview
+              title="Patient by Treatment"
+              filter="Today"
+              centerLabel="Total Patient"
+              total="315"
+              items={treatmentOverview}
+            />
+
+            <Review
+              title="Most Popular Treatments"
+              treatments={popularTreatments}
+            />
+
+          </div>
+
+          {/* RIGHT SIDEBAR */}
           <div className="space-y-5">
-            <LeaderboardRow rank={1} name="Houston Facility" points={52} percentage={97} trend="up" />
-            <LeaderboardRow rank={2} name="Test Group" points={52} percentage={95} trend="down" />
-            <LeaderboardRow rank={3} name="Sales Leadership" points={52} percentage={87} trend="up" />
-            <LeaderboardRow rank={4} name="Northeast Region" points={52} percentage={87} trend="up" />
-          </div>
-        </div>
-      </div>
+            {/* PART 3 */}
+            <Calendar />
 
+            <Schedule schedules={schedules} />
+
+          </div>
+          
+        </div>
+      
     </div>
   );
 }
