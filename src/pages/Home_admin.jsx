@@ -148,7 +148,7 @@ export default function Dashboard() {
                 value="$125,000"
               />
 
-              {/* Patients */}
+              {/* Patients tes buat commit baru*/}
               <StatCard
                 bgColor="bg-[#cfe8db]"
                 icon={<FaUsers />}
