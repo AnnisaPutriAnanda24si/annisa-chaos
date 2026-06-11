@@ -145,15 +145,14 @@ export default function Header() {
                             variant="outline"
                             className="w-[212px] justify-between text-left font-normal"
                         >
-                            {/* {date ? (
+                            {date ? (
                                 format(date, "PPP")
                             ) : (
                                 <span className="text-muted-foreground">
                                     Pick a date
                                 </span>
-                            )} */}
+                            )}
 
-                            {date && format(date, "PPP") && true}
 
                             <ChevronDownIcon className="h-4 w-4" />
                         </Button>
