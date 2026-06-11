@@ -8,28 +8,24 @@ export default function MainLayouts() {
   return (
     <div className="h-screen flex bg-[#f8f6f5] text-[#2d2d2d]">
 
-      <div className="flex">
+      {/* Sidebar */}
+      <div className="hidden md:block">
+        <Sidebar_admin />
+      </div>
 
-        <div className="hidden md:block">
-          <Sidebar_admin />
-        </div>
+      {/* Content Area */}
+      <div className="flex-1 flex flex-col min-w-0">
 
-        {/* Content */}
-        <div className="flex-1 flex flex-col overflow-hidden w-full px-4 md:px-6 lg:px-8 py-4 md:py-6">
+        <Header_admin />
 
-          <Header_admin />
+        <main className="flex-1 overflow-y-auto px-4 md:px-6 lg:px-8 py-6">
+          <Outlet />
+        </main>
 
-          <main className="flex-1 overflow-y-auto px-8 py-6">
-            <Outlet />
-               <Footer/>
-          </main>
-        </div>
-
-                  {/* FOOTER */}
-                  
-                 
+        <Footer />
 
       </div>
+
     </div>
   );
 }

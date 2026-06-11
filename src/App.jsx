@@ -8,6 +8,7 @@ import Login_admin from './pages/auth/Login_admin';
 import Register_admin from './pages/auth/Register_admin';
 import Forgot_admin from './pages/auth/Forgot_admin';
 import Home_admin from './pages/Home_admin';
+import Patients_admin from './pages/Patients_admin';
 import MainLayouts_admin from './layouts/MainLayouts_admin';
 // Lazy Imports untuk Layouts
 const MainLayout = React.lazy(() => import('./layouts/MainLayouts'));
@@ -42,6 +43,7 @@ export default function App() {
 
         <Route element={<MainLayouts_admin />}>
           <Route path="/home_admin" element={<Home_admin />} />
+           <Route path="/patients_admin" element={<Patients_admin />} />
         </Route>
 
         <Route element={<AuthLayouts_admin/>}>
