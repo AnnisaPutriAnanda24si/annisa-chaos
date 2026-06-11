@@ -7,9 +7,10 @@
     "config": "",
     "css": "src/styles/tailwind.css",
     "baseColor": "neutral",
-    "cssVariables": true,
+    "cssVariables": false,
     "prefix": ""
   },
+  
   "iconLibrary": "lucide",
   "rtl": false,
   "aliases": {
