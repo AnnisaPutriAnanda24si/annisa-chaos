@@ -1,0 +1,31 @@
+{
+  "doctors": [
+    {
+      "id": 1,
+      "name": "Dr. Amanda Clara",
+      "role": "Senior Dermatologist",
+      "experience": "12 YEARS EXPERIENCE",
+      "rating": "4.9",
+      "statusColor": "bg-emerald-500",
+      "image": "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=200"
+    },
+    {
+      "id": 2,
+      "name": "Dr. Jason Shatsky",
+      "role": "Aesthetic Surgeon",
+      "experience": "10 YEARS EXPERIENCE",
+      "rating": "4.8",
+      "statusColor": "bg-emerald-500",
+      "image": "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=200"
+    },
+    {
+      "id": 3,
+      "name": "Dr. Jessie Dux",
+      "role": "Clinical Aesthetician",
+      "experience": "7 YEARS EXPERIENCE",
+      "rating": "5.0",
+      "statusColor": "bg-amber-500",
+      "image": "https://images.unsplash.com/photo-1594824813573-246434e3b96f?auto=format&fit=crop&q=80&w=200"
+    }
+  ]
+}

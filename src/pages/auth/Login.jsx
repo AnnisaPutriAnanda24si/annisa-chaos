@@ -106,9 +106,9 @@ const loadingInfo = loading ? (
           />
         </div>
 
-        <button type='submit' className="mt-4 w-full bg-zinc-900 py-3 text-[10px] font-bold uppercase tracking-[0.3em] text-white hover:bg-orange-500 transition">
+        <a href='/home_member' className="mt-4 w-full bg-zinc-900 py-3 text-[10px] font-bold uppercase tracking-[0.3em] text-white hover:bg-orange-500 transition">
           Login
-        </button>
+        </a>
       </form>
 
       <p className="mt-8 text-center text-[10px] uppercase tracking-widest text-zinc-500">

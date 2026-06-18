@@ -42,12 +42,12 @@ export default function Navbar() {
           >
             <div className="w-9 h-9 rounded-full bg-gray-200 border border-zinc-200 overflow-hidden ring-2 ring-transparent group-hover:ring-orange-100 transition-all">
               <img
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=100"
-                alt="Linda"
+                src="https://static.vecteezy.com/system/resources/thumbnails/004/511/281/small/default-avatar-photo-placeholder-profile-picture-vector.jpg?q=80&w=100"
+                alt="Guest"
                 className="w-full h-full object-cover"
               />
             </div>
-            <span className="font-serif text-zinc-800 text-lg hidden md:block">Linda</span>
+            <span className="font-serif text-zinc-800 text-lg hidden md:block">Guest</span>
             <IoChevronDown
               className={`text-zinc-500 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`}
               size={14}
@@ -90,17 +90,6 @@ export default function Navbar() {
                 >
                   Register
                 </NavLink>
-
-                <div className="border-t border-zinc-50 my-1"></div>
-                <button
-                  onClick={() => {
-                    setIsDropdownOpen(false);
-                    // Tambahkan logika logout di sini nanti
-                  }}
-                  className="w-full text-left px-6 py-3 text-[10px] uppercase tracking-widest text-red-400 hover:bg-red-50 transition"
-                >
-                  Logout
-                </button>
               </div>
             </>
           )}

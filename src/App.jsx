@@ -10,9 +10,15 @@ import Forgot_admin from './pages/auth/Forgot_admin';
 import Home_admin from './pages/Home_admin';
 import Patients_admin from './pages/Patients_admin';
 import MainLayouts_admin from './layouts/MainLayouts_admin';
+import Home_member from './pages/member/Home';
+import Booking from './pages/member/Booking';
+import CheckoutPage from './pages/member/Checkout';
+import Schedule from './pages/member/Schedule';
+import DetailDoctor from './pages/member/DetailDoctor';
 // Lazy Imports untuk Layouts
 const MainLayout = React.lazy(() => import('./layouts/MainLayouts'));
 const AuthLayout = React.lazy(() => import('./layouts/AuthLayouts'));
+const MainLayout_member = React.lazy(() => import('./layouts/MainLayouts_member'));
 
 // Lazy Imports untuk Pages
 const Home = React.lazy(() => import('./pages/Home'));
@@ -50,6 +56,14 @@ export default function App() {
           <Route path="/login_admin" element={<Login_admin/>} />
           <Route path="/register_admin" element={<Register_admin />} />
           <Route path="/forgot_admin" element={<Forgot_admin />} />
+        </Route>
+
+        <Route element={<MainLayout_member/>}>
+          <Route path="/home_member" element={<Home_member/>} />
+          <Route path="/booking" element={<Booking/>} />
+           <Route path="/checkout" element={<CheckoutPage/>} />
+             <Route path="/schedule" element={<Schedule/>} />
+                          <Route path="/doctor/1" element={<DetailDoctor/>} />
         </Route>
 
         <Route path="*" element={<NotFound />} />
