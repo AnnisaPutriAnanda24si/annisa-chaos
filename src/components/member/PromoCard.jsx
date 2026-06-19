@@ -1,8 +1,10 @@
 import React from 'react';
+import MembershipCard from './MembershipCard';
 
 export default function PromoCard() {
   return (
-    <div className="w-full relative rounded-2xl bg-gradient-to-r from-[#703311] via-[#A05C35] to-[#D49B70] min-h-[260px] flex items-center overflow-hidden shadow-sm">
+    <div className='flex gap-4'>
+          <div className="w-full relative rounded-2xl bg-gradient-to-r from-[#703311] via-[#A05C35] to-[#D49B70] min-h-[260px] flex items-center overflow-hidden shadow-sm">
       {/* Overlay dekoratif gradasi cahaya seperti gambar asli */}
       <div className="absolute right-0 top-0 bottom-0 w-1/2 opacity-40 bg-radial-gradient">
         <img 
@@ -27,5 +29,8 @@ export default function PromoCard() {
         </button>
       </div>
     </div>
+   <MembershipCard/> 
+    </div>
+
   );
 }

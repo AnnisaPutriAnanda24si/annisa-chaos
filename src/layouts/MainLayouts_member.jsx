@@ -10,7 +10,7 @@ export default function MainLayouts_member() {
       <Navbar />
       
       {/* Container utama untuk menampung seluruh halaman member */}
-      <main className="flex-grow w-full max-w-[1240px] mx-auto px-4 sm:px-6 py-6 space-y-6">
+      <main className="flex-grow w-full w-auto mx-auto px-4 sm:px-6 py-6 space-y-6">
         <Outlet />
       </main>
 

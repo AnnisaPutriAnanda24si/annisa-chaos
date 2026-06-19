@@ -24,15 +24,14 @@ import {
   FaLinkedinIn,
 } from "react-icons/fa";
 
-import StatCard from '../components/admin/StatCard';
-import DashboardCard from '../components/admin/DashboardCard';
-import Table from '../components/admin/Table';
-import Review from '../components/admin/Review';
-import Overview from "../components/admin/Overview";
-import Calendar from "../components/admin/Calendar";
-import Schedule from "../components/admin/Schedule";
+import StatCard from '../../components/admin/StatCard';
+import DashboardCard from '../../components/admin/DashboardCard';
+import Table from '../../components/admin/Table';
+import Review from '../../components/admin/Review';
+import Overview from "../../components/admin/Overview";
+import Calendar from "../../components/admin/Calendar";
+import Schedule from "../../components/admin/Schedule";
 
-import { FaXTwitter } from "react-icons/fa6";
 
 export default function Dashboard() {
 

@@ -28,7 +28,7 @@ function FilterButton({ name, icon, isActive }) {
 
 export default function Filter() {
   return (
-    <div className="w-full max-w-[1200px] mx-auto px-4 mt-6">
+    <div className="w-auto mx-auto px-4 mt-6">
       {/* Main Container Wrapper */}
       <div className="bg-white border border-gray-200 rounded-2xl p-5 flex flex-col gap-4">
         

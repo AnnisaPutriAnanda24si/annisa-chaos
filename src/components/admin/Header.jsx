@@ -27,15 +27,6 @@ import { Button } from "@/components/ui/button"
 import {
     DropdownMenu,
     DropdownMenuContent,
-    DropdownMenuGroup,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuPortal,
-    DropdownMenuSeparator,
-    DropdownMenuShortcut,
-    DropdownMenuSub,
-    DropdownMenuSubContent,
-    DropdownMenuSubTrigger,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
@@ -43,14 +34,16 @@ import {
 export default function Header() {
 
     //  const [date, setDate] = React.useState<Date>();
-    const [date, setDate] = useState();
+    const [date, setDate] = useState()
 
     return (
 
-        <div>
+        <div className="px-8 py-6">
             {/* Header */}
-            <div className="flex justify-between items-center mb-2">
-                <h1 className="text-[40px] font-medium">Dashboard</h1>
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between mb-6">
+                <h1 className="text-4xl font-medium">
+                    Dashboard
+                </h1>
 
                 <div className="flex items-center gap-4">
                     <RoundButton>
@@ -61,89 +54,59 @@ export default function Header() {
                         <FaRegBell />
                     </RoundButton>
 
-                    <Avatar image="https://i.pravatar.cc/100?img=32" />
+                    <div className="flex items-center gap-3">
+                        <Avatar image="https://i.pravatar.cc/100?img=32" />
 
+                        <div className="flex flex-col">
+                            <span className="text-sm font-semibold">
+                                Annisa Putri
+                            </span>
 
-                    <div>
-                        <h3 className="font-semibold">
-                            Annisa Putri
-                        </h3>
-
-                        <p className="text-xs text-gray-400">
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                    <Button variant="outline">Open</Button>
+                                    <Button
+                                        variant="outline"
+                                        size="sm"
+                                        className="w-fit"
+                                    >
+                                        Open
+                                    </Button>
                                 </DropdownMenuTrigger>
-                                <DropdownMenuContent className="w-40" align="start">
-                                    <DropdownMenuGroup>
-                                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                                        <DropdownMenuItem>
-                                            Profile
-                                            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem>
-                                            Billing
-                                            <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem>
-                                            Settings
-                                            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-                                        </DropdownMenuItem>
-                                    </DropdownMenuGroup>
-                                    <DropdownMenuSeparator />
-                                    <DropdownMenuGroup>
-                                        <DropdownMenuItem>Team</DropdownMenuItem>
-                                        <DropdownMenuSub>
-                                            <DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
-                                            <DropdownMenuPortal>
-                                                <DropdownMenuSubContent>
-                                                    <DropdownMenuItem>Email</DropdownMenuItem>
-                                                    <DropdownMenuItem>Message</DropdownMenuItem>
-                                                    <DropdownMenuSeparator />
-                                                    <DropdownMenuItem>More...</DropdownMenuItem>
-                                                </DropdownMenuSubContent>
-                                            </DropdownMenuPortal>
-                                        </DropdownMenuSub>
-                                        <DropdownMenuItem>
-                                            New Team
-                                            <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
-                                        </DropdownMenuItem>
-                                    </DropdownMenuGroup>
-                                    <DropdownMenuSeparator />
-                                    <DropdownMenuGroup>
-                                        <DropdownMenuItem>GitHub</DropdownMenuItem>
-                                        <DropdownMenuItem>Support</DropdownMenuItem>
-                                        <DropdownMenuItem disabled>API</DropdownMenuItem>
-                                    </DropdownMenuGroup>
-                                    <DropdownMenuSeparator />
-                                    <DropdownMenuGroup>
-                                        <DropdownMenuItem>
-                                            Log out
-                                            <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-                                        </DropdownMenuItem>
-                                    </DropdownMenuGroup>
+
+                                <DropdownMenuContent align="end">
+                                    {/* menu */}
                                 </DropdownMenuContent>
                             </DropdownMenu>
-                        </p>
+                        </div>
                     </div>
                 </div>
             </div>
 
             {/* Filter */}
-            <div className="flex items-center gap-4 mb-4">
+            <div className="flex flex-col lg:flex-row gap-4 mb-6">
                 <InputField
                     icon={FaSearch}
                     placeholder="Search patient, treatment, etc"
-                    className="flex-1"
+                    className="flex-1 min-w-0"
                 />
 
-                <Dropdown label="Treatment" />
+                <Dropdown
+                    label="Treatment"
+                    className="w-full lg:w-auto"
+                />
 
                 <Popover>
                     <PopoverTrigger asChild>
                         <Button
                             variant="outline"
-                            className="w-[212px] justify-between text-left font-normal"
+                            className="
+        w-full
+        lg:w-56
+        h-14
+        rounded-2xl
+        justify-between
+        font-normal
+    "
                         >
                             {date ? (
                                 format(date, "PPP")
@@ -152,7 +115,6 @@ export default function Header() {
                                     Pick a date
                                 </span>
                             )}
-
 
                             <ChevronDownIcon className="h-4 w-4" />
                         </Button>

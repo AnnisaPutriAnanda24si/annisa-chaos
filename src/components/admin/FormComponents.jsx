@@ -8,16 +8,16 @@ export function InputField({
   onChange,
 }) {
   return (
-    <div
-      className={`
+<div
+    className={`
         flex items-center gap-3
-        bg-white
-        rounded-[28px]
+        bg-gray-50
+        rounded-2xl
+        h-14
         px-6
-        h-[60px]
         ${className}
-      `}
-    >
+    `}
+>
       {Icon && (
         <Icon className="text-gray-500 text-xl" />
       )}
@@ -48,19 +48,16 @@ export function Dropdown({
   return (
     <button
       onClick={onClick}
-      className={`
-        h-[60px]
-        px-6
-        bg-[#dff0e6]
-        rounded-[28px]
-        flex
-        items-center
-        gap-3
-        text-base
-        font-medium
-        whitespace-nowrap
-        ${className}
-      `}
+className={`
+    h-14
+    px-6
+    rounded-2xl
+    bg-green-50
+    flex items-center gap-3
+    text-base font-medium
+    whitespace-nowrap
+    ${className}
+`}
     >
       {Icon && <Icon />}
 

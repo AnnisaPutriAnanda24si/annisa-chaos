@@ -3,53 +3,69 @@ import { AiFillSetting } from "react-icons/ai";
 import { IoIosNotifications } from "react-icons/io"; 
 import React from 'react';
 
-function NavMenus() {
-  return (
-    <div className="flex items-center space-x-1 text-sm font-medium text-gray-500">
-      <a href="/home_member" className="bg-[#8C4A23] text-white px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide">Services</a>
-      {/* <a href="#" className="hover:text-[#8C4A23] px-3 py-1.5 transition text-xs">Doctors</a> */}
-      <a href="/schedule" className="hover:text-[#8C4A23] px-3 py-1.5 transition text-xs">My Bookings</a>
-      {/* <a href="#" className="hover:text-[#8C4A23] px-3 py-1.5 transition text-xs">Schedule</a> */}
-    </div>
-  );
-}
-
-function UserMenu() {
-  return (
-    <div className="flex items-center space-x-4">
-      <button className="text-gray-400 hover:text-gray-600">
-        <span className="text-lg"><IoIosNotifications /></span>
-      </button>
-      <button className="text-gray-400 hover:text-gray-600">
-        <span className="text-lg"><AiFillSetting /></span>
-      </button>
-      <div className="flex items-center space-x-2 border-l border-gray-200 pl-4">
-        <div className="text-right">
-          <p className="text-xs font-bold text-gray-800 leading-none">Stevan Dux</p>
-          <p className="text-[10px] text-gray-400 font-medium mt-0.5">Premium Member</p>
-        </div>
-        <img 
-          src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=100" 
-          alt="Avatar" 
-          className="w-8 h-8 rounded-full object-cover border border-amber-900/10"
-        />
-      </div>
-    </div>
-  );
-}
-
 export default function Navbar() {
+  const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
+
   return (
-    <nav className="w-full bg-[#FCF8F5] border-b border-orange-100/40 px-6 py-3 sticky top-0 z-50">
-      <div className="max-w-[1200px] mx-auto flex items-center justify-between">
-        {/* Brand Brand */}
-        <div className="flex items-center space-x-2">
-          <span className="text-[#8C4A23] text-xl"><BiSpa /></span>
-          <span className="font-serif text-lg font-bold text-[#4A2810] tracking-wide">Serene Beauty</span>
+    <nav className="w-full bg-[#FCF8F5] border-b border-orange-100/40 py-4 sticky top-0 z-50">
+      {/* Changed from max-w-[1200px] mx-auto to a true full-width layout with edge padding */}
+      <div className="w-full px-12 flex items-center justify-between">
+        
+        {/* LEFT GROUP: Logo & Nav items sitting comfortably to the left side */}
+        <div className="flex items-center space-x-12">
+          {/* Brand Logo */}
+          <div className="flex items-center space-x-2 flex-shrink-0">
+            <span className="text-[#8C4A23] text-2xl"><BiSpa /></span>
+            <span className="font-serif text-xl font-bold text-[#4A2810] tracking-wide">Serene Beauty</span>
+          </div>
+
+          {/* Navigation Links */}
+          <div className="flex items-center space-x-4">
+            <a 
+              href="/home_member" 
+              className={`px-6 py-2.5 rounded-full text-sm font-bold tracking-wide transition-all ${
+                currentPath === '/home_member' || currentPath === '/booking'
+                  ? "bg-[#8C4A23] text-white shadow-xs" 
+                  : "text-gray-500 hover:text-[#8C4A23]"
+              }`}
+            >
+              Services
+            </a>
+            <a 
+              href="/schedule" 
+              className={`px-6 py-2.5 rounded-full text-sm font-bold tracking-wide transition-all ${
+                currentPath === '/schedule'
+                  ? "bg-[#8C4A23] text-white shadow-xs" 
+                  : "text-gray-500 hover:text-[#8C4A23]"
+              }`}
+            >
+              My Bookings
+            </a>
+          </div>
         </div>
 
-        <NavMenus />
-        <UserMenu />
+        {/* RIGHT GROUP: Pushed all the way to the far right edge */}
+        <div className="flex items-center space-x-5 flex-shrink-0">
+          <button type="button" className="text-gray-400 hover:text-gray-600 transition-colors text-xl focus:outline-none">
+            <IoIosNotifications />
+          </button>
+          <button type="button" className="text-gray-400 hover:text-gray-600 transition-colors text-xl focus:outline-none">
+            <AiFillSetting />
+          </button>
+          
+          <div className="flex items-center space-x-3 border-l border-gray-200 pl-5">
+            <div className="text-right">
+              <p className="text-sm font-bold text-gray-800 leading-none">Stevan Dux</p>
+              <p className="text-[11px] text-gray-400 font-medium mt-1">Premium Member</p>
+            </div>
+            <img 
+              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=100" 
+              alt="Avatar" 
+              className="w-9 h-9 rounded-full object-cover border border-amber-900/10 shadow-2xs"
+            />
+          </div>
+        </div>
+
       </div>
     </nav>
   );

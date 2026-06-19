@@ -1,9 +1,14 @@
 import React from 'react';
 
-export default function SearchBar() {
+export default function SearchBar({ inputRef, onSearch }) {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSearch(); // Trigger the filter function in Home
+  };
+
   return (
-    <div className="w-full max-w-[1200px] mx-auto px-4 mt-6">
-      <form onSubmit={(e) => e.preventDefault()} className="flex items-center gap-3">
+    <div className="w-auto mx-auto px-4 mt-6">
+      <form onSubmit={handleSubmit} className="flex items-center gap-3">
         {/* Input Wrapper */}
         <div className="relative flex-1">
           <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
@@ -12,6 +17,7 @@ export default function SearchBar() {
             </svg>
           </div>
           <input 
+            ref={inputRef} 
             type="text" 
             placeholder="Search for services or treatments..."
             className="w-full pl-11 pr-4 py-3 bg-white border border-gray-200 rounded-xl text-xs text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#8C4A23] transition-colors"

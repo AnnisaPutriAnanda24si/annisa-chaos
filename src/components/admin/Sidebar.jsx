@@ -61,18 +61,51 @@ export default function Dashboard() {
 
                 {/* MENU */}
                 <div className="space-y-2 flex-1 px-5 overflow-y-auto ">
-<SidebarButton
-  type="active"
-  icon={FaThLarge}
->
-  Dashboard
-</SidebarButton>
+                    <SidebarButton
+                        type="active"
+                        icon={FaThLarge}
+                    >
+                        Dashboard
+                    </SidebarButton>
 
-<SidebarButton
-  icon={FaUsers}
->
-  Patients
-</SidebarButton>
+                    <SidebarButton
+                        icon={FaUsers}
+                    >
+                        Patients
+                    </SidebarButton>
+
+                                                            <SidebarButton
+                        icon={FaUsers}
+                    >
+                        Treatment
+                    </SidebarButton>
+
+                    <SidebarButton
+                        icon={FaUsers}
+                    >
+                        Doctor
+                    </SidebarButton>
+
+                    <SidebarButton
+                        icon={FaUsers}
+                    >
+                        Schedule
+                    </SidebarButton>
+                                        <SidebarButton
+                        icon={FaUsers}
+                    >
+                        Bookings
+                    </SidebarButton>
+                                                            <SidebarButton
+                        icon={FaUsers}
+                    >
+                        Membership
+                    </SidebarButton>
+                                                                                <SidebarButton
+                        icon={FaUsers}
+                    >
+                        Doctor Rate
+                    </SidebarButton>
                 </div>
 
                 {/* UPDATE CARD */}
@@ -86,7 +119,7 @@ export default function Dashboard() {
                             overflow-hidden
                             relative
                         "
-                        >
+                    >
                         <div className="absolute -left-8 -top-8 w-28 h-28 rounded-full border-[18px] border-[#f8e6e1]" />
 
                         <div className="relative z-10">
@@ -110,7 +143,7 @@ export default function Dashboard() {
                     </div>
 
                     <button
-                            className="
+                        className="
                                 mt-5
                                 w-full
                                 bg-white
@@ -126,7 +159,7 @@ export default function Dashboard() {
                                 sm:gap-3
                                 text-sm
                             "
-                            >
+                    >
                         <FaSignOutAlt />
                         Logout
                     </button>

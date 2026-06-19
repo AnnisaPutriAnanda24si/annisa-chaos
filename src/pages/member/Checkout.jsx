@@ -25,8 +25,8 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div className="w-full min-h-screen bg-[#FCF8F5] text-sans antialiased">
-      <div className="w-full max-w-[1200px] mx-auto px-4 py-8">
+    <div className="w-auto min-h-screen bg-[#FCF8F5] text-sans antialiased">
+      <div className="w-auto mx-auto px-4 py-8">
         
         {/* ================= HEADER HALAMAN ================= */}
         <div className="mb-8">

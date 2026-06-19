@@ -29,10 +29,7 @@ export default function ServiceCard({ service }) {
           {service.description}
         </p>
       </div>
-
-      {/* Area Aksi Bawah (Wajib Melekat ke Sudut Bawah & Samping) */}
-      <div className="flex items-end justify-between mt-5 pt-3 border-t border-gray-50">
-        {/* Info Harga & Durasi (Vertikal Berjejer ke Bawah) */}
+      <div className="flex items-end justify-between pt-3 border-t border-gray-300">
         <div className="flex flex-col">
           <span className="text-base font-extrabold text-amber-950 leading-none">
             ${service.price}

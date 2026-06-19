@@ -7,8 +7,8 @@ import AuthLayouts_admin from './layouts/AuthLayouts_admin';
 import Login_admin from './pages/auth/Login_admin';
 import Register_admin from './pages/auth/Register_admin';
 import Forgot_admin from './pages/auth/Forgot_admin';
-import Home_admin from './pages/Home_admin';
-import Patients_admin from './pages/Patients_admin';
+import Home_admin from './pages/admin/Home_admin';
+import Patients_admin from './pages/admin/Patients_admin';
 import MainLayouts_admin from './layouts/MainLayouts_admin';
 import Home_member from './pages/member/Home';
 import Booking from './pages/member/Booking';
@@ -63,7 +63,7 @@ export default function App() {
           <Route path="/booking" element={<Booking/>} />
            <Route path="/checkout" element={<CheckoutPage/>} />
              <Route path="/schedule" element={<Schedule/>} />
-                          <Route path="/doctor/1" element={<DetailDoctor/>} />
+          <Route path="/doctor/:id" element={<DetailDoctor/>} />
         </Route>
 
         <Route path="*" element={<NotFound />} />

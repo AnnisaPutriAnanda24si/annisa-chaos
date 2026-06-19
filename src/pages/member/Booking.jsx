@@ -11,7 +11,7 @@ export default function Booking() {
   const daftarDokter = doctorsData?.doctors || [];
 
   return (
-    <div className="w-full max-w-[1200px] mx-auto px-4 py-8 bg-[#FCF8F5] text-sans antialiased">
+    <div className="w-full w-auto mx-auto px-4 py-8 bg-[#FCF8F5] text-sans antialiased">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
         {/* KOLOM KIRI (Daftar Dokter) */}
