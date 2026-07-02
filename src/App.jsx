@@ -15,6 +15,8 @@ import Booking from './pages/member/Booking';
 import CheckoutPage from './pages/member/Checkout';
 import Schedule from './pages/member/Schedule';
 import DetailDoctor from './pages/member/DetailDoctor';
+import Users from './pages/admin/Users';
+import LandingPage from './pages/guest/LandingPage'
 // Lazy Imports untuk Layouts
 const MainLayout = React.lazy(() => import('./layouts/MainLayouts'));
 const AuthLayout = React.lazy(() => import('./layouts/AuthLayouts'));
@@ -50,12 +52,14 @@ export default function App() {
         <Route element={<MainLayouts_admin />}>
           <Route path="/home_admin" element={<Home_admin />} />
            <Route path="/patients_admin" element={<Patients_admin />} />
+            <Route path="/users" element={<Users />} />
         </Route>
 
         <Route element={<AuthLayouts_admin/>}>
           <Route path="/login_admin" element={<Login_admin/>} />
           <Route path="/register_admin" element={<Register_admin />} />
           <Route path="/forgot_admin" element={<Forgot_admin />} />
+          
         </Route>
 
         <Route element={<MainLayout_member/>}>
@@ -67,6 +71,8 @@ export default function App() {
         </Route>
 
         <Route path="*" element={<NotFound />} />
+
+        <Route path="/landingPage" element={<LandingPage />} />
 
       </Routes>
       

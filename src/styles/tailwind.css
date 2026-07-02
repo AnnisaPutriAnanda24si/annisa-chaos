@@ -48,6 +48,18 @@
     --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+body {
+    font-family: "Urbanist", sans-serif;
+}
+
+.font-playfair {
+    font-family: "Playfair Display", serif;
+}
+
+.font-urbanist {
+    font-family: "Urbanist", sans-serif;
+}
+
 :root {
     --background: oklch(1 0 0);
     --foreground: oklch(0.145 0 0);
