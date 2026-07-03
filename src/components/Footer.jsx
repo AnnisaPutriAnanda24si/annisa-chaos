@@ -42,7 +42,7 @@ export default function Footer() {
               className="w-full border-b border-zinc-400 bg-transparent py-2 text-sm outline-none focus:border-orange-400 transition"
             />
             <button className="w-full mt-4 bg-zinc-900 text-white py-3 text-[10px] font-bold uppercase tracking-[0.3em] hover:bg-orange-500 transition">
-              Subscribe
+              Contact Us Now
             </button>
           </div>
         </div>
@@ -50,7 +50,7 @@ export default function Footer() {
 
       {/* Bottom Bar */}
       <div className="pt-8 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center text-[9px] font-bold uppercase tracking-[0.4em] text-zinc-400">
-        <div className="text-black">Seven Beauty</div>
+        <div className="text-black">SKINOVA</div>
         <div className="my-4 md:my-0">All Rights Reserved</div>
         <div className="flex items-center">
           WITHOUT <span className="text-orange-400 mx-2 italic">Beauty</span> MEANS NO TRANSFORMATION

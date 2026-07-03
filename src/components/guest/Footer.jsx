@@ -192,7 +192,7 @@ const Footer = () => {
             <div className="mt-8 space-y-2">
 
               <p className="font-urbanist text-[#1C1C1C]">
-                reach@serenebeauty.com
+                reach@skinova.com
               </p>
 
               <p className="font-urbanist text-[#1C1C1C]">
@@ -225,9 +225,9 @@ const Footer = () => {
               text-[#1C1C1C]
             "
           >
-            SERENE
+            SKI
             <span className="text-[#E67E22]">
-              BEAUTY
+              NOVA
             </span>
           </h2>
 
