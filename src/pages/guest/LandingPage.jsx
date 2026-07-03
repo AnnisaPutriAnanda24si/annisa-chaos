@@ -37,21 +37,6 @@ const LandingPage = () => {
           Section layanan akan ditambahkan di sini.
         </p>
       </section>
-
-      {/* CONTACT */}
-      <section
-        id="contact"
-        className="max-w-7xl mx-auto py-28 px-6"
-      >
-        <h2 className="font-playfair text-5xl text-center mb-6">
-          Contact Us
-        </h2>
-
-        <p className="text-center font-urbanist text-gray-600">
-          Informasi kontak klinik akan ditampilkan di sini.
-        </p>
-      </section>
-
     </div>
   );
 };
