@@ -16,7 +16,7 @@ import { NavLink } from 'react-router-dom';
 export default function Dashboard() {
 
     const handleLogout = () => {
-        localStorage.clear(); // 🌟 Menghapus seluruh isi localStorage sekaligus
+        localStorage.clear(); // 🌟 Menghapus seluruh isi localStorage sekaligusnasnamsnamsnaaaaaa
         navigate("/login", { replace: true });
     };
 
@@ -41,7 +41,7 @@ export default function Dashboard() {
             >
 
 
-                {/* LOGO */}
+                {/* LOGO0kajskj0 */}
                 <div className="flex items-center gap-3 mb-10 p-5">
                     <div className="relative w-8 h-8">
                         <div className="absolute w-6 h-1 bg-[#f4d6cd] rounded-full rotate-90 left-[10px] top-[4px]" />

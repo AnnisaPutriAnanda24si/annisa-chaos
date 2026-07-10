@@ -128,7 +128,7 @@ export default function DoctorTable({ data = [], onSave, onDelete }) {
                 <th className="py-5 px-6 text-left font-semibold">Specialization</th>
                 <th className="py-5 px-6 text-left font-semibold">Experience</th>
                 <th className="py-5 px-6 text-left font-semibold">LinkedIn</th>
-                <th className="py-5 px-6 text-left font-semibold">Description</th>
+                <th className="py-5 px-6 text-left font-semibold">Descriptions</th>
                 <th className="py-5 px-6 text-center font-semibold">Actions</th>
               </tr>
             </thead>
