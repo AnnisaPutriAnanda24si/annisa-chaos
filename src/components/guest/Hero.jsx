@@ -11,8 +11,7 @@ const Hero = () => {
       <div className="grid lg:grid-cols-2 gap-16 items-center w-full">
 
         {/* LEFT CONTENT */}
-        <div>
-
+        <div>+
           {/* Pretitle */}
           <p className="uppercase tracking-[0.4em] text-xs font-semibold text-[#E67E22] font-urbanist mb-6">
             KLINIK ESTETIKA MEDIS PRESTISIUS
