@@ -53,7 +53,7 @@ const Hero = () => {
         <div className="flex justify-center">
 
           <img
-            src={HeroImage}
+            src="https://static.vecteezy.com/system/resources/previews/053/887/088/non_2x/woman-with-long-hair-and-green-eyes-is-looking-at-the-camera-the-sun-is-shining-on-her-face-making-her-skin-look-tanned-and-glowing-free-photo.jpg"
             alt="Skinova Hero"
             className="
               w-full
