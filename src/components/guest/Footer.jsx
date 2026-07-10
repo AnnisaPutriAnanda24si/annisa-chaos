@@ -22,7 +22,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-[#FAF7F2] pt-20 pb-8">
+    <footer id="footer" className="bg-[#FAF7F2] pt-20 pb-8">
 
       <div className="max-w-7xl mx-auto px-6">
 
@@ -184,7 +184,7 @@ const Footer = () => {
                 variant="primary"
                 className="w-full rounded-md hover:scale-100"
               >
-                Subscribe
+                Contact Us Now!
               </Button>
 
             </div>

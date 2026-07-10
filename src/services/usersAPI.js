@@ -16,8 +16,17 @@ export const usersAPI = {
     },
 
     async createUsers(data) {
-        const response = await axios.post(API_URL, data, { headers })
-        return response.data
+        // const response = await axios.post(API_URL, data, { headers })
+        // return response.data
+
+        const response = await axios.post(API_URL, data, { 
+        headers: {
+            ...headers,
+            "Prefer": "return=representation" // PENTING: Supaya data yang baru di-insert langsung dikembalikan hasilnya
+        } 
+    })
+    return response.data
+    
     },
 
     async updateUser(id, data) {

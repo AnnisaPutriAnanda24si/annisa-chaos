@@ -1,47 +1,152 @@
-import { FaUserNurse } from "react-icons/fa"; 
-import React from 'react';
+import React from "react";
+import { FaUserNurse } from "react-icons/fa";
+import { Clock3 } from "lucide-react";
+import Button from "../guest/Button";
 
 export default function ServiceCard({ service }) {
   return (
-    <div className="bg-white border border-gray-100/80 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all flex flex-col justify-between min-h-[350px]">
-      
-      <div>
-        <div className="w-full h-36 overflow-hidden rounded-xl mb-3">
-          <img 
-            src={service.image} 
-            alt={service.title} 
-            className="w-full h-full object-cover"
-          />
-        </div>
-        
-        <h3 className="text-gray-800 font-bold text-sm md:text-[15px] tracking-tight leading-snug mb-1">
+    <div
+      className="
+        bg-white
+        overflow-hidden
+        shadow-sm
+        hover:shadow-xl
+        hover:-translate-y-2
+        transition-all
+        duration-300
+        flex
+        flex-col
+      "
+    >
+      {/* Image */}
+
+      <div className="overflow-hidden">
+
+        <img
+          src={service.image}
+          alt={service.title}
+          className="
+            w-full
+            h-30
+            object-cover
+            transition-transform
+            duration-500
+            hover:scale-105
+          "
+        />
+
+      </div>
+
+      {/* Content */}
+
+      <div className="p-5 flex flex-col flex-1">
+
+        <h3
+          className="
+            font-playfair
+            text-2xl
+            text-[#1C1C1C]
+            leading-snug
+          "
+        >
           {service.title}
         </h3>
-        
-        <div className="flex items-center space-x-1.5 text-[11px] text-gray-400">
-          <span className="text-green-400 text-xs"><FaUserNurse /></span>
-          <span className="font-bold text-gray-700">{service.doctors_avail} Doctors available</span>
-          <span className="text-gray-400">({service.reviews} reviews)</span>
+
+        <div
+          className="
+            flex
+            items-center
+            gap-2
+            mt-4
+            text-sm
+            font-urbanist
+            text-[#555555]
+          "
+        >
+          <FaUserNurse className="text-[#E67E22]" />
+
+          <span>
+            <strong>{service.doctors_avail}</strong> Doctors Available
+          </span>
+
+          <span className="text-gray-400">
+            • {service.reviews} Reviews
+          </span>
+
         </div>
-        
-        {/* Deskripsi Treatment */}
-        <p className="text-[11px] text-gray-400/90 mt-2.5 leading-relaxed line-clamp-2 font-normal">
+
+        <p
+          className="
+            mt-5
+            text-[#555555]
+            leading-7
+            font-urbanist
+            line-clamp-3
+            flex-1
+          "
+        >
           {service.description}
         </p>
-      </div>
-      <div className="flex items-end justify-between pt-3 border-t border-gray-300">
-        <div className="flex flex-col">
-          <span className="text-base font-extrabold text-amber-950 leading-none">
-            ${service.price}
-          </span>
-          <span className="text-[10px] text-gray-400 mt-1.5 flex items-center gap-1 font-medium">
-            <span className="text-[9px]">🕒</span> {service.duration} min
-          </span>
-        </div>
-        
-        {/* Tombol Booking Estetik Khas Klinik */}
 
-          <a className="bg-[#FAF6F0] text-amber-950 hover:bg-[#8C4A23] hover:text-white transition-colors duration-200 font-bold text-[11px] px-4 py-2 rounded-xl border border-gray-200/50 shadow-2xs" href="/booking">Booking</a>
+        {/* Footer */}
+
+        <div
+          className="
+            mt-8
+            pt-6
+            border-t
+            border-[#1C1C1C]/10
+            flex
+            items-center
+            justify-between
+          "
+        >
+
+          <div>
+
+            <p
+              className="
+                text-3xl
+                font-bold
+                text-[#1C1C1C]
+                font-urbanist
+              "
+            >
+              ${service.price}
+            </p>
+
+            <div
+              className="
+                mt-2
+                flex
+                items-center
+                gap-2
+                text-sm
+                text-[#555555]
+                font-urbanist
+              "
+            >
+              <Clock3
+                size={15}
+                className="text-[#E67E22]"
+              />
+
+              {service.duration} Minutes
+
+            </div>
+
+          </div>
+
+          <Button
+            to="/booking"
+            variant="primary"
+            size="sm"
+          >
+            Book Now
+          </Button>
+
+        </div>
+
       </div>
 
     </div>

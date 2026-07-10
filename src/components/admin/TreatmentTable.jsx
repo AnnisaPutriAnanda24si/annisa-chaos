@@ -1,23 +1,9 @@
 import React, { useState } from "react";
 import { FiChevronLeft, FiChevronRight, FiSearch, FiPlus } from "react-icons/fi";
 
-function StatusBadge({ role }) {
-  const currentRole = role?.toLowerCase();
-  const styles = {
-    admin: "bg-[#e8f5e9] text-[#4caf50]",       
-    member: "bg-[#ffebee] text-[#f44336]",      
-    user: "bg-[#efebe9] text-[#795548]",        
-  };
-
-  return (
-    <span className={`px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide ${styles[currentRole] || styles.user}`}>
-      {role.charAt(0).toUpperCase() + role.slice(1)}
-    </span>
-  );
-}
-
-export default function UsersTable({ data = [], onSave, onDelete }) {
-  // --- STATE PAGINATION ---
+export default function TreatmentTable({ data = [], onSave, onDelete }) {
+  // --- STATE SEARCH & PAGINATION ---
+  const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
 
@@ -26,35 +12,38 @@ export default function UsersTable({ data = [], onSave, onDelete }) {
   const [isEditMode, setIsEditMode] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [formForm, setFormForm] = useState({
-    email: "", username: "", password: "", role: "user"
+    treatment_name: "",
+    category: "",
+    duration: "",
+    price: ""
   });
 
-  // Handler Aksi Input Form
   const handleChange = (e) => {
-    setFormForm({ ...formForm, [e.target.name]: e.target.value });
+    const value = e.target.name === "duration" || e.target.name === "price"
+      ? (e.target.value ? Number(e.target.value) : "")
+      : e.target.value;
+
+    setFormForm({ ...formForm, [e.target.name]: value });
   };
 
-  // Buka modal untuk Tambah User
   const handleAddClick = () => {
     setIsEditMode(false);
-    setFormForm({ email: "", username: "", password: "", role: "user" });
+    setFormForm({ treatment_name: "", category: "Skin", duration: "", price: "" });
     setShowModal(true);
   };
 
-  // Buka modal untuk Edit User
-  const handleEditClick = (user) => {
+  const handleEditClick = (treatment) => {
     setIsEditMode(true);
-    setSelectedId(user.id);
+    setSelectedId(treatment.treatment_id);
     setFormForm({
-      email: user.email,
-      username: user.username,
-      password: user.password,
-      role: user.role
+      treatment_name: treatment.treatment_name || "",
+      category: treatment.category || "Skin",
+      duration: treatment.duration || "",
+      price: treatment.price || ""
     });
     setShowModal(true);
   };
 
-  // Submit Form meneruskan data ke fungsi 'onSave' milik file parent
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -65,12 +54,18 @@ export default function UsersTable({ data = [], onSave, onDelete }) {
     }
   };
 
-  // Kalkulasi Pagination
-  const totalItems = data.length;
+  // Filter Data
+  const filteredData = data.filter((item) =>
+    item.treatment_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    item.category?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  // Pagination
+  const totalItems = filteredData.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentData = data.slice(indexOfFirstItem, indexOfLastItem);
+  const currentData = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
   const handlePageChange = (pageNumber) => {
     if (pageNumber >= 1 && pageNumber <= totalPages) setCurrentPage(pageNumber);
@@ -88,27 +83,30 @@ export default function UsersTable({ data = [], onSave, onDelete }) {
     return pages;
   };
 
+  // Format ID & Mata Uang Rupiah (Tanpa LaTeX)
+  const formatRupiah = (num) => "Rp " + Number(num).toLocaleString("id-ID");
+
   return (
     <div className="w-full bg-[#fcf9f9] p-4 rounded-[24px] space-y-4">
-      
-      {/* HEADER ATAS TABEL: Sesuai Persis dengan Desain Gambar */}
+      {/* HEADER ATAS TABEL */}
       <div className="flex flex-col sm:flex-row gap-3 justify-between items-center px-2">
         <div className="relative w-full sm:w-72">
           <FiSearch className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
           <input 
             type="text" 
-            placeholder="Search patient, treatment, etc"
+            value={searchQuery}
+            onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }}
+            placeholder="Search treatment name or category..."
             className="w-full pl-10 pr-4 py-2 bg-white rounded-full text-xs border border-transparent shadow-xs focus:outline-none focus:bg-white focus:border-gray-200"
           />
         </div>
         
-        {/* Tombol Tambah yang dipindahkan ke Sini */}
         <button
           onClick={handleAddClick}
           className="w-full sm:w-auto flex items-center justify-center gap-1.5 bg-[#addbc0] text-[#1e4620] hover:bg-[#99cca6] transition px-4 py-2 rounded-full text-xs font-bold"
         >
           <FiPlus className="w-4 h-4" />
-          Add Patient
+          Add Treatment
         </button>
       </div>
 
@@ -119,66 +117,63 @@ export default function UsersTable({ data = [], onSave, onDelete }) {
             <thead>
               <tr className="border-b border-gray-100 text-xs font-medium text-gray-400">
                 <th className="w-12 py-5 px-6 text-center">
-                  <input type="checkbox" className="rounded border-gray-300 text-[#4caf50] focus:ring-[#4caf50]" />
+                  <input type="checkbox" className="rounded border-gray-300 text-[#addbc0] focus:ring-[#addbc0]" />
                 </th>
-                <th className="py-5 px-6 text-left font-semibold">User ID</th>
-                <th className="py-5 px-6 text-left font-semibold">Name</th>
-                <th className="py-5 px-6 text-left font-semibold">Email</th>
-                <th className="py-5 px-6 text-left font-semibold">Password</th>
-                <th className="py-5 px-6 text-left font-semibold">Role</th>
+                <th className="py-5 px-6 text-left font-semibold">Treatment ID</th>
+                <th className="py-5 px-6 text-left font-semibold">Treatment Name</th>
+                <th className="py-5 px-6 text-left font-semibold">Category</th>
+                <th className="py-5 px-6 text-left font-semibold">Duration</th>
+                <th className="py-5 px-6 text-left font-semibold">Price</th>
                 <th className="py-5 px-6 text-center font-semibold">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100/70">
-              {currentData.map((user) => (
-                <tr key={user.id} className="hover:bg-gray-50/50 transition-colors text-sm text-[#333333]">
+              {currentData.map((item) => (
+                <tr key={item.treatment_id} className="hover:bg-gray-50/50 transition-colors text-sm text-[#333333]">
                   <td className="py-4 px-6 text-center">
-                    <input type="checkbox" className="rounded border-gray-300 text-[#4caf50] focus:ring-[#4caf50]" />
+                    <input type="checkbox" className="rounded border-gray-300 text-[#addbc0] focus:ring-[#addbc0]" />
                   </td>
-                  <td className="px-6 py-4 font-medium text-gray-500">PB-{String(user.id).padStart(3, "0")}</td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-3">
-                      <img src={`https://i.pravatar.cc/150?img=${user.id + 10}`} alt={user.username} className="w-9 h-9 rounded-full object-cover border border-gray-100" />
-                      <span className="font-medium text-gray-800">{user.username}</span>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 text-gray-600">{user.email}</td>
-                  <td className="px-6 py-4 font-mono text-xs text-gray-400">{user.password ? "••••••••" : "—"}</td>
-                  <td className="px-6 py-4"><StatusBadge role={user.role} /></td>
+                  <td className="px-6 py-4 font-medium text-gray-500">TRM-{String(item.treatment_id).padStart(3, "0")}</td>
+                  <td className="px-6 py-4 font-medium text-gray-800">{item.treatment_name}</td>
+                  <td className="px-6 py-4 text-gray-600">{item.category}</td>
+                  <td className="px-6 py-4 text-gray-600">{item.duration} Mins</td>
+                  <td className="px-6 py-4 font-medium text-gray-800">{formatRupiah(item.price)}</td>
                   <td className="px-6 py-4 text-center">
                     <div className="flex items-center justify-center gap-3 text-xs font-semibold uppercase tracking-wider">
-                      <button onClick={() => handleEditClick(user)} className="text-blue-500 hover:text-blue-700 transition">Edit</button>
+                      <button onClick={() => handleEditClick(item)} className="text-blue-500 hover:text-blue-700 transition">Edit</button>
                       <span className="text-gray-200">|</span>
-                      <button onClick={() => onDelete(user.id)} className="text-red-400 hover:text-red-600 transition">Delete</button>
+                      <button onClick={() => onDelete(item.treatment_id)} className="text-red-400 hover:text-red-600 transition">Delete</button>
                     </div>
                   </td>
                 </tr>
               ))}
+              {currentData.length === 0 && (
+                <tr>
+                  <td colSpan="7" className="text-center py-8 text-xs text-gray-400">No treatments data found.</td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
 
         {/* Tampilan Mobile */}
         <div className="md:hidden p-4 space-y-3 bg-gray-50/40">
-          {currentData.map((user) => (
-            <div key={user.id} className="bg-white border border-gray-100 rounded-2xl p-4 shadow-xs">
+          {currentData.map((item) => (
+            <div key={item.treatment_id} className="bg-white border border-gray-100 rounded-2xl p-4 shadow-xs">
               <div className="flex justify-between items-start mb-4">
-                <div className="flex items-center gap-3">
-                  <img src={`https://i.pravatar.cc/150?img=${user.id + 10}`} alt={user.username} className="w-11 h-11 rounded-full object-cover border border-gray-100" />
-                  <div>
-                    <h4 className="font-semibold text-gray-800">{user.username}</h4>
-                    <p className="text-xs text-gray-400">PB-{String(user.id).padStart(3, "0")}</p>
-                  </div>
+                <div>
+                  <h4 className="font-semibold text-gray-800">{item.treatment_name}</h4>
+                  <p className="text-xs text-gray-400">TRM-{String(item.treatment_id).padStart(3, "0")}</p>
                 </div>
                 <div className="flex gap-2 text-[11px] font-semibold uppercase tracking-wide">
-                  <button onClick={() => handleEditClick(user)} className="text-blue-500 bg-blue-50/60 px-2 py-1 rounded-md">Edit</button>
-                  <button onClick={() => onDelete(user.id)} className="text-red-500 bg-red-50/60 px-2 py-1 rounded-md">Del</button>
+                  <button onClick={() => handleEditClick(item)} className="text-blue-500 bg-blue-50/60 px-2 py-1 rounded-md">Edit</button>
+                  <button onClick={() => onDelete(item.treatment_id)} className="text-red-500 bg-red-50/60 px-2 py-1 rounded-md">Del</button>
                 </div>
               </div>
               <div className="space-y-2.5 border-t border-gray-100 pt-3 text-xs">
-                <div className="flex justify-between"><span className="text-gray-400">Email</span><span className="text-gray-700 font-medium break-all text-right max-w-[180px]">{user.email}</span></div>
-                <div className="flex justify-between"><span className="text-gray-400">Password</span><span className="font-mono text-gray-400">••••••••</span></div>
-                <div className="flex justify-between items-center pt-0.5"><span className="text-gray-400">Role</span><StatusBadge role={user.role} /></div>
+                <div className="flex justify-between"><span className="text-gray-400">Category</span><span className="text-gray-700 font-medium">{item.category}</span></div>
+                <div className="flex justify-between"><span className="text-gray-400">Duration</span><span className="text-gray-700 font-medium">{item.duration} Mins</span></div>
+                <div className="flex justify-between"><span className="text-gray-400">Price</span><span className="text-gray-800 font-bold">{formatRupiah(item.price)}</span></div>
               </div>
             </div>
           ))}
@@ -205,36 +200,40 @@ export default function UsersTable({ data = [], onSave, onDelete }) {
         </div>
       </div>
 
-      {/* MODAL FORM POPUP (SEKARANG BERADA DI DALAM TABEL) */}
+      {/* MODAL FORM POPUP TREATMENT */}
       {showModal && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50">
           <div className="bg-white p-6 rounded-[24px] max-w-md w-full shadow-xl border border-gray-100">
             <h2 className="text-lg font-semibold mb-4 text-gray-800">
-              {isEditMode ? "Edit User Account" : "Register New Account"}
+              {isEditMode ? "Edit Treatment Info" : "Add New Treatment"}
             </h2>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1">Email</label>
-                <input type="email" name="email" value={formForm.email} onChange={handleChange} required className="w-full border-b border-gray-200 py-2 text-sm outline-none focus:border-[#4caf50]" />
+                <label className="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1">Treatment Name</label>
+                <input type="text" name="treatment_name" value={formForm.treatment_name} onChange={handleChange} required className="w-full border-b border-gray-200 py-1.5 text-sm outline-none focus:border-[#4caf50]" placeholder="Treatment service name" />
               </div>
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1">Username</label>
-                <input type="text" name="username" value={formForm.username} onChange={handleChange} required className="w-full border-b border-gray-200 py-2 text-sm outline-none focus:border-[#4caf50]" />
-              </div>
-              <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1">Password</label>
-                <input type="text" name="password" value={formForm.password} onChange={handleChange} required className="w-full border-b border-gray-200 py-2 text-sm outline-none focus:border-[#4caf50]" />
-              </div>
-              <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1">Role Privilege</label>
-                <select name="role" value={formForm.role} onChange={handleChange} className="w-full border-b border-gray-200 py-2 text-sm outline-none bg-transparent focus:border-[#4caf50]">
-                  <option value="user">User</option>
-                  <option value="admin">Admin</option>
+                <label className="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1">Category</label>
+                <select name="category" value={formForm.category} onChange={handleChange} className="w-full border-b border-gray-200 py-1.5 text-sm outline-none bg-transparent focus:border-[#4caf50]">
+                  <option value="Skin">Skin Care</option>
+                  <option value="Hair">Hair Treatment</option>
+                  <option value="Body">Body Wellness</option>
+                  <option value="Nails">Nails Spa</option>
                 </select>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1">Duration (Minutes)</label>
+                  <input type="number" name="duration" value={formForm.duration} onChange={handleChange} required min="1" className="w-full border-b border-gray-200 py-1.5 text-sm outline-none focus:border-[#4caf50]" placeholder="60" />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1">Price (Rupiah)</label>
+                  <input type="number" name="price" value={formForm.price} onChange={handleChange} required min="0" className="w-full border-b border-gray-200 py-1.5 text-sm outline-none focus:border-[#4caf50]" placeholder="150000" />
+                </div>
               </div>
               <div className="flex justify-end gap-2 pt-4">
                 <button type="button" onClick={() => setShowModal(false)} className="px-4 py-2 text-xs font-semibold text-gray-400 hover:text-gray-700">Cancel</button>
-                <button type="submit" className="bg-[#4caf50] text-white px-5 py-2 rounded-full text-xs font-semibold hover:bg-[#43a047] transition shadow-xs">Save Account</button>
+                <button type="submit" className="bg-[#4caf50] text-white px-5 py-2 rounded-full text-xs font-semibold hover:bg-[#43a047] transition shadow-xs">Save Treatment</button>
               </div>
             </form>
           </div>

@@ -24,19 +24,6 @@ const LandingPage = () => {
 
       <Footer/>
 
-      {/* SERVICES */}
-      <section
-        id="services"
-        className="max-w-7xl mx-auto py-28 px-6"
-      >
-        <h2 className="font-playfair text-5xl text-center mb-6">
-          Our Services
-        </h2>
-
-        <p className="text-center font-urbanist text-gray-600">
-          Section layanan akan ditambahkan di sini.
-        </p>
-      </section>
     </div>
   );
 };

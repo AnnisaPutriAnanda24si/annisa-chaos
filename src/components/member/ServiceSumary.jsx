@@ -1,74 +1,266 @@
-import { FaExchangeAlt } from "react-icons/fa"; 
-import { BiFace } from "react-icons/bi"; 
-import { AiFillStar } from "react-icons/ai"; 
-import React from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
+import { FaExchangeAlt } from "react-icons/fa";
+import { BiFace } from "react-icons/bi";
+import { AiFillStar } from "react-icons/ai";
 
-export default function ServiceSummary({ selectedService, selectedDoctor }) {
+export default function ServiceSummary({
+  selectedService,
+  selectedDoctor,
+}) {
   if (!selectedService) {
     return (
-      <div className="bg-white border border-gray-200 rounded-2xl p-5 text-center text-xs text-gray-400">
-        Memuat layanan...
+      <div className="bg-white rounded-md border border-[#1C1C1C]/10 p-8 text-center font-urbanist text-[#555555]">
+        Loading service...
       </div>
     );
   }
 
   return (
-    <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-xs">
-      <h2 className="font-serif text-base font-bold text-[#4A2810] mb-4">Ringkasan Layanan</h2>
-      
-      {/* Kolase Grid Banner */}
-      <div className="w-full rounded-xl overflow-hidden mb-4 border border-gray-100">
-        <div className="grid grid-cols-2 gap-px bg-gray-200">
-          <img src={selectedService.image} alt="Spa 1" className="w-full h-30 object-cover" />
-          <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&q=80&w=200" alt="Spa 2" className="w-full h-16 object-cover opacity-90" />
+    <div className="bg-white rounded-md border border-[#1C1C1C]/10 shadow-sm overflow-hidden">
+
+      {/* IMAGE */}
+      <div className="relative h-40 overflow-hidden">
+        <img
+          src={selectedService.image}
+          alt={selectedService.title}
+          className="w-full h-full object-cover"
+        />
+
+        <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/10 to-transparent" />
+
+        <div className="absolute bottom-6 left-6">
+          <div className="bg-white/90 backdrop-blur-sm rounded-full px-4 py-2 flex items-center gap-2">
+            <BiFace className="text-[#E67E22]" />
+            <span className="font-urbanist text-sm font-medium text-[#1C1C1C]">
+              Skin Care
+            </span>
+          </div>
         </div>
       </div>
 
-      {/* Detail Layanan Terpilih */}
-      <div className="pt-2">
-        <div className="flex items-center justify-between">
-          <h3 className="font-serif text-base font-bold text-[#4A2810]">{selectedService.title}</h3>
-          <span className="text-base"><BiFace /></span>
-        </div>
-        <p className="text-[11px] text-gray-400 mt-1 leading-relaxed">
+      {/* CONTENT */}
+
+      <div className="p-6">
+
+        <p className="uppercase tracking-[0.25em] text-xs text-[#E67E22] font-urbanist mb-3">
+          Service
+        </p>
+
+        <h2 className="font-playfair text-2xl text-[#1C1C1C]">
+          {selectedService.title}
+        </h2>
+
+        <p className="font-urbanist text-[#555555] leading-7 mt-4">
           {selectedService.description}
         </p>
-      </div>
 
-      {/* Durasi & Estimasi Harga */}
-      <div className="mt-4 pt-3 border-t border-dashed border-gray-200 space-y-2 text-xs">
-        <div className="flex justify-between text-gray-400">
-          <span>Durasi</span>
-          <span className="font-bold text-gray-700">{selectedService.duration || '60'} Menit</span>
-        </div>  
-        <div className="flex justify-between items-end pt-1">
-          <span className="text-gray-400">Estimasi Harga</span>
-          <span className="text-sm font-extrabold text-[#4A2810]">
-            {selectedService.price?.toString().includes('Rp') ? selectedService.price : `Rp ${(selectedService.price * 14000 || 850000).toLocaleString('id-ID')}`}
-          </span>
-        </div>
-      </div>
-      {selectedDoctor && selectedDoctor.name && (
-        <div className="mt-5 pt-4 border-t border-gray-100">
-          <span className="text-[9px] font-bold text-gray-400 uppercase tracking-wider block mb-2">
-            Dokter Spesialis Yang Dipilih
-          </span>
-          <div className="flex items-center gap-3 bg-amber-50/40 border border-amber-100/40 p-2.5 rounded-xl mb-3">
-            <img src={selectedDoctor.image} alt={selectedDoctor.name} className="w-10 h-10 rounded-full object-cover border border-white" />
-            <div className="flex-1 min-w-0">
-              <h4 className="text-xs font-bold text-[#4A2810] truncate">{selectedDoctor.name}</h4>
-              <p className="text-[10px] text-gray-400 truncate">{selectedDoctor.role}</p>
-              <div className="flex items-center gap-0.5 text-[9px] text-gray-500 mt-0.5">
-                <span className="text-amber-500"><AiFillStar /></span> {selectedDoctor.rating}
-              </div>
-            </div>
+        {/* INFO */}
+
+        <div className="grid grid-cols-2 gap-6 mt-8">
+
+          <div>
+
+            <p className="uppercase text-xs tracking-widest text-[#999] font-urbanist">
+              Duration
+            </p>
+
+            <h3 className="font-playfair text-2xl text-[#1C1C1C] mt-2">
+              {selectedService.duration || 60} Min
+            </h3>
+
           </div>
-<a href="/booking" className="w-full border border-gray-300 text-gray-600 font-bold text-[11px] py-2 rounded-xl bg-white hover:bg-gray-50 transition-colors flex items-center justify-center gap-1.5 shadow-2xs">
-                <span><FaExchangeAlt /></span> Ganti Dokter
-</a>
+
+          <div>
+
+            <p className="uppercase text-xs tracking-widest text-[#999] font-urbanist">
+              Price
+            </p>
+
+            <h3 className="font-playfair text-2xl text-[#1C1C1C] mt-2">
+              {selectedService.price?.toString().includes("Rp")
+                ? selectedService.price
+                : `Rp ${(selectedService.price * 14000).toLocaleString(
+                    "id-ID"
+                  )}`}
+            </h3>
+
+          </div>
 
         </div>
-      )}
+
+        {/* DOCTOR */}
+
+{selectedDoctor && (
+  <>
+    <div className="h-px bg-[#1C1C1C]/10 my-8"></div>
+
+    <p className="uppercase tracking-[0.25em] text-xs text-[#E67E22] font-urbanist mb-5">
+      Selected Doctor
+    </p>
+
+    {/* Doctor Info */}
+    <div className="flex items-center gap-4">
+
+      <img
+        src={selectedDoctor.image}
+        alt={selectedDoctor.name}
+        className="w-16 h-16 rounded-full object-cover border border-[#E5E5E5]"
+      />
+
+      <div className="flex-1">
+
+        <h4 className="font-playfair text-2xl text-[#1C1C1C]">
+          {selectedDoctor.name}
+        </h4>
+
+        <p className="font-urbanist text-[#666]">
+          {selectedDoctor.role}
+        </p>
+
+        <div className="flex items-center gap-2 mt-2">
+
+          <AiFillStar className="text-[#E67E22]" />
+
+          <span className="font-semibold text-[#1C1C1C]">
+            {selectedDoctor.rating}/5
+          </span>
+
+          <span className="text-sm text-[#777]">
+            (248 Reviews)
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    {/* Review Summary */}
+    <div className="mt-8 rounded-2xl bg-[#FAF7F2] border border-[#E8E3DC] p-5">
+
+      <div className="flex items-center justify-between mb-5">
+
+        <div>
+
+          <h5 className="font-playfair text-xl text-[#1C1C1C]">
+            Recent Reviews
+          </h5>
+
+          <p className="font-urbanist text-sm text-[#777]">
+            What patients say about this doctor
+          </p>
+
+        </div>
+
+        <div className="text-right">
+
+          <p className="font-playfair text-3xl text-[#1C1C1C]">
+            {selectedDoctor.rating}
+          </p>
+
+          <div className="flex justify-end text-[#E67E22]">
+            {[...Array(5)].map((_, i) => (
+              <AiFillStar key={i}/>
+            ))}
+          </div>
+
+        </div>
+
+      </div>
+
+      <div className="space-y-4">
+
+        <div className="bg-white rounded-xl p-4 border border-[#ECECEC]">
+
+          <div className="flex items-center justify-between">
+
+            <h6 className="font-semibold text-[#1C1C1C]">
+              Sarah Wijaya
+            </h6>
+
+            <span className="text-xs text-[#999]">
+              2 weeks ago
+            </span>
+
+          </div>
+
+          <div className="flex gap-1 text-[#E67E22] mt-2">
+            {[...Array(5)].map((_, i) => (
+              <AiFillStar key={i}/>
+            ))}
+          </div>
+
+          <p className="mt-3 text-sm text-[#555] leading-7">
+            Dr. {selectedDoctor.name.split(" ")[1]} explained every procedure
+            clearly and made me feel comfortable throughout the treatment.
+            The results exceeded my expectations.
+          </p>
+
+        </div>
+
+        <div className="bg-white rounded-xl p-4 border border-[#ECECEC]">
+
+          <div className="flex items-center justify-between">
+
+            <h6 className="font-semibold text-[#1C1C1C]">
+              Kevin Hartono
+            </h6>
+
+            <span className="text-xs text-[#999]">
+              1 month ago
+            </span>
+
+          </div>
+
+          <div className="flex gap-1 text-[#E67E22] mt-2">
+            {[...Array(5)].map((_, i) => (
+              <AiFillStar key={i}/>
+            ))}
+          </div>
+
+          <p className="mt-3 text-sm text-[#555] leading-7">
+            Professional, friendly, and very attentive. The consultation
+            was detailed, and the treatment process was painless.
+            Highly recommended.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    {/* Button */}
+    <Link
+      to="/booking"
+      className="
+        mt-8
+        inline-flex
+        items-center
+        justify-center
+        gap-2
+        w-full
+        border
+        border-[#1C1C1C]
+        rounded-full
+        py-3
+        font-urbanist
+        transition-all
+        duration-300
+        hover:bg-[#1C1C1C]
+        hover:text-white
+      "
+    >
+      <FaExchangeAlt />
+      Change Doctor
+    </Link>
+
+  </>
+)}
+
+      </div>
+
     </div>
   );
 }

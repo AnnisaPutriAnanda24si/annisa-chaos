@@ -76,6 +76,12 @@ export default function Login() {
 
       const user = users[0];
 
+      // Mengambil data username dari objek database (misal: user.username atau user.email)
+      const usernameSession = user.username || user.email; 
+      
+      // Simpan langsung sebagai string biasa ke localStorage
+      localStorage.setItem("user_session", usernameSession);
+
       const { password, ...safeUserData } = user;
       localStorage.setItem("user", JSON.stringify(safeUserData));
 

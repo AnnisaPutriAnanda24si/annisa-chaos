@@ -1,171 +1,629 @@
-import { AiFillClockCircle } from "react-icons/ai"; 
-import { BsFillCalendarDateFill } from "react-icons/bs"; 
-import { BsFillSunFill } from "react-icons/bs"; 
-import { BsFillCloudSunFill } from "react-icons/bs"; 
-import { BsFillMoonStarsFill } from "react-icons/bs"; 
-import { ImLocation } from "react-icons/im"; 
-import React, { useState } from 'react';
+import React, { useMemo, useState } from "react";
+import {
+  AiFillClockCircle,
+} from "react-icons/ai";
+import {
+  BsFillCalendarDateFill,
+  BsFillSunFill,
+  BsFillCloudSunFill,
+  BsFillMoonStarsFill,
+} from "react-icons/bs";
+import { ImLocation } from "react-icons/im";
 
 export default function AppointmentForm() {
-  const [selectedDate, setSelectedDate] = useState(11);
+
+  const today = new Date();
+
+  const [currentMonth, setCurrentMonth] = useState(today.getMonth());
+  const [currentYear, setCurrentYear] = useState(today.getFullYear());
+
+  const [selectedDate, setSelectedDate] = useState(today.getDate());
   const [selectedTime, setSelectedTime] = useState("10:00 AM");
 
-  // Mendefinisikan slot waktu langsung di dalam array lokal (ga pake JSON luar)
-  const morningSlots = ["09:00 AM", "09:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"];
-  const afternoonSlots = ["01:00 PM", "01:30 PM", "02:00 PM", "03:00 PM", "04:00 PM", "04:30 PM"];
-  const eveningSlots = ["06:00 PM", "07:00 PM", "07:30 PM"];
+  const [paymentMethod, setPaymentMethod] = useState("");
+  const [voucher, setVoucher] = useState("");
+
+  const morningSlots = [
+    "09:00 AM",
+    "09:30 AM",
+    "10:00 AM",
+    "10:30 AM",
+    "11:00 AM",
+    "11:30 AM",
+  ];
+
+  const afternoonSlots = [
+    "01:00 PM",
+    "01:30 PM",
+    "02:00 PM",
+    "03:00 PM",
+    "04:00 PM",
+    "04:30 PM",
+  ];
+
+  const eveningSlots = [
+    "06:00 PM",
+    "07:00 PM",
+    "07:30 PM",
+  ];
+
+  const monthName = new Date(
+    currentYear,
+    currentMonth
+  ).toLocaleString("default", {
+    month: "long",
+  });
+
+  const daysInMonth = useMemo(() => {
+    return new Date(currentYear, currentMonth + 1, 0).getDate();
+  }, [currentMonth, currentYear]);
+
+  const firstDay = useMemo(() => {
+    let day = new Date(currentYear, currentMonth, 1).getDay();
+    return day === 0 ? 6 : day - 1;
+  }, [currentMonth, currentYear]);
+
+  const dates = [];
+
+  for (let i = 0; i < firstDay; i++) {
+    dates.push(null);
+  }
+
+  for (let i = 1; i <= daysInMonth; i++) {
+    dates.push(i);
+  }
+
+  const previousMonth = () => {
+    if (currentMonth === 0) {
+      setCurrentMonth(11);
+      setCurrentYear((y) => y - 1);
+    } else {
+      setCurrentMonth((m) => m - 1);
+    }
+  };
+
+  const nextMonth = () => {
+    if (currentMonth === 11) {
+      setCurrentMonth(0);
+      setCurrentYear((y) => y + 1);
+    } else {
+      setCurrentMonth((m) => m + 1);
+    }
+  };
 
   return (
     <div className="space-y-6">
-      
-      {/* SEKSI 1: SELECT DATE */}
-      <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-2xs">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-sm font-bold text-gray-800">Select Date</h2>
-          <div className="flex items-center gap-3 text-xs font-bold text-gray-700">
-            <button className="text-gray-400 hover:text-gray-700">‹</button>
-            <span>October 2023</span>
-            <button className="text-gray-400 hover:text-gray-700">›</button>
+
+      {/* ================= DATE ================= */}
+
+      <section className="bg-white rounded-2xl border border-[#ECE7DF] shadow-sm p-6">
+
+        <div className="flex items-center justify-between mb-5">
+
+          <div>
+
+            <h2 className="font-playfair text-2xl text-[#1C1C1C]">
+              Select Appointment Date
+            </h2>
+
+            <p className="font-urbanist text-sm text-gray-500 mt-2">
+              Choose your preferred appointment schedule.
+            </p>
+
           </div>
+
+          <div className="flex items-center gap-4">
+
+            <button
+              onClick={previousMonth}
+              className="w-10 h-10 rounded-full border border-gray-200 hover:border-[#E67E22] hover:text-[#E67E22] transition"
+            >
+              ←
+            </button>
+
+            <span className="font-semibold font-urbanist text-[#1C1C1C]">
+              {monthName} {currentYear}
+            </span>
+
+            <button
+              onClick={nextMonth}
+              className="w-10 h-10 rounded-full border border-gray-200 hover:border-[#E67E22] hover:text-[#E67E22] transition"
+            >
+              →
+            </button>
+
+          </div>
+
         </div>
-        {/* Days Header */}
-        <div className="grid grid-cols-7 gap-1 text-center text-[10px] font-bold text-gray-400 mb-2">
-          <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+
+        {/* Week */}
+
+        <div className="grid grid-cols-7 mb-4">
+
+          {["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map((day)=>(
+            <div
+              key={day}
+              className="text-center text-xs uppercase tracking-widest text-gray-400 font-semibold"
+            >
+              {day}
+            </div>
+          ))}
+
         </div>
-        {/* Days Grid Simulation */}
-        <div className="grid grid-cols-7 gap-1.5 text-center text-xs font-semibold text-gray-400">
-          <span className="p-2 text-gray-300">25</span><span className="p-2 text-gray-300">26</span><span className="p-2 text-gray-300">27</span><span className="p-2 text-gray-300">28</span><span className="p-2 text-gray-300">29</span><span className="p-2 text-gray-300">30</span>
-          <span className="p-2 text-gray-700 bg-amber-50/40 rounded-lg">1</span>
-          <span className="p-2 text-gray-700">2</span><span className="p-2 text-gray-700">3</span><span className="p-2 text-gray-700">4</span><span className="p-2 text-gray-700">5</span><span className="p-2 text-gray-700">6</span><span className="p-2 text-gray-700">7</span><span className="p-2 text-gray-700">8</span>
-          <span className="p-2 text-gray-700">9</span><span className="p-2 text-gray-700">10</span>
-          {/* Selected Date Style */}
-          <button 
-            type="button"
-            onClick={() => setSelectedDate(11)} 
-            className={`p-2 rounded-lg font-bold text-center transition-colors ${selectedDate === 11 ? 'bg-[#4A2810] text-white' : 'text-gray-700 hover:bg-gray-100'}`}
+
+        {/* Calendar */}
+
+        <div className="grid grid-cols-7 gap-3">
+
+          {dates.map((day,index)=>
+
+            day===null ?
+
+            <div key={index}></div>
+
+            :
+
+            <button
+              key={day}
+              onClick={()=>setSelectedDate(day)}
+              className={`
+
+                h-10
+                rounded-xl
+                transition-all
+                duration-300
+                font-medium
+
+                ${
+                  selectedDate===day
+                  ?
+
+                  "bg-[#1C1C1C] text-white shadow-md"
+
+                  :
+
+                  "hover:bg-[#FAF7F2] hover:text-[#E67E22] text-[#1C1C1C] border border-transparent hover:border-[#E8E4DF]"
+
+                }
+
+              `}
+            >
+              {day}
+            </button>
+
+          )}
+
+        </div>
+
+      </section>
+
+            {/* ================= TIME SELECTION ================= */}
+
+      <section className="bg-white rounded-2xl border border-[#ECE7DF] shadow-sm p-6">
+
+        <div className="mb-5">
+
+          <h2 className="font-playfair text-2xl text-[#1C1C1C]">
+            Select Time
+          </h2>
+
+          <p className="font-urbanist text-sm text-gray-500 mt-2">
+            Pick the time that works best for your schedule.
+          </p>
+
+        </div>
+
+        {/* MORNING */}
+
+        <div className="mb-5">
+
+          <div className="flex items-center gap-3 mb-4">
+
+            <div className="w-10 h-10 rounded-xl bg-[#FAF7F2] flex items-center justify-center text-[#E67E22] text-lg">
+              <BsFillSunFill />
+            </div>
+
+            <div>
+
+              <h3 className="font-semibold text-[#1C1C1C]">
+                Morning
+              </h3>
+
+              <p className="text-sm text-gray-400">
+                Start your day refreshed
+              </p>
+
+            </div>
+
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+
+            {morningSlots.map((t) => (
+
+              <button
+                key={t}
+                onClick={() => setSelectedTime(t)}
+                className={`
+
+                  py-2
+                  rounded-xl
+                  border
+                  text-sm
+                  font-medium
+                  transition-all
+                  duration-300
+
+                  ${
+                    selectedTime === t
+                      ? "bg-[#1C1C1C] text-white border-[#1C1C1C] shadow-md"
+                      : "border-[#E8E4DF] hover:border-[#E67E22] hover:text-[#E67E22] hover:bg-[#FAF7F2]"
+                  }
+
+                `}
+              >
+                {t}
+              </button>
+
+            ))}
+
+          </div>
+
+        </div>
+
+        {/* AFTERNOON */}
+
+        <div className="mb-5">
+
+          <div className="flex items-center gap-3 mb-4">
+
+            <div className="w-10 h-10 rounded-xl bg-[#FAF7F2] flex items-center justify-center text-[#E67E22] text-lg">
+              <BsFillCloudSunFill />
+            </div>
+
+            <div>
+
+              <h3 className="font-semibold text-[#1C1C1C]">
+                Afternoon
+              </h3>
+
+              <p className="text-sm text-gray-400">
+                Perfect for your lunch break
+              </p>
+
+            </div>
+
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+
+            {afternoonSlots.map((t) => (
+
+              <button
+                key={t}
+                onClick={() => setSelectedTime(t)}
+                className={`
+
+                  py-2
+                  rounded-xl
+                  border
+                  text-sm
+                  font-medium
+                  transition-all
+                  duration-300
+
+                  ${
+                    selectedTime === t
+                      ? "bg-[#1C1C1C] text-white border-[#1C1C1C] shadow-md"
+                      : "border-[#E8E4DF] hover:border-[#E67E22] hover:text-[#E67E22] hover:bg-[#FAF7F2]"
+                  }
+
+                `}
+              >
+                {t}
+              </button>
+
+            ))}
+
+          </div>
+
+        </div>
+
+        {/* EVENING */}
+
+        <div>
+
+          <div className="flex items-center gap-3 mb-4">
+
+            <div className="w-10 h-10 rounded-xl bg-[#FAF7F2] flex items-center justify-center text-[#E67E22] text-lg">
+              <BsFillMoonStarsFill />
+            </div>
+
+            <div>
+
+              <h3 className="font-semibold text-[#1C1C1C]">
+                Evening
+              </h3>
+
+              <p className="text-sm text-gray-400">
+                Relax after your busy day
+              </p>
+
+            </div>
+
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+
+            {eveningSlots.map((t) => (
+
+              <button
+                key={t}
+                onClick={() => setSelectedTime(t)}
+                className={`
+
+                  py-2
+                  rounded-xl
+                  border
+                  text-sm
+                  font-medium
+                  transition-all
+                  duration-300
+
+                  ${
+                    selectedTime === t
+                      ? "bg-[#1C1C1C] text-white border-[#1C1C1C] shadow-md"
+                      : "border-[#E8E4DF] hover:border-[#E67E22] hover:text-[#E67E22] hover:bg-[#FAF7F2]"
+                  }
+
+                `}
+              >
+                {t}
+              </button>
+
+            ))}
+
+          </div>
+
+        </div>
+
+      </section>
+            {/* ================= SUMMARY ================= */}
+
+      <section className="bg-white rounded-2xl border border-[#ECE7DF] shadow-sm p-6">
+
+        <div className="mb-5">
+
+          <h2 className="font-playfair text-2xl text-[#1C1C1C]">
+            Appointment Summary
+          </h2>
+
+          <p className="font-urbanist text-sm text-gray-500 mt-2">
+            Please review your appointment before confirming.
+          </p>
+
+        </div>
+
+        <div className="space-y-5">
+
+          {/* Date */}
+
+          <div className="flex items-center gap-4">
+
+            <div className="w-10 h-10 rounded-xl bg-[#FAF7F2] flex items-center justify-center text-[#E67E22] text-lg">
+              <BsFillCalendarDateFill />
+            </div>
+
+            <div>
+
+              <p className="text-xs uppercase tracking-wider text-gray-400">
+                Appointment Date
+              </p>
+
+              <p className="font-semibold text-[#1C1C1C]">
+                {selectedDate} {monthName} {currentYear}
+              </p>
+
+            </div>
+
+          </div>
+
+          {/* Time */}
+
+          <div className="flex items-center gap-4">
+
+            <div className="w-10 h-10 rounded-xl bg-[#FAF7F2] flex items-center justify-center text-[#E67E22] text-lg">
+              <AiFillClockCircle />
+            </div>
+
+            <div>
+
+              <p className="text-xs uppercase tracking-wider text-gray-400">
+                Appointment Time
+              </p>
+
+              <p className="font-semibold text-[#1C1C1C]">
+                {selectedTime}
+              </p>
+
+            </div>
+
+          </div>
+
+          {/* Location */}
+
+          <div className="flex items-center gap-4">
+
+            <div className="w-10 h-10 rounded-xl bg-[#FAF7F2] flex items-center justify-center text-[#E67E22] text-lg">
+              <ImLocation />
+            </div>
+
+            <div>
+
+              <p className="text-xs uppercase tracking-wider text-gray-400">
+                Clinic
+              </p>
+
+              <p className="font-semibold text-[#1C1C1C]">
+                Skinova Beauty Clinic
+              </p>
+
+              <p className="text-sm text-gray-500">
+                Main Plaza • Room 402
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        {/* Payment */}
+
+        <div className="mt-8">
+
+          <label className="block mb-2 text-sm font-semibold text-[#1C1C1C]">
+            Payment Method
+          </label>
+
+          <select
+            value={paymentMethod}
+            onChange={(e)=>setPaymentMethod(e.target.value)}
+            className="
+              w-full
+              rounded-xl
+              border
+              border-[#E8E4DF]
+              bg-[#FAF7F2]
+              px-4
+              py-2
+              outline-none
+              focus:border-[#E67E22]
+              transition
+            "
           >
-            11
-          </button>
-          <span className="p-2 text-gray-700">12</span><span className="p-2 text-gray-700">13</span><span className="p-2 text-gray-700">14</span><span className="p-2 text-gray-700">15</span>
-        </div>
-      </div>
 
-      {/* SEKSI 2: SELECT TIME */}
-      <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-2xs space-y-4">
-        <h2 className="text-sm font-bold text-gray-800">Select Time</h2>
-        
-        {/* Morning Slots */}
-        <div className="space-y-2">
-          <span className="text-[11px] text-gray-400 font-bold block"><BsFillSunFill /> Morning</span>
-          <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
-            {morningSlots.map(t => (
-              <button 
-                key={t} 
-                type="button"
-                onClick={() => setSelectedTime(t)} 
-                className={`py-2 text-[10px] font-bold border rounded-lg transition-all text-center ${selectedTime === t ? 'bg-[#4A2810] border-[#4A2810] text-white shadow-xs' : 'border-gray-200 text-gray-600 bg-white hover:border-gray-300'}`}
-              >
-                {t}
-              </button>
-            ))}
-          </div>
+            <option value="">
+              Select Payment Method
+            </option>
+
+            <option>
+              QRIS
+            </option>
+
+            <option>
+              Bank Transfer
+            </option>
+
+            <option>
+              Credit Card
+            </option>
+
+          </select>
+
         </div>
 
-        {/* Afternoon Slots */}
-        <div className="space-y-2 pt-1">
-          <span className="text-[11px] text-gray-400 font-bold block"><BsFillCloudSunFill /> Afternoon</span>
-          <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
-            {afternoonSlots.map(t => (
-              <button 
-                key={t} 
-                type="button"
-                onClick={() => setSelectedTime(t)} 
-                className={`py-2 text-[10px] font-bold border rounded-lg transition-all text-center ${selectedTime === t ? 'bg-[#4A2810] border-[#4A2810] text-white shadow-xs' : 'border-gray-200 text-gray-600 bg-white hover:border-gray-300'}`}
-              >
-                {t}
-              </button>
-            ))}
-          </div>
+        {/* Voucher */}
+
+        <div className="mt-6">
+
+          <label className="block mb-2 text-sm font-semibold text-[#1C1C1C]">
+            Voucher
+          </label>
+
+          <select
+            value={voucher}
+            onChange={(e)=>setVoucher(e.target.value)}
+            className="
+              w-full
+              rounded-xl
+              border
+              border-[#E8E4DF]
+              bg-[#FAF7F2]
+              px-4
+              py-2
+              outline-none
+              focus:border-[#E67E22]
+              transition
+            "
+          >
+
+            <option value="">
+              No Voucher
+            </option>
+
+            <option>
+              Member Discount 5%
+            </option>
+
+            <option>
+              New Member 10%
+            </option>
+
+          </select>
+
         </div>
 
-        {/* Evening Slots */}
-        <div className="space-y-2 pt-1">
-          <span className="text-[11px] text-gray-400 font-bold block"><BsFillMoonStarsFill /> Evening</span>
-          <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
-            {eveningSlots.map(t => (
-              <button 
-                key={t} 
-                type="button"
-                onClick={() => setSelectedTime(t)} 
-                className={`py-2 text-[10px] font-bold border rounded-lg transition-all text-center ${selectedTime === t ? 'bg-[#4A2810] border-[#4A2810] text-white shadow-xs' : 'border-gray-200 text-gray-600 bg-white hover:border-gray-300'}`}
-              >
-                {t}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
+        {/* Divider */}
 
-      {/* SEKSI 3: APPOINTMENT SUMMARY & SUBMIT */}
-      <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-2xs space-y-4">
-        <h2 className="text-sm font-bold text-gray-800">Appointment Summary</h2>
-        <div className="space-y-3">
-          <div className="flex items-start gap-3 text-xs text-gray-700">
-            <span className="p-2 bg-amber-50 text-[#4A2810] rounded-lg font-bold"><BsFillCalendarDateFill /></span>
-            <div>
-              <p className="text-[10px] text-gray-400 font-medium">Date</p>
-              <p className="font-bold">Wednesday, Oct 11, 2023</p>
-            </div>
+        <div className="border-t border-[#ECE7DF] my-8"></div>
+
+        {/* Total */}
+
+        <div className="flex items-center justify-between mb-5">
+
+          <div>
+
+            <p className="text-sm text-gray-500">
+              Estimated Total
+            </p>
+
+            <h3 className="font-playfair text-2xl text-[#1C1C1C]">
+              Rp850.000
+            </h3>
+
           </div>
-          <div className="flex items-start gap-3 text-xs text-gray-700">
-            <span className="p-2 bg-amber-50 text-[#4A2810] rounded-lg font-bold"><AiFillClockCircle /></span>
-            <div>
-              <p className="text-[10px] text-gray-400 font-medium">Time</p>
-              <p className="font-bold">{selectedTime} - {selectedTime === "10:00 AM" ? "10:45 AM" : "Selesai"}</p>
-            </div>
-          </div>
-          <div className="flex items-start gap-3 text-xs text-gray-700">
-            <span className="p-2 bg-amber-50 text-[#4A2810] rounded-lg font-bold"><ImLocation /></span>
-            <div>
-              <p className="text-[10px] text-gray-400 font-medium">Location</p>
-              <p className="font-bold">Main Plaza Clinic, Room 402</p>
-            </div>
-          </div>
+
+          <span className="px-4 py-2 rounded-full bg-[#FAF7F2] text-[#E67E22] font-semibold text-sm">
+            Premium Member
+          </span>
+
         </div>
 
-        {/* Dropdown Metode Pembayaran */}
-        <div className="pt-2">
-          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Pilih Metode Pembayaran</p>
-          <div className="relative">
-            <select className="w-full text-xs font-bold text-gray-700 bg-amber-50/40 border border-amber-100 p-3 rounded-xl appearance-none focus:outline-none focus:ring-1 focus:ring-amber-900/20 cursor-pointer">
-              <option>Pilih Metode Pembayaran</option>
-              <option>Qris</option>
-              <option>Bank Transfer</option>
-            </select>
-            <span className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-gray-400 text-[10px]">▼</span>
-          </div>
-        </div>
+        {/* Button */}
 
-                <div className="pt-2">
-          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Pilih Metode Pembayaran</p>
-          <div className="relative">
-            <select className="w-full text-xs font-bold text-gray-700 bg-amber-50/40 border border-amber-100 p-3 rounded-xl appearance-none focus:outline-none focus:ring-1 focus:ring-amber-900/20 cursor-pointer">
-              <option>Pilih Voucher</option>
-              <option>Potongan Member 5%</option>
-            </select>
-            <span className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-gray-400 text-[10px]">▼</span>
-          </div>
-        </div>
+        <a
+          href="/home_member"
+          className="
+            w-full
+            flex
+            items-center
+            justify-center
+            rounded-xl
+            bg-[#1C1C1C]
+            hover:bg-[#E67E22]
+            text-white
+            py-3
+            font-semibold
+            transition-all
+            duration-300
+            shadow-md
+          "
+        >
+          Confirm Booking →
+        </a>
 
-        {/* Button Action Utama */}
+        <p className="text-center text-xs text-gray-400 mt-5 leading-relaxed">
 
-            <a href="/home_member" className="w-full bg-[#4A2810] text-white hover:bg-[#361D0B] transition-colors font-bold text-xs py-3.5 rounded-xl shadow-sm flex items-center justify-center gap-2 mt-4 tracking-wide">Confirm Booking <span>➔</span></a>
+          By confirming your booking, you agree to our Terms of Service,
+          Privacy Policy, and cancellation policy.
 
-        <p className="text-[9px] text-gray-400 text-center leading-normal">
-          By confirming, you agree to our terms of service and 12-hour cancellation policy.
         </p>
-      </div>
+
+      </section>
 
     </div>
+
   );
+
 }

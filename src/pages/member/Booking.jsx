@@ -11,61 +11,168 @@ export default function Booking() {
   const daftarDokter = doctorsData?.doctors || [];
 
   return (
-    <div className="w-full w-auto mx-auto px-4 py-8 bg-[#FCF8F5] text-sans antialiased">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
-        {/* KOLOM KIRI (Daftar Dokter) */}
-        <div className="lg:col-span-2 space-y-6">
-          {/* Judul Halaman */}
-          <div className="border-l-4 border-[#4A2810] pl-4">
-            <h1 className="font-serif text-3xl font-bold text-[#4A2810]">Pilih Dokter Spesialis</h1>
-            <p className="text-xs text-gray-500 mt-1">
-              Menampilkan dokter spesialis untuk layanan: <span className="font-bold text-[#4A2810]">{activeService?.title || "Facial Rejuvenation"}</span>
-            </p>
-          </div>
+    <div className="min-h-screen bg-[#FAF7F2] py-12 w-full">
+      <div className="max-w-7xl mx-auto px-6 w-full">
 
-          {/* Grid Konten Dokter */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            
-            {/* OPSI OTOMATIS (Tetap Statis di Paling Depan Sesuai Gambar) */}
-            <div className="bg-white border border-gray-200 rounded-xl p-5 flex flex-col justify-between min-h-[220px]">
-              <div className="flex items-start gap-4">
-                <div className="relative w-20 h-20 bg-[#F3EDE6] rounded-xl flex items-center justify-center text-gray-500 flex-shrink-0">
-                  <span className="text-2xl"><BsFillPeopleFill /></span>
-                  <span className="absolute bottom-1 right-1 w-3 h-3 bg-emerald-500 border-2 border-white rounded-full"></span>
-                </div>
-                <div>
-                  <h3 className="font-serif text-lg font-bold text-[#4A2810]">Siapa Saja</h3>
-                  <p className="text-[11px] text-gray-400 mt-1 leading-relaxed">
-                    Pilih dokter yang tersedia paling cepat
-                  </p>
-                </div>
-              </div>
-              <button className="w-full bg-[#4A2810] text-white font-medium text-xs py-2.5 rounded-lg hover:bg-[#361D0B] transition-colors flex items-center justify-center gap-2">
-                Pilih Otomatis <span>➔</span>
-              </button>
-            </div>
+        {/* Header */}
+        <div className="mb-12 w-full">
 
-            {/* LOOPING DATA DOKTER DARI JSON SECARA DINAMIS */}
-            {daftarDokter.map((doc) => (
-              <DoctorCard 
-                key={doc.id}
-                name={doc.name}
-                role={doc.role}
-                experience={doc.experience}
-                rating={doc.rating}
-                statusColor={doc.statusColor}
-                image={doc.image}
-              />
-            ))}
+          <p
+            className="
+              uppercase
+              tracking-[0.35em]
+              text-xs
+              text-[#E67E22]
+              font-urbanist
+            "
+          >
+            BOOK APPOINTMENT
+          </p>
 
-          </div>
+          <h1
+            className="
+              mt-3
+              font-playfair
+              text-4xl
+              lg:text-5xl
+              text-[#1C1C1C]
+            "
+          >
+            Choose Your{" "}
+            <span className="italic text-[#E67E22]">
+              Dermatologist
+            </span>
+          </h1>
+
+          <p
+            className="
+              mt-4
+              max-w-2xl
+              text-[#555555]
+              font-urbanist
+              leading-relaxed
+            "
+          >
+            Select a trusted dermatologist for your selected treatment.
+            Every specialist is experienced and ready to provide
+            personalized care for your skin.
+          </p>
+
         </div>
 
-        {/* KOLOM KANAN (Sidebar Panel) */}
-        <div className="space-y-5">
-          <ServiceSummary selectedService={activeService} />
-          <MembershipCard />
+        {/* Main Layout */}
+        <div className="grid lg:grid-cols-12 gap-8">
+
+          {/* LEFT CONTENT */}
+          <div className="lg:col-span-8">
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+              {/* Auto Select */}
+              <div
+                className="
+                  bg-white
+                  rounded-2xl
+                  border
+                  border-[#1C1C1C]/5
+                  shadow-sm
+                  hover:-translate-y-1
+                  hover:shadow-lg
+                  transition-all
+                  duration-300
+                  p-6
+                  flex
+                  flex-col
+                  justify-between
+                "
+              >
+
+                <div>
+
+                  <div
+                    className="
+                      w-16
+                      h-16
+                      rounded-full
+                      bg-[#FAF7F2]
+                      text-[#E67E22]
+                      flex
+                      items-center
+                      justify-center
+                      text-3xl
+                      mb-5
+                    "
+                  >
+                    <BsFillPeopleFill />
+                  </div>
+
+                  <h3 className="font-playfair text-2xl text-[#1C1C1C]">
+                    Automatic Selection
+                  </h3>
+
+                  <p className="mt-3 text-[#555555] font-urbanist leading-relaxed">
+                    Let Skinova automatically assign the earliest available
+                    dermatologist based on your preferred treatment.
+                  </p>
+
+                </div>
+
+                <button
+                  className="
+                    mt-8
+                    w-full
+                    bg-[#1C1C1C]
+                    hover:bg-[#E67E22]
+                    text-white
+                    py-3
+                    rounded-full
+                    transition-all
+                    duration-300
+                    font-urbanist
+                    font-medium
+                  "
+                >
+                  Select Automatically
+                </button>
+
+              </div>
+
+              {/* Doctor Cards */}
+              {daftarDokter.map((doc) => (
+                <DoctorCard
+                  key={doc.id}
+                  name={doc.name}
+                  role={doc.role}
+                  experience={doc.experience}
+                  rating={doc.rating}
+                  statusColor={doc.statusColor}
+                  image={doc.image}
+                />
+              ))}
+
+            </div>
+
+          </div>
+
+          {/* RIGHT SIDEBAR */}
+          <div
+            className="
+              lg:col-span-4
+              space-y-6
+              sticky
+              top-24
+              self-start
+            "
+          >
+
+            <ServiceSummary
+              selectedService={activeService}
+            />
+
+            <MembershipCard />
+
+          </div>
+
         </div>
 
       </div>

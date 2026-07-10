@@ -1,4 +1,5 @@
 import HeroImage from "../../assets/images/hero.jpg";
+import { Link } from "react-router-dom";
 import Button from "./Button";
 
 const Hero = () => {
@@ -38,11 +39,13 @@ const Hero = () => {
 
           {/* CTA */}
 <Button
+    to="/register  "
     variant="primary"
     size="lg"
     className="mt-10"
 >
-    Book Appointment
+   Book Appointment
+
 </Button>
 
         </div>

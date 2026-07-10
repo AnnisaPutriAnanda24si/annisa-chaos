@@ -1,72 +1,169 @@
-import { BiSpa } from "react-icons/bi"; 
-import { AiFillSetting } from "react-icons/ai"; 
-import { IoIosNotifications } from "react-icons/io"; 
-import React from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
+import { IoIosNotificationsOutline } from "react-icons/io";
+import { FiSettings } from "react-icons/fi";
 
 export default function Navbar() {
-  const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
+  const currentPath =
+    typeof window !== "undefined" ? window.location.pathname : "";
+
+  const username = localStorage.getItem("user_session") || "Guest";
 
   return (
-    <nav className="w-full bg-[#FCF8F5] border-b border-orange-100/40 py-4 sticky top-0 z-50">
-      {/* Changed from max-w-[1200px] mx-auto to a true full-width layout with edge padding */}
-      <div className="w-full px-12 flex items-center justify-between">
-        
-        {/* LEFT GROUP: Logo & Nav items sitting comfortably to the left side */}
-        <div className="flex items-center space-x-12">
-          {/* Brand Logo */}
-          <div className="flex items-center space-x-2 flex-shrink-0">
-            <span className="text-[#8C4A23] text-2xl"><BiSpa /></span>
-            <span className="font-serif text-xl font-bold text-[#4A2810] tracking-wide">Serene Beauty</span>
-          </div>
+    <header className="sticky top-0 z-50 bg-[#FAF7F2]/95 backdrop-blur-md border-b border-neutral-200">
 
-          {/* Navigation Links */}
-          <div className="flex items-center space-x-4">
-            <a 
-              href="/home_member" 
-              className={`px-6 py-2.5 rounded-full text-sm font-bold tracking-wide transition-all ${
-                currentPath === '/home_member' || currentPath === '/booking'
-                  ? "bg-[#8C4A23] text-white shadow-xs" 
-                  : "text-gray-500 hover:text-[#8C4A23]"
-              }`}
-            >
-              Services
-            </a>
-            <a 
-              href="/schedule" 
-              className={`px-6 py-2.5 rounded-full text-sm font-bold tracking-wide transition-all ${
-                currentPath === '/schedule'
-                  ? "bg-[#8C4A23] text-white shadow-xs" 
-                  : "text-gray-500 hover:text-[#8C4A23]"
-              }`}
-            >
-              My Bookings
-            </a>
-          </div>
-        </div>
+      <div className="max-w-7xl mx-auto h-20 px-8 flex items-center justify-between">
 
-        {/* RIGHT GROUP: Pushed all the way to the far right edge */}
-        <div className="flex items-center space-x-5 flex-shrink-0">
-          <button type="button" className="text-gray-400 hover:text-gray-600 transition-colors text-xl focus:outline-none">
-            <IoIosNotifications />
-          </button>
-          <button type="button" className="text-gray-400 hover:text-gray-600 transition-colors text-xl focus:outline-none">
-            <AiFillSetting />
-          </button>
-          
-          <div className="flex items-center space-x-3 border-l border-gray-200 pl-5">
-            <div className="text-right">
-              <p className="text-sm font-bold text-gray-800 leading-none">Stevan Dux</p>
-              <p className="text-[11px] text-gray-400 font-medium mt-1">Premium Member</p>
-            </div>
-            <img 
-              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=100" 
-              alt="Avatar" 
-              className="w-9 h-9 rounded-full object-cover border border-amber-900/10 shadow-2xs"
+        {/* Logo */}
+        <Link
+          to="/home_member"
+          className="font-playfair text-3xl tracking-[0.18em] font-semibold text-[#1C1C1C]"
+        >
+          SKINOVA
+        </Link>
+
+        {/* Navigation */}
+        <nav className="hidden md:flex items-center gap-10 font-urbanist text-[15px]">
+
+          <Link
+            to="/home_member"
+            className={`transition duration-300 relative ${
+              currentPath === "/home_member" ||
+              currentPath === "/booking"
+                ? "text-[#1C1C1C] font-semibold"
+                : "text-[#555555] hover:text-[#E67E22]"
+            }`}
+          >
+            Services
+
+            {(currentPath === "/home_member" ||
+              currentPath === "/booking") && (
+              <span className="absolute left-0 -bottom-2 w-full h-[2px] bg-[#E67E22]" />
+            )}
+          </Link>
+
+          <Link
+            to="/schedule"
+            className={`transition duration-300 relative ${
+              currentPath === "/schedule"
+                ? "text-[#1C1C1C] font-semibold"
+                : "text-[#555555] hover:text-[#E67E22]"
+            }`}
+          >
+            My Bookings
+
+            {currentPath === "/schedule" && (
+              <span className="absolute left-0 -bottom-2 w-full h-[2px] bg-[#E67E22]" />
+            )}
+          </Link>
+
+          <Link
+            to="/profile"
+            className={`transition duration-300 relative ${
+              currentPath === "/profile"
+                ? "text-[#1C1C1C] font-semibold"
+                : "text-[#555555] hover:text-[#E67E22]"
+            }`}
+          >
+            Profile
+
+            {currentPath === "/profile" && (
+              <span className="absolute left-0 -bottom-2 w-full h-[2px] bg-[#E67E22]" />
+            )}
+          </Link>
+
+        </nav>
+
+        {/* Right Side */}
+        <div className="flex items-center gap-5">
+
+          {/* Notification */}
+          {/* <button
+            className="
+              w-10
+              h-10
+              rounded-full
+              border
+              border-[#1C1C1C]/10
+              flex
+              items-center
+              justify-center
+              text-[#555555]
+              hover:text-[#E67E22]
+              hover:border-[#E67E22]/40
+              transition-all
+            "
+          >
+            <IoIosNotificationsOutline size={20} />
+          </button> */}
+
+          {/* Settings */}
+          {/* <button
+            className="
+              w-10
+              h-10
+              rounded-full
+              border
+              border-[#1C1C1C]/10
+              flex
+              items-center
+              justify-center
+              text-[#555555]
+              hover:text-[#E67E22]
+              hover:border-[#E67E22]/40
+              transition-all
+            "
+          >
+            <FiSettings size={18} />
+          </button> */}
+
+          {/* Divider */}
+          <div className="h-8 w-px bg-[#1C1C1C]/10"></div>
+
+          {/* Profile */}
+          <Link
+            to="/profile"
+            className="
+              flex
+              items-center
+              gap-3
+              group
+            "
+          >
+            <img
+              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80"
+              alt="Profile"
+              className="
+                w-11
+                h-11
+                rounded-full
+                object-cover
+                border-2
+                border-white
+                shadow-sm
+                group-hover:scale-105
+                transition
+              "
             />
-          </div>
+
+            <div className="hidden lg:block">
+
+              <p className="font-urbanist font-semibold text-[#1C1C1C] leading-none">
+                {username}
+              </p>
+
+              <p className="text-xs text-[#E67E22] mt-1">
+                Premium Member
+              </p>
+
+            </div>
+
+          </Link>
+
         </div>
 
       </div>
-    </nav>
+
+    </header>
   );
 }

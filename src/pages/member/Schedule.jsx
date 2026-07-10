@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import ScheduleCard from '../../components/member/ScheduleCard';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import ScheduleCard from "../../components/member/ScheduleCard";
+import Button from "../../components/guest/Button";
 
 export default function Schedule() {
-  // Mengubah data statis menjadi State Dinamis
   const [appointments, setAppointments] = useState([
     {
       id: 1,
@@ -11,7 +12,7 @@ export default function Schedule() {
       title: "Full Body Detox Massage",
       doctor: "Dr. Sarah Jenkins",
       time: "10:30 AM",
-      status: "Scheduled"
+      status: "Scheduled",
     },
     {
       id: 2,
@@ -20,7 +21,7 @@ export default function Schedule() {
       title: "Micro-Needling Session",
       doctor: "Dr. Amanda Clara",
       time: "02:15 PM",
-      status: "Scheduled"
+      status: "Scheduled",
     },
     {
       id: 3,
@@ -29,107 +30,149 @@ export default function Schedule() {
       title: "HydraFacial Treatment",
       doctor: "Dr. Jason Shatsky",
       time: "09:00 AM",
-      status: "Completed"
-    }
+      status: "Completed",
+    },
   ]);
 
-  // Fungsi Dinamis untuk Menangani Aksi Batal atau Hapus
   const handleAction = (id, type) => {
-    if (type === 'cancel') {
-      const konfirmasi = window.confirm("Apakah Anda yakin ingin membatalkan janji temu ini?");
-      if (konfirmasi) {
-        // Mengubah status secara dinamis menjadi Canceled
-        setAppointments(prev => 
-          prev.map(item => item.id === id ? { ...item, status: 'Canceled' } : item)
+    if (type === "cancel") {
+      const confirm = window.confirm(
+        "Apakah Anda yakin ingin membatalkan appointment?"
+      );
+
+      if (confirm) {
+        setAppointments((prev) =>
+          prev.map((item) =>
+            item.id === id
+              ? {
+                  ...item,
+                  status: "Canceled",
+                }
+              : item
+          )
         );
       }
-    } else if (type === 'hapus') {
-      // Menghapus data dari list secara dinamis
-      setAppointments(prev => prev.filter(item => item.id !== id));
+    }
+
+    if (type === "delete") {
+      setAppointments((prev) => prev.filter((item) => item.id !== id));
     }
   };
 
-  // Memisahkan kategori secara dinamis menggunakan filter array
-  const upcomingBookings = appointments.filter(item => item.status.toLowerCase() === 'scheduled');
-  const finishedBookings = appointments.filter(item => 
-    item.status.toLowerCase() === 'completed' || item.status.toLowerCase() === 'canceled'
+  const upcomingBookings = appointments.filter(
+    (item) => item.status.toLowerCase() === "scheduled"
+  );
+
+  const finishedBookings = appointments.filter(
+    (item) =>
+      item.status.toLowerCase() === "completed" ||
+      item.status.toLowerCase() === "canceled"
   );
 
   return (
-    <div className="w-full min-h-screen bg-[#FCF8F5] text-sans antialiased">
-      <div className="w-full max-w-[1000px] mx-auto px-4 py-10">
-        
-        {/* ================= HEADER HALAMAN ================= */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-10">
+    <section className="min-h-screen bg-[#FAF7F2] py-3">
+      <div className="max-w-6xl mx-auto px-6">
+
+        {/* HEADER */}
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-14">
+
           <div>
-            <h1 className="font-serif text-4xl font-bold text-[#4A2810] tracking-tight">
-              My Appointments
-            </h1>
-            <p className="text-xs text-gray-500 mt-1.5 font-medium">
-              Manage your journey to tranquility and rejuvenation.
+
+            <p className="uppercase tracking-[0.35em] text-xs text-[#E67E22] font-semibold font-urbanist mb-3">
+              My Schedule
             </p>
+
+            <h1 className="font-playfair text-5xl text-[#1C1C1C] leading-tight">
+              Your <span className="italic">Appointments</span>
+            </h1>
+
+            <p className="mt-5 max-w-2xl text-[#555555] leading-8 font-urbanist">
+              Kelola seluruh jadwal treatment Anda dengan mudah. Lihat
+              appointment yang akan datang maupun riwayat perawatan yang telah
+              selesai dalam satu halaman.
+            </p>
+
           </div>
-          
-          <a href='/home_member'
-            className="bg-[#4A2810] hover:bg-[#361D0B] text-white font-bold text-xs px-5 py-3 rounded-lg shadow-2xs transition-colors flex items-center justify-center gap-1.5 self-start sm:self-center uppercase tracking-wider"
-          >
-            <span>+</span> Book New Service
-          </a>
+
+          <Link to="/home_member">
+            <Button variant="primary">
+              Book New Appointment
+            </Button>
+          </Link>
+
         </div>
 
-        {/* ================= SEKSI 1: UPCOMING BOOKINGS ================= */}
-        <div className="space-y-4 mb-10">
-          <h2 className="font-serif text-xl font-bold text-[#4A2810] border-b border-gray-200/60 pb-2">
-            Upcoming Bookings
-          </h2>
-          <div className="flex flex-col gap-3">
-            {upcomingBookings.length > 0 ? (
+        {/* Upcoming */}
+        <section className="bg-white rounded-2xl shadow-sm p-8 mb-10">
+
+          <div className="mb-8">
+
+            <p className="uppercase tracking-[0.3em] text-xs text-[#E67E22] font-semibold font-urbanist">
+              Upcoming
+            </p>
+
+            <h2 className="font-playfair text-3xl text-[#1C1C1C] mt-2">
+              Upcoming Appointments
+            </h2>
+
+          </div>
+
+          <div className="space-y-5">
+
+            {upcomingBookings.length ? (
               upcomingBookings.map((item) => (
-                <ScheduleCard 
+                <ScheduleCard
                   key={item.id}
-                  id={item.id}
-                  month={item.month}
-                  date={item.date}
-                  title={item.title}
-                  doctor={item.doctor}
-                  time={item.time}
-                  status={item.status}
+                  {...item}
                   onAction={handleAction}
                 />
               ))
             ) : (
-              <p className="text-xs text-gray-400 italic py-4">Tidak ada jadwal kunjungan terdekat.</p>
+              <div className="py-10 text-center text-[#777] font-urbanist">
+                Tidak ada appointment yang akan datang.
+              </div>
             )}
-          </div>
-        </div>
 
-        {/* ================= SEKSI 2: FINISHED BOOKINGS ================= */}
-        <div className="space-y-4">
-          <h2 className="font-serif text-xl font-bold text-[#4A2810] border-b border-gray-200/60 pb-2">
-            Finished Bookings
-          </h2>
-          <div className="flex flex-col gap-3">
-            {finishedBookings.length > 0 ? (
+          </div>
+
+        </section>
+
+        {/* Finished */}
+        <section className="bg-white rounded-2xl shadow-sm p-8">
+
+          <div className="mb-8">
+
+            <p className="uppercase tracking-[0.3em] text-xs text-[#E67E22] font-semibold font-urbanist">
+              History
+            </p>
+
+            <h2 className="font-playfair text-3xl text-[#1C1C1C] mt-2">
+              Appointment History
+            </h2>
+
+          </div>
+
+          <div className="space-y-5">
+
+            {finishedBookings.length ? (
               finishedBookings.map((item) => (
-                <ScheduleCard 
+                <ScheduleCard
                   key={item.id}
-                  id={item.id}
-                  month={item.month}
-                  date={item.date}
-                  title={item.title}
-                  doctor={item.doctor}
-                  time={item.time}
-                  status={item.status}
+                  {...item}
                   onAction={handleAction}
                 />
               ))
             ) : (
-              <p className="text-xs text-gray-400 italic py-4">Belum ada riwayat kunjungan selesai.</p>
+              <div className="py-10 text-center text-[#777] font-urbanist">
+                Belum ada riwayat treatment.
+              </div>
             )}
+
           </div>
-        </div>
+
+        </section>
 
       </div>
-    </div>
+    </section>
   );
 }

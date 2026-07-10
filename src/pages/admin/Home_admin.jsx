@@ -1,5 +1,6 @@
-import React from "react";
-import patients from "@/data/patients.json";
+import React, { useState, useEffect } from "react";
+// import patients from "@/data/patients.json";
+import { bookingAPI } from "@/services/bookingAPI";
 
 import {
   FaThLarge,
@@ -26,86 +27,90 @@ import {
 
 import StatCard from '../../components/admin/StatCard';
 import DashboardCard from '../../components/admin/DashboardCard';
-import Table from '../../components/admin/Table';
-import Review from '../../components/admin/Review';
-import Overview from "../../components/admin/Overview";
+// import Table from '../../components/admin/Table';
+// import Review from '../../components/admin/Review';
+// import Overview from "../../components/admin/Overview";
 import Calendar from "../../components/admin/Calendar";
 import Schedule from "../../components/admin/Schedule";
 
-
+useState
 export default function Dashboard() {
 
-  const patientStatusData = [
-    {
-      patient: "Sarah Miller",
-      treatment: "Facial Rejuvenation",
-      date: "2028-09-12",
-      status: "Completed",
-      color: "#cfe8db",
-    },
-    {
-      patient: "Maurice Galley",
-      treatment: "Laser Hair Removal",
-      date: "2028-09-12",
-      status: "In Progress",
-      color: "#f3d1c8",
-    }
-  ];
+  const [bookings, setBookings] = useState([]);
 
-  const popularTreatments = [
-    {
-      name: "Facial Rejuvenation",
-      rating: "4.9",
-      reviews: 2150,
-    },
-    {
-      name: "Laser Hair Removal",
-      rating: "4.8",
-      reviews: 1900,
-    }
-  ];
+  const [loading, setLoading] = useState(true);
 
-  const patientOverview = [
-    {
-      label: "New Patient",
-      value: "1,460",
-      percent: 45,
-      color: "#f3d1c8",
-    },
-    {
-      label: "In Treatment",
-      value: "974",
-      percent: 30,
-      color: "#d7eee3",
-    },
-    {
-      label: "Recovered",
-      value: "811",
-      percent: 25,
-      color: "#ececec",
-    },
-  ];
+  // const patientStatusData = [
+  //   {
+  //     patient: "Sarah Miller",
+  //     treatment: "Facial Rejuvenation",
+  //     date: "2028-09-12",
+  //     status: "Completed",
+  //     color: "#cfe8db",
+  //   },
+  //   {
+  //     patient: "Maurice Galley",
+  //     treatment: "Laser Hair Removal",
+  //     date: "2028-09-12",
+  //     status: "In Progress",
+  //     color: "#f3d1c8",
+  //   }
+  // ];
 
-  const treatmentOverview = [
-    {
-      label: "Rhinoplasty",
-      value: "45%",
-      percent: 45,
-      color: "#f3d1c8",
-    },
-    {
-      label: "Rhytidectomy",
-      value: "35%",
-      percent: 35,
-      color: "#d7eee3",
-    },
-    {
-      label: "Blepharoplasty",
-      value: "20%",
-      percent: 20,
-      color: "#ececec",
-    },
-  ];
+  // const popularTreatments = [
+  //   {
+  //     name: "Facial Rejuvenation",
+  //     rating: "4.9",
+  //     reviews: 2150,
+  //   },
+  //   {
+  //     name: "Laser Hair Removal",
+  //     rating: "4.8",
+  //     reviews: 1900,
+  //   }
+  // ];
+
+  // const patientOverview = [
+  //   {
+  //     label: "New Patient",
+  //     value: "1,460",
+  //     percent: 45,
+  //     color: "#f3d1c8",
+  //   },
+  //   {
+  //     label: "In Treatment",
+  //     value: "974",
+  //     percent: 30,
+  //     color: "#d7eee3",
+  //   },
+  //   {
+  //     label: "Recovered",
+  //     value: "811",
+  //     percent: 25,
+  //     color: "#ececec",
+  //   },
+  // ];
+
+  // const treatmentOverview = [
+  //   {
+  //     label: "Rhinoplasty",
+  //     value: "45%",
+  //     percent: 45,
+  //     color: "#f3d1c8",
+  //   },
+  //   {
+  //     label: "Rhytidectomy",
+  //     value: "35%",
+  //     percent: 35,
+  //     color: "#d7eee3",
+  //   },
+  //   {
+  //     label: "Blepharoplasty",
+  //     value: "20%",
+  //     percent: 20,
+  //     color: "#ececec",
+  //   },
+  // ];
 
   const schedules = [
     {
@@ -124,6 +129,60 @@ export default function Dashboard() {
     }
   ];
 
+  useEffect(() => {
+    const loadDashboardData = async () => {
+      try {
+        setLoading(false);
+        // Memanggil fungsi fetch yang melakukan SELECT dan JOIN ke tabel patient & treatment
+        const data = await bookingAPI.fetchBookings();
+        setBookings(data || []);
+      } catch (error) {
+        console.error("Gagal mengambil data bookings:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadDashboardData();
+  }, []);
+
+  // Filter booking yang statusnya "Completed"
+  const completedBookings = bookings.filter((b) => b.status === "Completed");
+
+  console.log("Cek struktur booking pertama:", bookings[0]);
+  // A. Hitung Total Uang dari booking yang Completed
+const totalEarnings = completedBookings.reduce((sum, item) => {
+  const price = item.treatment?.price ? Number(item.treatment.price) : 0;
+  return sum + price;
+}, 0);
+
+  // B. Hitung Total Pasien Unik (tanpa duplikat)
+  const totalPatients = new Set(
+    bookings.map((b) => b.patient?.patient_id).filter(Boolean)
+  ).size;
+
+  // C. Hitung Total Appointments (Semua booking aktif yang tidak di-cancel)
+  const totalAppointments = bookings.filter((b) => b.status !== "Cancelled").length;
+
+  // 1. Hitung total booking yang statusnya "Completed"
+const completedBookingsCount = bookings.filter((b) => b.status === "Completed").length;
+
+// 2. Hitung total booking yang statusnya "Cancelled"
+const cancelledBookingsCount = bookings.filter((b) => b.status === "Cancelled").length;
+
+  // Helper Format Rupiah
+  const formatCurrency = (val) =>
+    new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      maximumFractionDigits: 0,
+    }).format(val);
+
+  // Jika masih loading, tampilkan indikator loading sederhana
+  if (loading) {
+    return <div className="p-8 text-center text-gray-500 animate-pulse">Loading dashboard data...</div>;
+  }
+
   return (
     <div>
       {/* SIDEBAR */}
@@ -140,21 +199,20 @@ export default function Dashboard() {
 
           {/* TOP CARDS */}
           <div className="grid grid-cols-2 gap-4">
-
             {/* Earnings */}
             <StatCard
               bgColor="bg-[#f6d8d0]"
-              icon="$"
-              label="Earnings"
-              value="$125,000"
+              icon="Rp"
+              label="Earnings (Completed)"
+              value={formatCurrency(totalEarnings)}
             />
 
-            {/* Patients tes buat commit baru*/}
+            {/* Patients */}
             <StatCard
               bgColor="bg-[#cfe8db]"
-              icon={<FaUsers />}
-              label="Total Patients"
-              value="315"
+              icon={<FaUsers />} // Kamu bisa ganti icon jadi FaCheckCircle jika ingin menyesuaikan dengan "Completed"
+              label="Completed Bookings"
+              value={completedBookingsCount.toString()}
             />
 
             {/* Appointment */}
@@ -162,17 +220,16 @@ export default function Dashboard() {
               bgColor="bg-[#cfe8db]"
               icon={<FaCalendarAlt />}
               label="Appointments"
-              value="250"
+              value={totalAppointments.toString()}
             />
 
             {/* Surgery */}
-            <StatCard
-              bgColor="bg-[#f6d8d0]"
-              icon={<FaProcedures />}
-              label="Surgeries"
-              value="65"
-            />
-
+<StatCard
+  bgColor="bg-[#f6d8d0]"
+  icon={<FaProcedures />} // Kamu bisa ganti icon jadi FaTimesCircle jika ingin menyesuaikan dengan "Cancelled"
+  label="Cancelled Bookings"
+  value={cancelledBookingsCount.toString()}
+/>
           </div>
 
           {/* PART 2 AKAN MASUK DI SINI */}
@@ -243,8 +300,7 @@ export default function Dashboard() {
 
 
             {/* 2. PATIENTS BY GENDER CARD */}
-            <DashboardCard title="Patients by Gender" filterText="Last 8 Months">
-              {/* Konten Kustom Teks Angka & Legend Bar */}
+            {/* <DashboardCard title="Patients by Gender" filterText="Last 8 Months">
               <div className="flex justify-between items-end mb-6 -mt-10">
                 <div>
                   <p className="text-xs text-gray-400 mt-2">Total Patient</p>
@@ -262,7 +318,6 @@ export default function Dashboard() {
                 </div>
               </div>
 
-              {/* Bar Chart Bars */}
               <div className="h-[220px] flex items-end gap-5 px-4">
                 {[70, 85, 95, 82, 72, 78, 94, 86].map((v, i) => (
                   <div key={i} className="flex gap-2 flex-1 items-end">
@@ -278,16 +333,15 @@ export default function Dashboard() {
                 ))}
               </div>
 
-              {/* Label Bulan */}
               <div className="flex justify-between text-xs text-gray-400 mt-3 px-4">
                 <span>Feb</span><span>Mar</span><span>Apr</span><span>May</span>
                 <span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span>
               </div>
-            </DashboardCard>
+            </DashboardCard> */}
 
-            <Table
+            {/* <Table
               data={patients}
-            />
+            /> */}
 
           </div>
 
@@ -303,7 +357,7 @@ export default function Dashboard() {
         {/* CENTER COLUMN */}
         <div className="space-y-5">
 
-          <Overview
+          {/* <Overview
             title="Patient Overview"
             filter="Monthly"
             centerLabel="Total Patient"
@@ -322,14 +376,13 @@ export default function Dashboard() {
           <Review
             title="Most Popular Treatments"
             treatments={popularTreatments}
-          />
-
+          /> */}
+          <Calendar />
         </div>
 
         {/* RIGHT SIDEBAR */}
         <div className="space-y-5">
           {/* PART 3 */}
-          <Calendar />
 
           <Schedule schedules={schedules} />
 

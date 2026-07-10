@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'; // 1. Added useState and useEffect here
 import { useParams, useNavigate } from 'react-router-dom';
+import { FiArrowLeft } from "react-icons/fi";
 import DoctorSummary from '../../components/member/DoctorSummary'; 
 import ReviewCard from '../../components/member/ReviewCard';
 
@@ -53,11 +54,11 @@ export default function DetailDoctor() {
   // 4. KONDISI JIKA DATA TIDAK DITEMUKAN SETELAH USEEFFECT SELESAI
   if (!doctorData) {
     return (
-      <div className="w-full min-h-screen bg-[#FCF8F5] flex flex-col items-center justify-center font-sans p-4 gap-4">
+      <div className="w-full min-h-screen bg-[#FCF8F5] flex flex-col items-center justify-center font-sans px-4 gap-4">
         <p className="text-sm text-gray-500 font-medium">Data dokter dengan ID "{id}" tidak ditemukan.</p>
         <button 
           onClick={() => navigate('/booking')}
-          className="text-xs bg-[#8C4A23] text-white px-4 py-2 rounded-xl font-bold hover:bg-[#733B1A] transition-colors"
+          className="text-xs bg-[#8C4A23] text-white px-4 rounded-xl font-bold hover:bg-[#733B1A] transition-colors"
         >
           Kembali ke Menu Booking
         </button>
@@ -66,47 +67,85 @@ export default function DetailDoctor() {
   }
 
   // 5. RENDER UTAMA JIKA DATA SUKSES DIDAPATKAN OLEH USEEFFECT
-  return (
-    <div className="w-full min-h-screen bg-[#FCF8F5] text-sans antialiased">
-      <div className="w-full max-w-[900px] mx-auto px-4 py-8">
-        
-        {/* Back Button */}
-        <button 
-          type="button"
-          onClick={() => navigate('/booking')}
-          className="flex items-center gap-2 text-xs font-bold text-gray-600 hover:text-[#4A2810] transition-colors mb-6"
-        >
-          <span className="rotate-180 inline-block">➔</span> Kembali ke Menu Booking
-        </button>
+return (
+  <div className="bg-[#FAF7F2] min-h-screen">
 
-        <DoctorSummary doctor={doctorData} />
+    <div className="max-w-7xl mx-auto px-8 py-16">
 
-        {/* Patient Reviews Section */}
-        <div className="space-y-5">
-          <h2 className="font-serif text-xl font-bold text-[#4A2810]">
+      {/* BACK */}
+
+<button
+  onClick={() => navigate("/booking")}
+  className="
+    inline-flex
+    items-center
+    gap-2
+    px-5
+    py-3
+    mb-10
+    rounded-full
+    border
+    border-[#1C1C1C]
+    bg-white
+    text-[#1C1C1C]
+    font-urbanist
+    text-sm
+    font-medium
+    transition-all
+    duration-300
+    hover:bg-[#1C1C1C]
+    hover:text-white
+    hover:-translate-x-1
+    hover:shadow-md
+  "
+>
+  <FiArrowLeft className="text-base" />
+  Back to Booking
+</button>
+
+      {/* SUMMARY */}
+
+      <DoctorSummary doctor={doctorData} />
+
+      {/* REVIEW */}
+
+      <section className="mt-10">
+
+        <div className="mb-10">
+
+          <p className="uppercase tracking-[0.3em] text-xs text-[#999] font-urbanist">
+            Testimonials
+          </p>
+
+          <h2 className="font-playfair text-5xl text-[#1C1C1C] mt-3">
             Patient Reviews
           </h2>
-          
-          <div className="flex flex-col gap-4">
-            {mockReviews.map((rev) => (
-              <ReviewCard 
-                key={rev.id}
-                name={rev.name}
-                rating={rev.rating}
-                comment={rev.comment}
-                date={rev.date}
-              />
-            ))}
-          </div>
 
-          <div className="text-center pt-4">
-            <button type="button" className="text-xs font-bold text-gray-700 hover:text-[#4A2810] underline tracking-wide">
-              See All 124 Reviews
-            </button>
-          </div>
+          <p className="font-urbanist text-[#555555] mt-3 max-w-xl">
+            Ulasan dari pasien yang telah mempercayakan perawatan kulitnya
+            bersama dokter kami.
+          </p>
+
         </div>
 
-      </div>
+        <div className="space-y-6">
+
+          {mockReviews.map((review) => (
+            <ReviewCard
+              key={review.id}
+              name={review.name}
+              rating={review.rating}
+              comment={review.comment}
+              date={review.date}
+            />
+          ))}
+
+        </div>
+
+      </section>
+
     </div>
-  );
+
+  </div>
+);
 }

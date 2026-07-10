@@ -35,7 +35,7 @@ const Navbar = () => {
                     </a>
 
                     <a
-                        href="#contact"
+                        href="#footer"
                         className="hover:text-[#E67E22] transition duration-300"
                     >
                         Contact Us

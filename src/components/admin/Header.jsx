@@ -32,42 +32,58 @@ import {
 
 
 export default function Header() {
-
     //  const [date, setDate] = React.useState<Date>();
-    const [date, setDate] = useState()
+    const [date, setDate] = useState();
+    const username = localStorage.getItem("user_session") || "Guest";
 
     return (
-
-        <div className="px-8 py-6">
-            {/* Header */}
-            <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between mb-6">
-                <h1 className="text-4xl font-medium">
+        // 🌟 Mengurangi padding vertikal (py-3) dan horizontal (px-6) agar tidak memakan ruang
+        <div className="px-6 py-3 border-b border-gray-100 bg-white">
+            
+            {/* Header Main Wrapper */}
+            {/* 🌟 Mengubah gap-6 menjadi gap-4 dan mb-6 menjadi mb-0 agar layout lebih tipis */}
+            <div className="flex flex-row items-center justify-between">
+                
+                {/* Judul Dashboard */}
+                {/* 🌟 Mengecilkan ukuran font dari text-4xl menjadi text-xl / text-2xl agar proporsional */}
+                <h1 className="text-xl font-bold text-gray-800 tracking-tight">
                     Dashboard
                 </h1>
 
-                <div className="flex items-center gap-4">
-                    <RoundButton>
-                        <FaSearch />
+                {/* Sisi Kanan: Navigasi Aksi */}
+                <div className="flex items-center gap-3">
+                    
+                    {/* Tombol Search Mini */}
+                    <RoundButton className="w-8 h-8 text-sm">
+                        <FaSearch className="w-3.5 h-3.5 text-gray-500" />
                     </RoundButton>
 
-                    <RoundButton>
-                        <FaRegBell />
+                    {/* Tombol Notifikasi Mini */}
+                    <RoundButton className="w-8 h-8 text-sm">
+                        <FaRegBell className="w-3.5 h-3.5 text-gray-500" />
                     </RoundButton>
 
-                    <div className="flex items-center gap-3">
-                        <Avatar image="https://i.pravatar.cc/100?img=32" />
+                    {/* Pembatas Garis Tipis (Opsional untuk estetika) */}
+                    <span className="h-5 w-[1px] bg-gray-200 mx-1 hidden sm:block" />
 
-                        <div className="flex flex-col">
-                            <span className="text-sm font-semibold">
-                                Annisa Putri
+                    {/* Profile Avatar & Dropdown */}
+                    {/* 🌟 Mengubah gap-3 menjadi gap-2 agar info pengguna lebih rapat */}
+                    <div className="flex items-center gap-2">
+                        <Avatar image="https://i.pravatar.cc/100?img=32" className="w-8 h-8" />
+
+                        <div className="flex items-center gap-2">
+                            {/* Nama Pengguna */}
+                            <span className="text-xs font-semibold text-gray-700 hidden sm:block">
+                                {username}
                             </span>
 
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
+                                    {/* 🌟 Tombol diposisikan ringkas menggunakan icon arrow kebawah atau tombol kecil h-7 */}
                                     <Button
                                         variant="outline"
                                         size="sm"
-                                        className="w-fit"
+                                        className="h-7 px-2 text-xs font-medium border-gray-200"
                                     >
                                         Open
                                     </Button>
@@ -79,11 +95,12 @@ export default function Header() {
                             </DropdownMenu>
                         </div>
                     </div>
+                    
                 </div>
             </div>
 
             {/* Filter */}
-            <div className="flex flex-col lg:flex-row gap-4 mb-6">
+            {/* <div className="flex flex-col lg:flex-row gap-4 mb-6">
                 <InputField
                     icon={FaSearch}
                     placeholder="Search patient, treatment, etc"
@@ -132,10 +149,10 @@ export default function Header() {
                         />
                     </PopoverContent>
                 </Popover>
-            </div>
+            </div> */}
 
             {/* Breadcrumb */}
-            <Breadcrumb>
+            {/* <Breadcrumb>
                 <BreadcrumbList>
                     <BreadcrumbItem>
                         <BreadcrumbLink href="/">
@@ -159,7 +176,7 @@ export default function Header() {
                         </BreadcrumbPage>
                     </BreadcrumbItem>
                 </BreadcrumbList>
-            </Breadcrumb>
+            </Breadcrumb> */}
         </div>
     );
 }

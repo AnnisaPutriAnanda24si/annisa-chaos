@@ -1,70 +1,187 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-export default function ScheduleCard({ id, month, date, title, doctor, time, status, onAction }) {
+export default function ScheduleCard({
+  id,
+  month,
+  date,
+  title,
+  doctor,
+  time,
+  status,
+  onAction,
+}) {
   const [showMenu, setShowMenu] = useState(false);
-  const isCompleted = status?.toLowerCase() === 'completed';
+
+  const isCompleted =
+    status?.toLowerCase() === "completed";
 
   return (
-    <div className={`flex items-center justify-between p-5 rounded-xl border transition-all bg-white relative ${
-      isCompleted ? 'border-amber-100/60 bg-amber-50/20' : 'border-gray-100 shadow-2xs'
-    }`}>
-      {/* Sisi Kiri: Detail Jadwal */}
-      <div className="flex items-center gap-5">
-        {/* Penanda Tanggal Minimalis */}
-        <div className="flex flex-col items-center justify-center min-w-[45px] text-center">
-          <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">{month}</span>
-          <span className="text-lg font-extrabold text-gray-700 leading-tight mt-0.5">{date}</span>
+    <div
+      className="
+        relative
+        flex
+        items-center
+        justify-between
+        bg-white
+        rounded-2xl
+        border
+        border-[#1C1C1C]/5
+        shadow-sm
+        hover:shadow-lg
+        hover:-translate-y-1
+        transition-all
+        duration-300
+        p-6
+      "
+    >
+      {/* LEFT */}
+      <div className="flex items-center gap-6">
+
+        {/* Date */}
+        <div
+          className="
+            w-16
+            h-16
+            rounded-xl
+            bg-[#FAF7F2]
+            flex
+            flex-col
+            justify-center
+            items-center
+            border
+            border-[#1C1C1C]/5
+          "
+        >
+          <span className="text-[10px] tracking-[0.2em] uppercase text-[#E67E22] font-semibold font-urbanist">
+            {month}
+          </span>
+
+          <span className="font-playfair text-2xl text-[#1C1C1C] leading-none">
+            {date}
+          </span>
         </div>
 
-        {/* Info Treatment & Dokter */}
-        <div className="space-y-0.5">
-          <h3 className="text-sm font-bold text-gray-800 tracking-tight">{title}</h3>
-          <p className="text-xs text-gray-400 font-medium">
-            {doctor} • <span className="text-gray-500 font-semibold">{time}</span>
+        {/* Information */}
+        <div>
+
+          <h3 className="font-playfair text-xl text-[#1C1C1C]">
+            {title}
+          </h3>
+
+          <p className="mt-1 text-sm text-[#555555] font-urbanist">
+            {doctor}
           </p>
+
+          <p className="text-sm text-[#E67E22] font-medium font-urbanist">
+            {time}
+          </p>
+
         </div>
+
       </div>
 
-      {/* Sisi Kanan: Status Badge & Menu Akses */}
-      <div className="flex items-center gap-4">
+      {/* RIGHT */}
+      <div className="flex items-center gap-5">
+
+        {/* Status */}
         {isCompleted ? (
-          <span className="text-[10px] bg-emerald-50 text-emerald-600 border border-emerald-100 px-2.5 py-1 rounded-full font-bold uppercase tracking-wider flex items-center gap-1">
-            ✓ {status}
+          <span
+            className="
+              px-4
+              py-2
+              rounded-full
+              bg-[#E8F7EE]
+              text-[#1E8E5A]
+              text-xs
+              font-semibold
+              font-urbanist
+            "
+          >
+            ✓ Completed
           </span>
         ) : (
-          <span className="text-[10px] bg-white text-gray-400 border border-gray-200 px-2.5 py-1 rounded-md font-bold uppercase tracking-wider">
+          <span
+            className="
+              px-4
+              py-2
+              rounded-full
+              bg-[#FAF7F2]
+              text-[#E67E22]
+              text-xs
+              font-semibold
+              font-urbanist
+            "
+          >
             {status}
           </span>
         )}
 
-        {/* Tombol Tiga Titik Opsi Kontrol Dinamis */}
+        {/* Menu */}
         <div className="relative">
-          <button 
-            type="button" 
+
+          <button
             onClick={() => setShowMenu(!showMenu)}
-            className="text-gray-400 hover:text-gray-600 text-lg font-bold p-1 leading-none focus:outline-none"
+            className="
+              w-10
+              h-10
+              rounded-full
+              bg-[#FAF7F2]
+              hover:bg-[#E67E22]
+              hover:text-white
+              transition-all
+              text-xl
+              text-[#555555]
+            "
           >
             ⋮
           </button>
 
-          {/* Dropdown Menu Aksi */}
           {showMenu && (
-            <div className="absolute right-0 mt-2 w-36 bg-white border border-gray-100 rounded-lg shadow-lg py-1 z-10 text-xs">
+            <div
+              className="
+                absolute
+                right-0
+                mt-3
+                w-44
+                bg-white
+                rounded-xl
+                shadow-xl
+                border
+                border-[#1C1C1C]/5
+                overflow-hidden
+                z-20
+              "
+            >
               <button
-                type="button"
                 onClick={() => {
-                  onAction(id, isCompleted ? 'delete' : 'cancel');
+                  onAction(
+                    id,
+                    isCompleted ? "delete" : "cancel"
+                  );
                   setShowMenu(false);
                 }}
-                className={`w-full text-left px-4 py-2 hover:bg-gray-50 font-medium ${
-                  isCompleted ? 'text-red-600' : 'text-gray-600'
-                }`}
+                className="
+                  w-full
+                  px-5
+                  py-3
+                  text-left
+                  font-urbanist
+                  text-sm
+                  text-[#555555]
+                  hover:bg-[#FAF7F2]
+                  hover:text-[#E67E22]
+                  transition-colors
+                "
               >
-                {isCompleted ? '❌ Hapus Riwayat' : '🚫 Batalkan Janji'}
+                {isCompleted
+                  ? "Delete History"
+                  : "Cancel Appointment"}
               </button>
             </div>
           )}
+
         </div>
+
       </div>
     </div>
   );

@@ -2,29 +2,17 @@ import React from "react";
 import {
     FaThLarge,
     FaUsers,
-    FaUserMd,
-    FaCalendarAlt,
-    FaProcedures,
-    FaCapsules,
-    FaStar,
-    FaCreditCard,
-    FaRegEnvelope,
-    FaSignOutAlt,
-    FaSearch,
-    FaRegBell,
-    FaPlus,
-    FaCheck,
-    FaChevronLeft,
-    FaChevronRight,
-    FaFacebookF,
-    FaInstagram,
-    FaYoutube,
-    FaLinkedinIn,
+    FaSignOutAlt
 } from "react-icons/fa";
 import SidebarButton from "./SidebarButton";
-import { FaXTwitter } from "react-icons/fa6";
+import { NavLink } from 'react-router-dom';
 
 export default function Dashboard() {
+
+    const handleLogout = () => {
+        localStorage.clear(); // 🌟 Menghapus seluruh isi localStorage sekaligus
+        navigate("/login", { replace: true });
+    };
 
     return (
         <div>
@@ -61,54 +49,96 @@ export default function Dashboard() {
 
                 {/* MENU */}
                 <div className="space-y-2 flex-1 px-5 overflow-y-auto ">
-                    <SidebarButton
-                        type="active"
-                        icon={FaThLarge}
-                    >
-                        Dashboard
-                    </SidebarButton>
+                    <NavLink to="/home_admin" className="block no-underline">
+                        {({ isActive }) => (
+                            <SidebarButton
+                                type={isActive ? "active" : ""}
+                                icon={FaThLarge}
+                            >
+                                Dashboard
+                            </SidebarButton>
+                        )}
+                    </NavLink>
 
-                    <SidebarButton
-                        icon={FaUsers}
-                    >
-                        Patients
-                    </SidebarButton>
+                    <NavLink to="/users_admin" className="block no-underline">
+                        {({ isActive }) => (
+                            <SidebarButton
+                                type={isActive ? "active" : ""}
+                                icon={FaUsers}
+                            >
+                                Users
+                            </SidebarButton>
+                        )}
+                    </NavLink>
 
-                                                            <SidebarButton
-                        icon={FaUsers}
-                    >
-                        Treatment
-                    </SidebarButton>
+                    <NavLink to="/patients_admin" className="block no-underline">
+                        {({ isActive }) => (
+                            <SidebarButton
+                                type={isActive ? "active" : ""}
+                                icon={FaUsers}
+                            >
+                                Patients
+                            </SidebarButton>
+                        )}
+                    </NavLink>
 
-                    <SidebarButton
-                        icon={FaUsers}
-                    >
-                        Doctor
-                    </SidebarButton>
+                    <NavLink to="/treatment_admin" className="block no-underline">
+                        {({ isActive }) => (
+                            <SidebarButton
+                                type={isActive ? "active" : ""}
+                                icon={FaUsers}
+                            >
+                                Treatment
+                            </SidebarButton>
+                        )}
+                    </NavLink>
 
-                    <SidebarButton
-                        icon={FaUsers}
-                    >
-                        Schedule
-                    </SidebarButton>
-                                        <SidebarButton
-                        icon={FaUsers}
-                    >
-                        Bookings
-                    </SidebarButton>
-                                                            <SidebarButton
-                        icon={FaUsers}
-                    >
-                        Membership
-                    </SidebarButton>
-                                                                                <SidebarButton
-                        icon={FaUsers}
-                    >
-                        Doctor Rate
-                    </SidebarButton>
+                    <NavLink to="/doctor_admin" className="block no-underline">
+                        {({ isActive }) => (
+                            <SidebarButton
+                                type={isActive ? "active" : ""}
+                                icon={FaUsers}
+                            >
+                                Doctor
+                            </SidebarButton>
+                        )}
+                    </NavLink>
+
+                    <NavLink to="/schedule_admin" className="block no-underline">
+                        {({ isActive }) => (
+                            <SidebarButton
+                                type={isActive ? "active" : ""}
+                                icon={FaUsers}
+                            >
+                                Schedule
+                            </SidebarButton>
+                        )}
+                    </NavLink>
+
+                    <NavLink to="/booking_admin" className="block no-underline">
+                        {({ isActive }) => (
+                            <SidebarButton
+                                type={isActive ? "active" : ""}
+                                icon={FaUsers}
+                            >
+                                Bookings
+                            </SidebarButton>
+                        )}
+                    </NavLink>
+
+                    <NavLink to="/membership_admin" className="block no-underline">
+                        {({ isActive }) => (
+                            <SidebarButton
+                                type={isActive ? "active" : ""}
+                                icon={FaUsers}
+                            >
+                                Membership
+                            </SidebarButton>
+                        )}
+                    </NavLink>
+
                 </div>
 
-                {/* UPDATE CARD */}
                 <div className="mt-auto">
                     <div
                         className="
@@ -143,21 +173,25 @@ export default function Dashboard() {
                     </div>
 
                     <button
+                        onClick={handleLogout}
                         className="
-                                mt-5
-                                w-full
-                                bg-white
-                                border
-                                border-[#ece7e4]
-                                rounded-2xl
-                                py-3
-                                sm:py-4
-                                flex
-                                items-center
-                                justify-center
-                                gap-2
-                                sm:gap-3
-                                text-sm
+mt-5
+    w-full
+    bg-white
+    border
+    border-[#ece7e4]
+    rounded-2xl
+    py-3
+    sm:py-4
+    flex
+    items-center
+    justify-center
+    gap-2
+    sm:gap-3
+    text-sm
+    cursor-pointer   
+    relative        
+    z-50
                             "
                     >
                         <FaSignOutAlt />
