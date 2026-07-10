@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { FiSettings } from "react-icons/fi";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
   const currentPath =
     typeof window !== "undefined" ? window.location.pathname : "";
 
@@ -123,6 +122,7 @@ export default function Navbar() {
 
           {/* Profile */}
           <Link
+            to="/profile"
             className="
               flex
               items-center
@@ -146,29 +146,15 @@ export default function Navbar() {
               "
             />
 
-            <div className="hidden lg:block" onClick={() => setIsOpen(!isOpen)}>
+            <div className="hidden lg:block">
 
               <p className="font-urbanist font-semibold text-[#1C1C1C] leading-none">
                 {username}
               </p>
 
-{isOpen && (
-        <div className="absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded shadow-md z-50">
-          <button 
-            className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-          >
-            <Link to="/profile">Profile</Link>
-            
-          </button>
-          <button 
-            onClick={() => { alert("Logout"); setIsOpen(false); }}
-            className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 border-t border-gray-100"
-          >
-            {localStorage.removeItem("user_session")}
-            <Link to="/login">Logout</Link>
-          </button>
-        </div>
-      )}
+              <p className="text-xs text-[#E67E22] mt-1">
+                Premium Member
+              </p>
 
             </div>
 
