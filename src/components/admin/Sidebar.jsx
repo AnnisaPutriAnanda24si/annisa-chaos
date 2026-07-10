@@ -1,3 +1,9 @@
+import { AiFillStar } from "react-icons/ai"; 
+import { MdOutlineMeetingRoom } from "react-icons/md"; 
+import { BsFillCalendarDateFill } from "react-icons/bs"; 
+import { FaUserNurse } from "react-icons/fa"; 
+import { MdMedicalServices } from "react-icons/md"; 
+import { MdSick } from "react-icons/md"; 
 import React from "react";
 import {
     FaThLarge,
@@ -43,7 +49,7 @@ export default function Dashboard() {
                     </div>
 
                     <h2 className="text-xl sm:text-2xl font-medium">
-                        byutie
+                        SKINOVA
                     </h2>
                 </div>
 
@@ -75,7 +81,7 @@ export default function Dashboard() {
                         {({ isActive }) => (
                             <SidebarButton
                                 type={isActive ? "active" : ""}
-                                icon={FaUsers}
+                                icon={MdSick}
                             >
                                 Patients
                             </SidebarButton>
@@ -86,7 +92,7 @@ export default function Dashboard() {
                         {({ isActive }) => (
                             <SidebarButton
                                 type={isActive ? "active" : ""}
-                                icon={FaUsers}
+                                icon={MdMedicalServices}
                             >
                                 Treatment
                             </SidebarButton>
@@ -97,7 +103,7 @@ export default function Dashboard() {
                         {({ isActive }) => (
                             <SidebarButton
                                 type={isActive ? "active" : ""}
-                                icon={FaUsers}
+                                icon={FaUserNurse}
                             >
                                 Doctor
                             </SidebarButton>
@@ -108,7 +114,7 @@ export default function Dashboard() {
                         {({ isActive }) => (
                             <SidebarButton
                                 type={isActive ? "active" : ""}
-                                icon={FaUsers}
+                                icon={BsFillCalendarDateFill}
                             >
                                 Schedule
                             </SidebarButton>
@@ -119,7 +125,7 @@ export default function Dashboard() {
                         {({ isActive }) => (
                             <SidebarButton
                                 type={isActive ? "active" : ""}
-                                icon={FaUsers}
+                                icon={MdOutlineMeetingRoom}
                             >
                                 Bookings
                             </SidebarButton>
@@ -130,7 +136,7 @@ export default function Dashboard() {
                         {({ isActive }) => (
                             <SidebarButton
                                 type={isActive ? "active" : ""}
-                                icon={FaUsers}
+                                icon={AiFillStar}
                             >
                                 Membership
                             </SidebarButton>

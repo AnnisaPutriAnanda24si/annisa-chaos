@@ -32,6 +32,7 @@ import DashboardCard from '../../components/admin/DashboardCard';
 // import Overview from "../../components/admin/Overview";
 import Calendar from "../../components/admin/Calendar";
 import Schedule from "../../components/admin/Schedule";
+import TreatmentBarChart from "@/components/admin/TreatmentBarChart";
 
 useState
 export default function Dashboard() {
@@ -236,8 +237,9 @@ const cancelledBookingsCount = bookings.filter((b) => b.status === "Cancelled").
           <div id="part-2-placeholder" className="space-y-6">
 
             {/* 1. REVENUE CARD */}
-            <DashboardCard title="Revenue" filterText="2027 ▼">
-              {/* Sub-header Legend */}
+            <TreatmentBarChart/>
+            {/* <DashboardCard title="Revenue" filterText="2027 ▼">
+   
               <div className="flex gap-5 text-xs mb-5">
                 <div className="flex items-center gap-2">
                   <span className="w-4 h-[2px] bg-[#b7dfcf]" />
@@ -253,7 +255,6 @@ const cancelledBookingsCount = bookings.filter((b) => b.status === "Cancelled").
                 </div>
               </div>
 
-              {/* Fake Chart Content */}
               <div className="relative h-[260px]">
                 {[...Array(5)].map((_, i) => (
                   <div
@@ -296,7 +297,7 @@ const cancelledBookingsCount = bookings.filter((b) => b.status === "Cancelled").
                   </div>
                 </div>
               </div>
-            </DashboardCard>
+            </DashboardCard> */}
 
 
             {/* 2. PATIENTS BY GENDER CARD */}

@@ -19,6 +19,21 @@ export default function ScheduleTable({ data = [], doctorsList = [], onSave, onD
     room_number: ""
   });
 
+  // Fungsi untuk mendapatkan tanggal hari ini + 7 hari dengan format YYYY-MM-DD
+const getMinDate = () => {
+  const today = new Date();
+  
+  // Tambahkan 7 hari ke tanggal hari ini
+  today.setDate(today.getDate() + 7);
+  
+  // Format ke YYYY-MM-DD
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0'); // Bulan dimulai dari 0
+  const day = String(today.getDate()).padStart(2, '0');
+  
+  return `${year}-${month}-${day}`;
+};
+
   const handleChange = (e) => {
     const value = e.target.name === "doctor_id"
       ? (e.target.value ? Number(e.target.value) : "")
@@ -226,7 +241,7 @@ export default function ScheduleTable({ data = [], doctorsList = [], onSave, onD
 
               <div>
                 <label className="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1">Date</label>
-                <input type="date" name="date" value={formForm.date} onChange={handleChange} required className="w-full border-b border-gray-200 py-1 text-sm outline-none focus:border-[#4caf50]" />
+                <input type="date" min={getMinDate()} name="date" value={formForm.date} onChange={handleChange} required className="w-full border-b border-gray-200 py-1 text-sm outline-none focus:border-[#4caf50]" />
               </div>
 
               <div className="grid grid-cols-2 gap-4">

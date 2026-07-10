@@ -76,6 +76,9 @@ export default function Login() {
 
       const user = users[0];
 
+      // Hapus kalau ada session yangn lama
+      localStorage.removeItem("user_session");
+
       // Mengambil data username dari objek database (misal: user.username atau user.email)
       const usernameSession = user.username || user.email; 
       

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { bookingAPI } from "@/services/bookingAPI"; // 🌟 Import API booking yang sudah dibuat
 import { FiCalendar, FiClock, FiUser, FiActivity } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 export default function UpcomingBookings() {
   // 1. State untuk menyimpan data dari Supabase
@@ -38,7 +39,7 @@ export default function UpcomingBookings() {
       return bookingDate >= today && booking.status !== "Cancelled";
     })
     .sort((a, b) => new Date(a.schedule.date) - new Date(b.schedule.date))
-    .slice(0, 5);
+    .slice(0, 3);
 
   // Format tanggal hari ini untuk Sub-header widget
   const formattedToday = new Date().toLocaleDateString("en-GB", {
@@ -156,7 +157,9 @@ export default function UpcomingBookings() {
 
       {/* FOOTER ACTION */}
       <button className="mt-6 w-full py-3 rounded-full bg-[#addbc0] text-[#1e4620] hover:bg-[#99cca6] transition text-xs font-bold shadow-xs">
-        View All Appointments Log
+        <Link to="/schedule_admin">
+         View All Appointments Log
+        </Link>
       </button>
     </div>
   );

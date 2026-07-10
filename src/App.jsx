@@ -58,13 +58,13 @@ const isAuthenticated = () => {
 };
 
 // 1. Rute Khusus User yang BELUM Login (Login, Register, dll)
-const GuestRoute = () => {
-  return isAuthenticated() ? <Navigate to="/landingPage" replace /> : <Outlet />;
-};
+// const GuestRoute = () => {
+//   return isAuthenticated() ? <Navigate to="/landingPage" replace /> : <Outlet />;
+// };
 
 // 2. Rute Khusus User yang SUDAH Login (Dashboard Member & Admin)
 const ProtectedRoute = () => {
-  return isAuthenticated() ? <Outlet /> : <Navigate to="/login" replace />;
+  return isAuthenticated() ? <Outlet /> : <Navigate to="/" replace />;
 };
 
 export default function App() {
@@ -103,24 +103,24 @@ export default function App() {
           <Route path="/register_admin" element={<Register_admin />} />
           <Route path="/forgot_admin" element={<Forgot_admin />} />
         </Route> */}
-
-        <Route element={<GuestRoute />}>
+{/* 
+        <Route element={<GuestRoute />}> */}
 
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Route>
 
-        <Route path="/landingPage" element={<LandingPage />} />
+        <Route path="/" element={<LandingPage />} />
         
-        </Route>
+        {/* </Route> */}
 
 
 
         <Route element={<MainLayout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/about" element={<About/>} />
+          {/* <Route path="/" element={<Home />} /> */}
+          {/* <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About/>} /> */}
         </Route>
 
         <Route path="*" element={<NotFound />} />
