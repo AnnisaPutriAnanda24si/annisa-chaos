@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { doctorAPI } from '@/services/doctorAPI';
-import DoctorTable from "@/components/admin/DoctorTable";
+// import DoctorTable from "@/components/admin/DoctorTable";
+import DoctorTable from "@/components/admin/TableDoctor";
 
 export default function Doctor() {
   const [doctorsData, setDoctorsData] = useState([]);
