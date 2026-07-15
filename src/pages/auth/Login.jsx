@@ -85,8 +85,7 @@ export default function Login() {
       // Simpan langsung sebagai string biasa ke localStorage
       localStorage.setItem("user_session", usernameSession);
 
-      const { password, ...safeUserData } = user;
-      localStorage.setItem("user", JSON.stringify(safeUserData));
+   
 
       // localStorage.setItem("user", JSON.stringify(user));
 

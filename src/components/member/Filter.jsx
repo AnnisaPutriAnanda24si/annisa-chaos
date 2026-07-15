@@ -1,14 +1,15 @@
+import React from 'react';
 import { BsFillPersonFill } from "react-icons/bs"; 
 import { BiInjection } from "react-icons/bi"; 
 import { IoIosBody } from "react-icons/io"; 
 import { HiScissors } from "react-icons/hi"; 
 import { BiFace } from "react-icons/bi"; 
 import { BiBorderAll } from "react-icons/bi"; 
-import React from 'react';
 
-function FilterButton({ name, icon, isActive }) {
+function FilterButton({ name, icon, isActive, onClick }) {
   return (
     <button
+      onClick={onClick}
       className="
         group
         flex
@@ -61,14 +62,23 @@ function FilterButton({ name, icon, isActive }) {
   );
 }
 
-export default function Filter() {
+export default function Filter({ selectedCategory, onCategoryChange }) {
+  // Array data button agar kode lebih kering (DRY) dan gampang dikelola
+  const categories = [
+    { name: "All Services", icon: <BiBorderAll /> },
+    { name: "Skin Care", icon: <BiFace /> },
+    { name: "Hair Removal", icon: <HiScissors /> },
+    { name: "Body Contouring", icon: <IoIosBody /> },
+    { name: "Wellness", icon: <BsFillPersonFill /> },
+    { name: "Injectables", icon: <BiInjection /> },
+  ];
+
   return (
     <section className="w-full bg-[#FAF7F2] pb-2">
       <div className="w-full bg-[#FAF7F2]">
-
         <div
           className="
-          w-full
+            w-full
             bg-white
             rounded-3xl
             shadow-sm
@@ -79,55 +89,28 @@ export default function Filter() {
           "
         >
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-
             <div>
               <p className="uppercase tracking-[0.35em] text-xs text-[#E67E22] font-urbanist">
                 Categories
               </p>
-
               <h3 className="mt-2 font-playfair text-2xl text-[#1C1C1C]">
                 Explore Treatments
               </h3>
             </div>
 
             <div className="flex flex-wrap justify-center gap-8">
-
-              <FilterButton
-                name="All Services"
-                icon={<BiBorderAll />}
-                isActive
-              />
-
-              <FilterButton
-                name="Skin Care"
-                icon={<BiFace />}
-              />
-
-              <FilterButton
-                name="Hair Removal"
-                icon={<HiScissors />}
-              />
-
-              <FilterButton
-                name="Body Contouring"
-                icon={<IoIosBody />}
-              />
-
-              <FilterButton
-                name="Wellness"
-                icon={<BsFillPersonFill />}
-              />
-
-              <FilterButton
-                name="Injectables"
-                icon={<BiInjection />}
-              />
-
+              {categories.map((cat) => (
+                <FilterButton
+                  key={cat.name}
+                  name={cat.name}
+                  icon={cat.icon}
+                  isActive={selectedCategory === cat.name}
+                  onClick={() => onCategoryChange(cat.name)}
+                />
+              ))}
             </div>
-
           </div>
         </div>
-
       </div>
     </section>
   );

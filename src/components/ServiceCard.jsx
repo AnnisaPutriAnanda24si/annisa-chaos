@@ -10,7 +10,7 @@ export default function ServiceCard({ title, price, image, onBook}) {
       </div>
       <div className="flex justify-between items-center mb-1">
         <h3 className="font-semibold text-lg text-zinc-800">{title}</h3>
-        <span className="font-bold text-lg">${price}</span>
+        <span className="font-bold text-lg">Rp{price}</span>
       </div>
 {/* Panggil fungsi onBook saat tombol diklik */}
       <button 

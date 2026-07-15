@@ -22,11 +22,8 @@ export default function PromoCard() {
           Glow Up with Our Deluxe Facial Package
         </h1>
         <p className="text-orange-100/80 text-xs md:text-sm leading-relaxed mb-6">
-          Enjoy 30% off on all Premium Skin Care services this month. Limited slots available.
+          Enjoy 30% off on all Premium Skin Care services for the first time booking. 
         </p>
-        <button className="bg-white text-[#52250C] font-semibold text-xs px-5 py-2.5 rounded-md hover:bg-orange-50 transition shadow-sm">
-          Book Now
-        </button>
       </div>
     </div>
    <MembershipCard/> 

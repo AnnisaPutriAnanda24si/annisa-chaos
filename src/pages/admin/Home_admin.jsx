@@ -237,7 +237,7 @@ const cancelledBookingsCount = bookings.filter((b) => b.status === "Cancelled").
           <div id="part-2-placeholder" className="space-y-6">
 
             {/* 1. REVENUE CARD */}
-            <TreatmentBarChart/>
+            {/* <TreatmentBarChart/> */}
             {/* <DashboardCard title="Revenue" filterText="2027 ▼">
    
               <div className="flex gap-5 text-xs mb-5">

@@ -78,11 +78,7 @@ export default function ServiceSummary({
             </p>
 
             <h3 className="font-playfair text-2xl text-[#1C1C1C] mt-2">
-              {selectedService.price?.toString().includes("Rp")
-                ? selectedService.price
-                : `Rp ${(selectedService.price * 14000).toLocaleString(
-                    "id-ID"
-                  )}`}
+              Rps{selectedService.price}
             </h3>
 
           </div>

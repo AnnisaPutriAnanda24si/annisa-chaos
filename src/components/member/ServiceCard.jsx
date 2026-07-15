@@ -112,7 +112,7 @@ export default function ServiceCard({ service }) {
                 font-urbanist
               "
             >
-              ${service.price}
+              Rp{service.price}
             </p>
 
             <div

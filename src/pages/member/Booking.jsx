@@ -87,35 +87,38 @@ export default function Booking() {
                 "
               >
 
-                <div>
+<div>
 
-                  <div
-                    className="
-                      w-16
-                      h-16
-                      rounded-full
-                      bg-[#FAF7F2]
-                      text-[#E67E22]
-                      flex
-                      items-center
-                      justify-center
-                      text-3xl
-                      mb-5
-                    "
-                  >
-                    <BsFillPeopleFill />
-                  </div>
+  {/* Ukuran bulat diturunkan dari w-16 h-16 ke w-12 h-12, margin bawah dikurangi ke mb-3 */}
+  <div
+    className="
+      w-12
+      h-12
+      rounded-full
+      bg-[#FAF7F2]
+      text-[#E67E22]
+      flex
+      items-center
+      justify-center
+      text-xl
+      mb-3
+    "
+  >
+    <BsFillPeopleFill />
+  </div>
 
-                  <h3 className="font-playfair text-2xl text-[#1C1C1C]">
-                    Automatic Selection
-                  </h3>
+  {/* Font diturunkan dari text-2xl ke text-lg agar lebih ringkas */}
+  <h3 className="font-playfair text-lg font-semibold text-[#1C1C1C]">
+    Automatic Selection
+  </h3>
 
-                  <p className="mt-3 text-[#555555] font-urbanist leading-relaxed">
-                    Let Skinova automatically assign the earliest available
-                    dermatologist based on your preferred treatment.
-                  </p>
+  {/* Jarak atas (mt) dikurangi ke mt-1.5, dan ukuran teks deskripsi dibuat text-sm */}
+  <p className="mt-1.5 text-[#555555] font-urbanist text-sm leading-relaxed">
+    Let Skinova automatically assign the earliest available
+    dermatologist based on your preferred treatment.
+  </p>
 
-                </div>
+</div>
 
                 <button
                   className="
@@ -132,7 +135,8 @@ export default function Booking() {
                     font-medium
                   "
                 >
-                  Select Automatically
+                  <a href="/checkout"> Select Automatically</a>
+                 
                 </button>
 
               </div>
