@@ -29,7 +29,7 @@ import StatCard from '../../components/admin/StatCard';
 import DashboardCard from '../../components/admin/DashboardCard';
 // import Table from '../../components/admin/Table';
 // import Review from '../../components/admin/Review';
-// import Overview from "../../components/admin/Overview";
+import Overview from "../../components/admin/Overview";
 import Calendar from "../../components/admin/Calendar";
 import Schedule from "../../components/admin/Schedule";
 import TreatmentBarChart from "@/components/admin/TreatmentBarChart";
@@ -92,26 +92,26 @@ export default function Dashboard() {
   //   },
   // ];
 
-  // const treatmentOverview = [
-  //   {
-  //     label: "Rhinoplasty",
-  //     value: "45%",
-  //     percent: 45,
-  //     color: "#f3d1c8",
-  //   },
-  //   {
-  //     label: "Rhytidectomy",
-  //     value: "35%",
-  //     percent: 35,
-  //     color: "#d7eee3",
-  //   },
-  //   {
-  //     label: "Blepharoplasty",
-  //     value: "20%",
-  //     percent: 20,
-  //     color: "#ececec",
-  //   },
-  // ];
+  const treatmentOverview = [
+    {
+      label: "Rhinoplasty",
+      value: "45%",
+      percent: 45,
+      color: "#f3d1c8",
+    },
+    {
+      label: "Rhytidectomy",
+      value: "35%",
+      percent: 35,
+      color: "#d7eee3",
+    },
+    {
+      label: "Blepharoplasty",
+      value: "20%",
+      percent: 20,
+      color: "#ececec",
+    },
+  ];
 
   const schedules = [
     {
@@ -238,7 +238,7 @@ const cancelledBookingsCount = bookings.filter((b) => b.status === "Cancelled").
 
             {/* 1. REVENUE CARD */}
             {/* <TreatmentBarChart/> */}
-            {/* <DashboardCard title="Revenue" filterText="2027 ▼">
+            <DashboardCard title="Revenue" filterText="2027 ▼">
    
               <div className="flex gap-5 text-xs mb-5">
                 <div className="flex items-center gap-2">
@@ -297,7 +297,7 @@ const cancelledBookingsCount = bookings.filter((b) => b.status === "Cancelled").
                   </div>
                 </div>
               </div>
-            </DashboardCard> */}
+            </DashboardCard>
 
 
             {/* 2. PATIENTS BY GENDER CARD */}
@@ -379,6 +379,13 @@ const cancelledBookingsCount = bookings.filter((b) => b.status === "Cancelled").
             treatments={popularTreatments}
           /> */}
           <Calendar />
+                    <Overview
+            title="Patient by Treatment"
+            filter="Today"
+            centerLabel="Total Patient"
+            total="315"
+            items={treatmentOverview}
+          />
         </div>
 
         {/* RIGHT SIDEBAR */}
