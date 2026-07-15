@@ -173,7 +173,7 @@ export default function Booking() {
               selectedService={activeService}
             />
 
-            <MembershipCard />
+            {/* <MembershipCard /> */}
 
           </div>
 

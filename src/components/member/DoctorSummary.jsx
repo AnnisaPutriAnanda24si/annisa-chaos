@@ -14,7 +14,7 @@ export default function DoctorSummary({ doctor }) {
           <img
             src={doctor.image}
             alt={doctor.name}
-            className="w-full h-full object-cover min-h-[420px]"
+            className="w-full h-full object-cover min-h-[120px]"
           />
         </div>
 
@@ -119,9 +119,6 @@ export default function DoctorSummary({ doctor }) {
           {/* BUTTON */}
 
           <div className="mt-10">
-            <Button to="/appointment" variant="primary">
-              Book Appointment
-            </Button>
           </div>
 
         </div>
