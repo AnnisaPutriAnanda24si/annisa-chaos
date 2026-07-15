@@ -21,21 +21,21 @@ const Navbar = () => {
                 <nav className="hidden md:flex items-center gap-10 font-urbanist text-[15px]">
 
                     <a
-                        href="#home"
+                        href="/"
                         className="hover:text-[#E67E22] transition duration-300"
                     >
                         Home
                     </a>
 
                     <a
-                        href="#services"
+                        href="/about"
                         className="hover:text-[#E67E22] transition duration-300"
                     >
-                        Services
+                        About
                     </a>
 
                     <a
-                        href="#footer"
+                        href="/contact"
                         className="hover:text-[#E67E22] transition duration-300"
                     >
                         Contact Us

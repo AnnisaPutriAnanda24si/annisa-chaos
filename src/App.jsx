@@ -111,16 +111,16 @@ export default function App() {
           <Route path="/register" element={<Register />} />
         </Route>
 
-        <Route path="/" element={<LandingPage />} />
+        {/* <Route path="/" element={<LandingPage />} /> */}
         
         {/* </Route> */}
 
 
 
         <Route element={<MainLayout />}>
-          {/* <Route path="/" element={<Home />} /> */}
-          {/* <Route path="/contact" element={<Contact />} />
-          <Route path="/about" element={<About/>} /> */}
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About/>} />
         </Route>
 
         <Route path="*" element={<NotFound />} />

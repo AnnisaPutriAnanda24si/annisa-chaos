@@ -1,19 +1,21 @@
-import { Outlet } from 'react-router-dom';
 import React from 'react';
-import Navigation from '../components/member/Navigation';
-// const Navbar = React.lazy(() => import('../components/Navbar'));
-const Footer = React.lazy(() => import('../components/Footer'));
+import { Outlet } from 'react-router-dom';
+import Navbar from '../components/guest/Navbar';
+import Footer from '../components/guest/Footer';
 
 export default function MainLayout() {
   return (
-    <div className="min-h-screen bg-[#FFFBF5] font-sans text-zinc-900">
-      {/* Navbar tetap di atas */}
-     <Navigation/>
+    // Menggunakan style pembungkus yang sama dengan Landing Page lama
+    <div className="min-h-screen bg-[#FAF7F2] text-[#1C1C1C] scroll-smooth font-sans">
+      {/* Navbar global untuk seluruh halaman di dalam layout ini */}
+      <Navbar />
 
-      {/* Area Konten Dinamis */}
-        <Outlet/>
+      {/* Konten dinamis (seperti Landing Page baru, About, dll) akan dirender di sini */}
+      <main>
+        <Outlet />
+      </main>
 
-      {/* Footer tetap di bawah */}
+      {/* Footer global */}
       <Footer />
     </div>
   );
