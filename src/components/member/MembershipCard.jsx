@@ -89,7 +89,7 @@ export default function MembershipCard() {
             </p>
 
             <h3 className="font-playfair text-2xl mt-2">
-              Rp850.000
+              Rp7.000.000
             </h3>
 
           </div>
@@ -130,11 +130,11 @@ export default function MembershipCard() {
           <p className="mt-4 text-sm text-orange-100 leading-relaxed font-urbanist">
             Spend another
             <span className="font-semibold text-white">
-              {" "}Rp350.000{" "}
+              {" "}Rp1.000.000{" "}
             </span>
             to unlock the exclusive
             <span className="text-[#FFD27A] font-semibold">
-              {" "}Diamond Membership
+              {" "}Silver Membership
             </span>.
           </p>
 
