@@ -92,26 +92,26 @@ export default function Dashboard() {
   //   },
   // ];
 
-  const treatmentOverview = [
-    {
-      label: "Rhinoplasty",
-      value: "45%",
-      percent: 45,
-      color: "#f3d1c8",
-    },
-    {
-      label: "Rhytidectomy",
-      value: "35%",
-      percent: 35,
-      color: "#d7eee3",
-    },
-    {
-      label: "Blepharoplasty",
-      value: "20%",
-      percent: 20,
-      color: "#ececec",
-    },
-  ];
+  // const treatmentOverview = [
+  //   {
+  //     label: "Rhinoplasty",
+  //     value: "45%",
+  //     percent: 45,
+  //     color: "#f3d1c8",
+  //   },
+  //   {
+  //     label: "Rhytidectomy",
+  //     value: "35%",
+  //     percent: 35,
+  //     color: "#d7eee3",
+  //   },
+  //   {
+  //     label: "Blepharoplasty",
+  //     value: "20%",
+  //     percent: 20,
+  //     color: "#ececec",
+  //   },
+  // ];
 
   const schedules = [
     {
@@ -184,6 +184,108 @@ const cancelledBookingsCount = bookings.filter((b) => b.status === "Cancelled").
     return <div className="p-8 text-center text-gray-500 animate-pulse">Loading dashboard data...</div>;
   }
 
+  // ======================
+// OVERVIEW TREATMENT
+// ======================
+
+const treatmentCounts = {};
+
+completedBookings.forEach((booking) => {
+  const treatment = booking.treatment?.treatment_name;
+
+  if (!treatment) return;
+
+  treatmentCounts[treatment] =
+    (treatmentCounts[treatment] || 0) + 1;
+});
+
+const totalTreatment = Object.values(treatmentCounts).reduce(
+  (a, b) => a + b,
+  0
+);
+
+const colors = [
+  "#f6d8d0",
+  "#cfe8db",
+  "#ececec",
+  "#d8d4ff",
+  "#ffe5c4",
+  "#b7dfcf",
+];
+
+const treatmentOverview = Object.entries(treatmentCounts).map(
+  ([label, count], index) => ({
+    label,
+    value: `${count} Booking`,
+    percent:
+      totalTreatment === 0
+        ? 0
+        : Math.round((count / totalTreatment) * 100),
+    color: colors[index % colors.length],
+  })
+);
+
+// ======================
+// TOP SPENDING PATIENT
+// ======================
+
+const patientRevenue = {};
+
+completedBookings.forEach((booking) => {
+  const patient = booking.patient?.patient_name;
+  const price = Number(booking.treatment?.price || 0);
+
+  if (!patient) return;
+
+  patientRevenue[patient] =
+    (patientRevenue[patient] || 0) + price;
+});
+
+const topPatients = Object.entries(patientRevenue)
+  .sort((a, b) => b[1] - a[1])
+  .slice(0, 5);
+
+// ======================
+// DOCTOR PERFORMANCE
+// ======================
+
+const doctorCounts = {};
+
+completedBookings.forEach((booking) => {
+  const doctor = booking.doctor?.doctor_name;
+
+  if (!doctor) return;
+
+  doctorCounts[doctor] =
+    (doctorCounts[doctor] || 0) + 1;
+});
+
+const totalDoctorBooking = Object.values(doctorCounts).reduce(
+  (a, b) => a + b,
+  0
+);
+
+const doctorOverview = Object.entries(doctorCounts).map(
+  ([label, count], index) => ({
+    label,
+    value: `${count} Booking`,
+    percent:
+      totalDoctorBooking === 0
+        ? 0
+        : Math.round((count / totalDoctorBooking) * 100),
+    color: colors[index % colors.length],
+  })
+);
+
+// ======================
+// AVERAGE TRANSACTION
+// ======================
+
+const averageTransaction =
+  completedBookings.length > 0
+    ? totalEarnings / completedBookings.length
+    : 0;
+
   return (
     <div>
       {/* SIDEBAR */}
@@ -238,66 +340,57 @@ const cancelledBookingsCount = bookings.filter((b) => b.status === "Cancelled").
 
             {/* 1. REVENUE CARD */}
             {/* <TreatmentBarChart/> */}
-            <DashboardCard title="Revenue" filterText="2027 ▼">
-   
-              <div className="flex gap-5 text-xs mb-5">
-                <div className="flex items-center gap-2">
-                  <span className="w-4 h-[2px] bg-[#b7dfcf]" />
-                  Income
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-4 h-[2px] bg-[#f1b7a8]" />
-                  Expenses
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-4 h-[2px] border-t-2 border-dashed border-[#888]" />
-                  Net Profit
-                </div>
-              </div>
+<DashboardCard
+    title="Revenue Summary"
+    filterText="Completed Booking"
+>
 
-              <div className="relative h-[260px]">
-                {[...Array(5)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="absolute left-0 right-0 border-t border-[#efefef]"
-                    style={{ top: `${i * 55}px` }}
-                  />
-                ))}
+    <div className="space-y-6">
 
-                <svg
-                  className="absolute inset-0 w-full h-full"
-                  viewBox="0 0 100 40"
-                  preserveAspectRatio="none"
-                >
-                  <path
-                    d="M0,18 C10,12 20,22 30,18 C40,14 50,26 60,10 C70,5 80,20 90,8 C95,4 100,6 100,6"
-                    fill="none"
-                    stroke="#b7dfcf"
-                    strokeWidth="0.8"
-                  />
-                  <path
-                    d="M0,28 C10,24 20,35 30,28 C40,22 50,34 60,20 C70,15 80,32 90,18 C95,14 100,20 100,18"
-                    fill="none"
-                    stroke="#f1b7a8"
-                    strokeWidth="0.8"
-                  />
-                  <path
-                    d="M0,24 C10,22 20,18 30,25 C40,28 50,15 60,24 C70,30 80,18 90,26 C95,20 100,22 100,22"
-                    fill="none"
-                    stroke="#888"
-                    strokeDasharray="2 2"
-                    strokeWidth="0.8"
-                  />
-                </svg>
+        <div>
 
-                <div className="absolute top-[70px] left-[58%]">
-                  <div className="bg-[#dff0e6] rounded-xl px-4 py-2 shadow-sm">
-                    <p className="text-[10px] text-gray-500">Income</p>
-                    <p className="font-semibold">$7,125</p>
-                  </div>
-                </div>
-              </div>
-            </DashboardCard>
+            <p className="text-gray-400 text-sm">
+                Total Revenue
+            </p>
+
+            <h1 className="text-4xl font-bold text-[#1A2E26]">
+                {formatCurrency(totalEarnings)}
+            </h1>
+
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+
+            <div className="bg-[#F7F7F7] rounded-xl p-4">
+
+                <p className="text-xs text-gray-400">
+                    Completed Booking
+                </p>
+
+                <h3 className="text-2xl font-semibold mt-2">
+                    {completedBookings.length}
+                </h3>
+
+            </div>
+
+            <div className="bg-[#F7F7F7] rounded-xl p-4">
+
+                <p className="text-xs text-gray-400">
+                    Avg Transaction
+                </p>
+
+                <h3 className="text-2xl font-semibold mt-2">
+                    {formatCurrency(averageTransaction)}
+                </h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</DashboardCard>
+
 
 
             {/* 2. PATIENTS BY GENDER CARD */}
@@ -379,13 +472,13 @@ const cancelledBookingsCount = bookings.filter((b) => b.status === "Cancelled").
             treatments={popularTreatments}
           /> */}
           <Calendar />
-                    <Overview
-            title="Patient by Treatment"
-            filter="Today"
-            centerLabel="Total Patient"
-            total="315"
-            items={treatmentOverview}
-          />
+<Overview
+    title="Treatment Distribution"
+    filter="Completed"
+    centerLabel="Booking"
+    total={completedBookings.length}
+    items={treatmentOverview}
+/>
         </div>
 
         {/* RIGHT SIDEBAR */}
