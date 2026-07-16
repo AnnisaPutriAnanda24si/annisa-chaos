@@ -74,6 +74,16 @@ export default function BookingTable({ data = [], patientsList = [], schedulesLi
     }
   };
 
+  // Helper untuk format rupiah rupiah
+  const formatRupiah = (number) => {
+    if (!number) return "—";
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 0
+    }).format(number);
+  };
+
   return (
     <div className="w-full bg-[#fcf9f9] p-4 rounded-[24px] space-y-4">
       {/* FILTER SEARCH & BUTTON */}
@@ -103,6 +113,7 @@ export default function BookingTable({ data = [], patientsList = [], schedulesLi
                 <th className="py-5 px-6 text-left font-semibold">Patient Name</th>
                 <th className="py-5 px-6 text-left font-semibold">Doctor In Charge</th>
                 <th className="py-5 px-6 text-left font-semibold">Treatment</th>
+                <th className="py-5 px-6 text-left font-semibold">Price</th> {/* KOLOM BARU */}
                 <th className="py-5 px-6 text-left font-semibold">Appointment Date</th>
                 <th className="py-5 px-6 text-center font-semibold">Status</th>
                 <th className="py-5 px-6 text-center font-semibold">Actions</th>
@@ -115,6 +126,7 @@ export default function BookingTable({ data = [], patientsList = [], schedulesLi
                   <td className="px-6 py-4 font-semibold text-gray-800">{item.patient?.full_name || "—"}</td>
                   <td className="px-6 py-4 text-gray-700">{item.schedule?.doctor?.doctor_name || "—"}</td>
                   <td className="px-6 py-4 text-gray-600">{item.treatment?.treatment_name || "—"}</td>
+                  <td className="px-6 py-4 font-medium text-zinc-600">{formatRupiah(item.treatment?.price)}</td> {/* VALUE HARGA BARU */}
                   <td className="px-6 py-4 text-gray-600">{item.schedule?.date || "—"}</td>
                   <td className="px-6 py-4 text-center">
                     <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${getStatusColor(item.status)}`}>{item.status}</span>
@@ -156,7 +168,7 @@ export default function BookingTable({ data = [], patientsList = [], schedulesLi
                   <div>
                     <label className="block text-[10px] font-bold uppercase text-gray-400 mb-1">Select Treatment</label>
                     <select name="treatment_id" value={formForm.treatment_id} onChange={handleChange} required className="w-full border-b py-1.5 text-sm outline-none focus:border-[#4caf50]">
-                      {treatmentsList.map((t) => <option key={t.treatment_id} value={t.treatment_id}>{t.treatment_name}</option>)}
+                      {treatmentsList.map((t) => <option key={t.treatment_id} value={t.treatment_id}>{t.treatment_name} — ({formatRupiah(t.price)})</option>)}
                     </select>
                   </div>
                 </>
