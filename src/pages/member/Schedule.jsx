@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ScheduleCard from "../../components/member/ScheduleCard";
 import Button from "../../components/guest/Button";
+
 
 export default function Schedule() {
   const [appointments, setAppointments] = useState([
@@ -33,6 +34,14 @@ export default function Schedule() {
       status: "Completed",
     },
   ]);
+
+  const navigate = useNavigate();
+
+  const handleCardClick = (appointment) => {
+  if (appointment.status.toLowerCase() === "completed") {
+    navigate(`/review/${appointment.id}`);
+  }
+};
 
   const handleAction = (id, type) => {
     if (type === "cancel") {
@@ -152,23 +161,30 @@ export default function Schedule() {
 
           </div>
 
-          <div className="space-y-5">
-
-            {finishedBookings.length ? (
-              finishedBookings.map((item) => (
-                <ScheduleCard
-                  key={item.id}
-                  {...item}
-                  onAction={handleAction}
-                />
-              ))
-            ) : (
-              <div className="py-10 text-center text-[#777] font-urbanist">
-                Belum ada riwayat treatment.
-              </div>
-            )}
-
-          </div>
+<div className="space-y-5">
+  {finishedBookings.length ? (
+    finishedBookings.map((item) => (
+      <div
+        key={item.id}
+        onClick={() => handleCardClick(item)}
+        className={
+          item.status === "Completed"
+            ? "cursor-pointer transition hover:scale-[1.01]"
+            : ""
+        }
+      >
+        <ScheduleCard
+          {...item}
+          onAction={handleAction}
+        />
+      </div>
+    ))
+  ) : (
+    <div className="py-10 text-center text-[#777] font-urbanist">
+      Belum ada riwayat treatment.
+    </div>
+  )}
+</div>
 
         </section>
 

@@ -7,6 +7,7 @@ import Patient from './pages/admin/Patient';
 import Treatment from './pages/admin/Treatment';
 import Doctor from './pages/admin/Doctor';
 import Membership from './pages/admin/Membership';
+import ReviewDoctor from './pages/member/ReviewDoctor';
 
 // Layouts
 const MainLayout = React.lazy(() => import('./layouts/MainLayouts'));
@@ -94,6 +95,7 @@ export default function App() {
            <Route path="/checkout" element={<CheckoutPage/>} />
              <Route path="/schedule" element={<Schedule/>} />
           <Route path="/doctor/:id" element={<DetailDoctor/>} />
+            <Route path="/review/:id" element={<ReviewDoctor/>} />
         </Route>
         
         </Route>
@@ -121,6 +123,7 @@ export default function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About/>} />
+
         </Route>
 
         <Route path="*" element={<NotFound />} />
